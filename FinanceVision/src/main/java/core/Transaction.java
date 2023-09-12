@@ -33,4 +33,8 @@ public abstract class Transaction {
         this.amount = amount;
     }
 
+    public void setTime(LocalDateTime time){
+        this.time = time;
+    }
+
 }

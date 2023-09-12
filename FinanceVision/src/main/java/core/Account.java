@@ -31,6 +31,10 @@ public class Account {
 
     }
 
+    public double getStartValue(){
+        return startValue;
+    }
+
     public void addTransaction(Transaction t){
         transactions.add(t);
     }
@@ -47,5 +51,9 @@ public class Account {
         return transactions.stream().filter(p).toList();
     }
 
-    
+    public List<Transaction> getTransactions(){
+        return new ArrayList<>(transactions);
+    }
+
+
 }
