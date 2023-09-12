@@ -2,7 +2,7 @@ package core;
 
 import java.time.LocalDateTime;
 
-public class Transaction {
+public abstract class Transaction {
     private String description;
     private Double amount;
     private LocalDateTime time;

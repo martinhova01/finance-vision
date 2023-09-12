@@ -7,17 +7,17 @@ import java.util.function.Predicate;
 public class Account {
     
     private double startValue;
-    private List<Transaction> transtactions;
+    private List<Transaction> transactions;
 
 
     public Account(double startValue) {
         this.startValue = startValue;
-        transtactions = new ArrayList<>();
+        transactions = new ArrayList<>();
     }
 
     public double getBalance(){
         double balance = startValue;
-        for (Transaction t : transtactions){
+        for (Transaction t : transactions){
 
             if (t instanceof Income){
                 balance += t.getAmount();
@@ -32,7 +32,7 @@ public class Account {
     }
 
     public void addTransaction(Transaction t){
-        transtactions.add(t);
+        transactions.add(t);
     }
 
     public List<Transaction> getIncomes(){
@@ -44,7 +44,7 @@ public class Account {
     }
 
     public List<Transaction> getTransactions(Predicate<Transaction> p){
-        return transtactions.stream().filter(p).toList();
+        return transactions.stream().filter(p).toList();
     }
 
     
