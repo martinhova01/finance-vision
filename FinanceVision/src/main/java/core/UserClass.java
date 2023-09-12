@@ -61,9 +61,8 @@ public class UserClass {
     }
 
     private boolean validSymbols(String stringToCheck) {
-        if (stringToCheck.matches("^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+(\\.[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+)*$")) {
-            return true;
-        }
+        return stringToCheck.matches("^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+(\\.[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+)*$");
+        
     }
 
     public void setEmail(String email) {
@@ -80,7 +79,6 @@ public class UserClass {
 
 
     public void setAccount(Account account) {
-        Account account = new account; // må se mer på Account-klassen først
         this.account = account; 
     }
 
