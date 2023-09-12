@@ -1,6 +1,6 @@
 package core;
 
-public class UserClass {
+public class User {
     private String username;
     private String password;
     private String fullName;
@@ -8,11 +8,11 @@ public class UserClass {
     private Account account;
 
 
-    public UserClass(String username, String password, String fullName, String email, Account account) {
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-        this.email = email;
+    public User(String username, String password, String fullName, String email, Account account) {
+        setUsername(username);
+        setPassword(password);
+        setFullName(fullName);
+        setEmail(email);
         this.account = account;
     }
 
