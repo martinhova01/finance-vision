@@ -49,9 +49,9 @@ public class User {
 
 
     public void setFullName(String fullName) {
-        // if (!fullName.matches("[a-zA-Z] + ' '")) { // fullt navn må inneholde mellomrom og kan kun inneholde bokstaver
-        //     throw new IllegalArgumentException();
-        // }
+        if (!fullName.matches("[a-zA-Z] + ' '")) { // fullt navn må inneholde mellomrom og kan kun inneholde bokstaver
+            throw new IllegalArgumentException();
+        }
         this.fullName = fullName;
     }
 
@@ -66,9 +66,9 @@ public class User {
     }
 
     public void setEmail(String email) {
-        // if (!email.contains("@") || validSymbols(email.substring(0, email.indexOf("@")))) { //email må inneholde "@", og kan ikke inneholde andre symboler enn de oppgitt.
-        //     throw new IllegalArgumentException();
-        // }
+        if (!email.contains("@") || validSymbols(email.substring(0, email.indexOf("@")))) { //email må inneholde "@", og kan ikke inneholde andre symboler enn de oppgitt.
+            throw new IllegalArgumentException();
+        }
         this.email = email;
     }
 
