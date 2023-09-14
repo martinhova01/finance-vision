@@ -52,6 +52,7 @@ public class User {
         if (!fullName.contains(" ")){
             throw new IllegalArgumentException("Full name must include a space");
         }
+
         this.fullName = fullName;
     }
 
@@ -61,6 +62,7 @@ public class User {
     }
 
     public void setEmail(String email) {
+
         if (!email.contains("@") || !email.contains(".")) { //email må inneholde "@", og kan ikke inneholde andre symboler enn de oppgitt.
             throw new IllegalArgumentException("Invalid email");
         }
