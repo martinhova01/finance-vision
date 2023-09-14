@@ -24,7 +24,7 @@ public class User {
 
     public void setUsername(String username) {
         if (username.contains(" ")) {  // må adde username already taken også.
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("username cannot include space");
         }
         this.username = username;
     }
@@ -36,8 +36,8 @@ public class User {
 
 
     public void setPassword(String password) {
-        if (password.length() < 8 || !password.matches("[a-zA-Z0-9!@#\\$%^&*()\\-_=+\\[\\]{}|;:\"',.<>/?~]+")) { //passord må være minst 8 tegn
-            throw new IllegalArgumentException();
+        if (password.length() < 8){
+            throw new IllegalArgumentException("Password is too short");
         }
         this.password = password;
     }
@@ -49,8 +49,8 @@ public class User {
 
 
     public void setFullName(String fullName) {
-        if (!fullName.matches("[a-zA-Z] + ' '")) { // fullt navn må inneholde mellomrom og kan kun inneholde bokstaver
-            throw new IllegalArgumentException();
+        if (!fullName.contains(" ")){
+            throw new IllegalArgumentException("Full name must include a space");
         }
         this.fullName = fullName;
     }
@@ -60,14 +60,9 @@ public class User {
         return email;
     }
 
-    private boolean validSymbols(String stringToCheck) {
-        return stringToCheck.matches("^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+(\\.[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+)*$");
-        
-    }
-
     public void setEmail(String email) {
-        if (!email.contains("@") || validSymbols(email.substring(0, email.indexOf("@")))) { //email må inneholde "@", og kan ikke inneholde andre symboler enn de oppgitt.
-            throw new IllegalArgumentException();
+        if (!email.contains("@") || !email.contains(".")) { //email må inneholde "@", og kan ikke inneholde andre symboler enn de oppgitt.
+            throw new IllegalArgumentException("Invalid email");
         }
         this.email = email;
     }
