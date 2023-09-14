@@ -14,12 +14,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
    <children>
-      <Text layoutX="367.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BALANCE:" wrappingWidth="119.46875">
+      <Text layoutX="430.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BALANCE:" wrappingWidth="119.46875">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="balanceField" editable="false" layoutX="494.0" layoutY="17.0" prefHeight="53.0" prefWidth="216.0" />
+      <TextField fx:id="balanceField" editable="false" layoutX="550.0" layoutY="17.0" prefHeight="53.0" prefWidth="160.0">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
       <Text layoutX="722.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOK">
          <font>
             <Font size="24.0" />

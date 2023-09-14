@@ -45,6 +45,12 @@ public class AppController {
     }
 
     @FXML
+    private void clearAmountAndDescriptionFields() {
+        this.transactionAmountField.clear();
+        this.transactionDescriptionField.clear();
+    }
+
+    @FXML
     void enableButton() {
         this.addTransactionButton.setDisable(false);
     }
@@ -61,6 +67,7 @@ public class AppController {
             handleExpense(description, amount);
         }
         updateBalanceView();
+        clearAmountAndDescriptionFields();
     }
 
     @FXML
