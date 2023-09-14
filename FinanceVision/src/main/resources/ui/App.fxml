@@ -2,7 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,81 +12,43 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="194.5" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="311.0" minHeight="10.0" prefHeight="311.0" vgrow="SOMETIMES" />
-   </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
    <children>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="58.0" prefWidth="598.0">
+      <Text layoutX="367.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BALANCE:" wrappingWidth="119.46875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="balanceField" editable="false" layoutX="494.0" layoutY="17.0" prefHeight="53.0" prefWidth="216.0" />
+      <Text layoutX="722.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOK">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <GridPane layoutX="14.0" layoutY="72.0" prefHeight="226.0" prefWidth="377.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="33.5" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="209.5" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Text layoutX="201.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SALDO:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <TextField fx:id="balance_view" editable="false" layoutX="299.0" layoutY="17.0" prefHeight="53.0" prefWidth="216.0" />
-            <Text layoutX="523.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOK">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
+            <ListView fx:id="incomeView" prefHeight="198.0" prefWidth="225.0" GridPane.rowIndex="1" />
+            <ListView fx:id="expenseView" prefHeight="198.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" textAlignment="CENTER" wrappingWidth="187.1015625" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="189.6015625" GridPane.columnIndex="1" />
          </children>
-      </AnchorPane>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="600.0" GridPane.rowIndex="1">
-         <children>
-            <GridPane layoutY="7.0" prefHeight="306.0" prefWidth="293.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="167.0" minHeight="0.0" prefHeight="33.5" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="209.5" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="37.5" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="31.5" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ListView fx:id="income_view" prefHeight="174.0" prefWidth="147.0" GridPane.rowIndex="1" />
-                  <ListView fx:id="expense_view" prefHeight="204.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="INNTEKTER:" textAlignment="CENTER" wrappingWidth="147.1015625" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="UTGIFTER:" textAlignment="CENTER" wrappingWidth="147.1015625" GridPane.columnIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NY INNTEKT:" textAlignment="CENTER" wrappingWidth="147.1015625" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NY UTGIFT:" textAlignment="CENTER" wrappingWidth="147.1015625" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <GridPane GridPane.rowIndex="3">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.5" minWidth="10.0" prefWidth="47.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <TextField />
-                        <Button fx:id="income_button" mnemonicParsing="false" text="OK" GridPane.columnIndex="1" />
-                        <TextField fx:id="income_field" layoutX="10.0" layoutY="13.0" />
-                     </children>
-                  </GridPane>
-                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.5" minWidth="10.0" prefWidth="47.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <TextField fx:id="expense_field" prefHeight="25.0" prefWidth="90.0" />
-                        <Button fx:id="expense_button" mnemonicParsing="false" text="OK" GridPane.columnIndex="1" />
-                     </children>
-                  </GridPane>
-               </children>
-            </GridPane>
-         </children>
-      </AnchorPane>
+      </GridPane>
+      <Text layoutX="73.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW TRANSACTION:" textAlignment="CENTER" wrappingWidth="147.1015625" />
+      <RadioButton fx:id="incomeRadioButton" layoutX="63.0" layoutY="342.0" mnemonicParsing="false" onAction="#enableButton" prefHeight="17.0" prefWidth="77.0" text="INCOME">
+         <toggleGroup>
+            <ToggleGroup fx:id="transaction" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="expenseRadioButton" layoutX="159.0" layoutY="342.0" mnemonicParsing="false" onAction="#enableButton" prefHeight="17.0" prefWidth="77.0" text="EXPENSE" toggleGroup="$transaction" />
+      <TextField fx:id="transactionAmountField" layoutX="63.0" layoutY="381.0" prefHeight="25.0" prefWidth="167.0" promptText="Write amount" />
+      <TextField fx:id="transactionDescriptionField" layoutX="63.0" layoutY="412.0" prefHeight="25.0" prefWidth="167.0" promptText="Write short description" />
+      <Button fx:id="addTransactionButton" disable="true" layoutX="237.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="41.0" text="ADD" />
    </children>
-</GridPane>
+</AnchorPane>

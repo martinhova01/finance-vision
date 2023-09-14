@@ -1,53 +1,78 @@
 package ui;
 
 import core.Account;
+import core.Expense;
+import core.Income;
+import core.User;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 public class AppController {
 
     @FXML
-    private TextField balance_view;
-
+    private TextField balanceField, transactionDescriptionField, transactionAmountField;
     @FXML
-    private TextField income_field;
-
+    private ListView<String> incomeView, expenseView;
     @FXML
-    private TextField expense_field;
-
+    private RadioButton incomeRadioButton, expenseRadioButton;
     @FXML
-    private Button income_button;
+    private Button addTransactionButton;
 
-    @FXML
-    private Button expense_button;
+    private Account account = new Account(0);
 
-    @FXML
-    private ListView<Double> income_view;
-    
-    @FXML
-    private ListView<Double> expense_view;
+    private User user = new User("Markus", "passord", "Markus Klund", "markus.klund@hotmail.com", account);
+    //private User user;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    private Account account;
-    
-    public AppController() {
-        this.account = new Account(0);
+    public User getUser() {
+        return this.user;
     }
 
     public Account getAccount() {
-        return this.account;
+        return this.user.getAccount();
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
+    @FXML
     private void updateBalanceView() {
-        //double balance = Double.parseDouble(balance_view.getText());
-        balance_view.setText(String.valueOf(getAccount().getBalance()));
+        balanceField.setText(String.valueOf(this.user.getAccount().getBalance()));
     }
 
+    @FXML
+    void enableButton() {
+        this.addTransactionButton.setDisable(false);
+    }
+
+    @FXML
+    void handleAddTransactionButton() {
+        String description = this.transactionDescriptionField.getText();
+        double amount = Double.parseDouble(this.transactionAmountField.getText());
+
+        if (incomeRadioButton.isSelected()) {
+            handleIncome(description, amount);
+        }
+        else if (expenseRadioButton.isSelected()) {
+            handleExpense(description, amount);
+        }
+        updateBalanceView();
+    }
+
+    @FXML
+    void handleIncome(String description, double amount) {
+        this.getAccount().addTransaction(new Income(description, amount));
+        this.incomeView.getItems().add(0, "+ " + amount + " (" + description + ")");
+    }
+
+    @FXML
+    void handleExpense(String description, double amount) {
+        this.getAccount().addTransaction(new Expense(description, amount));
+        this.expenseView.getItems().add(0, "- " + amount + " (" + description + ")");
+    }
 
 }
