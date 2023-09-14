@@ -2,6 +2,7 @@ package fileSaving;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import core.Account;
 import core.Expense;
@@ -23,14 +25,15 @@ public class FileSaving {
  * Parses the data saved in the data.txt file
  * 
  * @return a Collection of the users that are registered in the application
+ * @param filename the name of the file to read from
  * @throws IOException if the data.txt file is not found
  */
-  static Collection<User> readFromFile() throws IOException{
+  static List<User> readFromFile(String filename) throws IOException{
 
-    InputStream is = FileSaving.class.getResourceAsStream("data.txt");
+    InputStream is = new FileInputStream(new File("src/main/resources/fileSaving/" + filename));
     BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-    Collection<User> result = new ArrayList<>();
+    List<User> result = new ArrayList<>();
       while(br.ready()){
         String line = br.readLine();
         String[] data = line.split(";");
@@ -79,10 +82,11 @@ public class FileSaving {
    * username;password.....
    * 
    * @param users a Collection of the users registered in the app.
+   * @param filename the name of the file to write to
    * @throws IOException if the file is not found
    */
-  static void writeToFile(Collection<User> users) throws IOException{
-    FileWriter fileWriter = new FileWriter(new File("src/main/java/fileSaving/data.txt"));
+  static void writeToFile(List<User> users, String filename) throws IOException{
+    FileWriter fileWriter = new FileWriter(new File("src/main/resources/fileSaving/" + filename));
         String data = "";
         for (User u : users) {
           data += u.getUsername() + ";" + u.getPassword() + ";" + u.getFullName() + ";" + u.getEmail() + ";" + u.getAccount().getStartValue() + ";";
@@ -115,7 +119,7 @@ public class FileSaving {
   //   users.add(u);
 
   //   try {
-  //     writeToFile(users);
+  //     writeToFile(users, "data.txt");
 
   //   } catch (IOException e) {
   //     e.printStackTrace();
