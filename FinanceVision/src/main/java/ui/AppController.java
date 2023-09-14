@@ -24,11 +24,18 @@ public class AppController {
 
     private Account account = new Account(0);
 
-    private User user = new User("Markus", "passord", "Markus Klund", "markus.klund@hotmail.com", account);
+    //Skal egentlig hente bruker fra innloggingsside, så følgende bruker fjernes når vi får det til.
+    private User user = new User("Markus", "passordet", "Markus Klund", "markus.klund@hotmail.com", account);
     //private User user;
 
     public void setUser(User user) {
         this.user = user;
+        initialize();
+    }
+
+    @FXML
+    private void initialize() {
+        this.balanceField.setText(String.valueOf(getAccount().getBalance()));
     }
 
     public User getUser() {
@@ -55,11 +62,18 @@ public class AppController {
         this.addTransactionButton.setDisable(false);
     }
 
+    private boolean isNumeric(String string) {
+        return string.matches("[0-9]+");
+    }
+
     @FXML
     void handleAddTransactionButton() {
         String description = this.transactionDescriptionField.getText();
-        double amount = Double.parseDouble(this.transactionAmountField.getText());
-
+        String amountString = this.transactionAmountField.getText();
+        if (! isNumeric(amountString)) {
+            throw new IllegalArgumentException("The given amount should only contain digits");
+        }
+        double amount = Double.parseDouble(amountString);
         if (incomeRadioButton.isSelected()) {
             handleIncome(description, amount);
         }
