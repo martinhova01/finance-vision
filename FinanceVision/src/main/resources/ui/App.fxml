@@ -54,7 +54,7 @@
       <TextField fx:id="transactionAmountField" layoutX="63.0" layoutY="381.0" prefHeight="25.0" prefWidth="167.0" promptText="Write amount" />
       <TextField fx:id="transactionDescriptionField" layoutX="63.0" layoutY="412.0" prefHeight="25.0" prefWidth="167.0" promptText="Write short description" />
       <Button fx:id="addTransactionButton" disable="true" layoutX="237.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="41.0" text="ADD" />
-      <ChoiceBox fx:id="categoryList" layoutX="183.0" layoutY="307.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="categoryList" layoutX="183.0" layoutY="307.0" onContextMenuRequested="#enableButton" prefWidth="150.0" />
       <ListView fx:id="categoryView" layoutX="550.0" layoutY="122.0" prefHeight="257.0" prefWidth="160.0" />
       <Text layoutX="535.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST 30 DAYS:" textAlignment="CENTER" wrappingWidth="189.6015625" />
    </children>

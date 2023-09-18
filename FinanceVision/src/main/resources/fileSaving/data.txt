@@ -1,2 +1,2 @@
 martinhova;heiheihei;martin hova ;martirho@stud.ntnu.no;1000.0;i;lonn;500.0;2023-09-14 12:19:31;e;skatt;200.0;2023-09-14 12:19:31;
-MarkusKlund;123456789;Markus Klund;markus.klund@hotmail.com;100000.0;
+MarkusKlund;123456789;Markus Klund;markus.klund@hotmail.com;100000.0;i;Peng;1050.0;2023-09-18 20:25:35;i;hei;2222.0;2023-09-18 20:25:54;

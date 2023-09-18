@@ -1,14 +1,16 @@
 package ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import core.Account;
 import core.Expense;
 import core.Income;
 import core.User;
-
+import fileSaving.FileSaving;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -29,10 +31,8 @@ public class AppController {
     @FXML
     private ChoiceBox<String> categoryList;
 
-    //private Account account = new Account(0.0);
 
     //Skal egentlig hente bruker fra innloggingsside, så følgende bruker fjernes når vi får det til.
-    //private User user = new User("Markus", "passordet", "Markus Klund", "markus.klund@hotmail.com", account);
     private User user;
     private HashMap<String, Double> categoryTransactions = new HashMap<>();
     private ArrayList<String> categories = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other"));
@@ -40,7 +40,7 @@ public class AppController {
     public void setUser(User user) {
         this.user = user;
         this.balanceField.setText(String.valueOf(getAccount().getBalance()));
-        initialize();
+        initialize(); //Trenger kanskje ikke å kalles?
     }
 
     @FXML
@@ -86,8 +86,11 @@ public class AppController {
 
     @FXML
     void enableButton() {
-        if (! this.categoryList.getValue().equals("Select category")) {
+        if (! this.categoryList.getValue().equals("Select category") && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected())) {
             this.addTransactionButton.setDisable(false);
+        }
+        else {
+            this.addTransactionButton.setDisable(true);
         }
     }
 
@@ -100,8 +103,6 @@ public class AppController {
         String description = this.transactionDescriptionField.getText();
         String amountString = this.transactionAmountField.getText();
         if (! isNumeric(amountString)) {
-            //throw new IllegalArgumentException("The given amount should only contain digits");
-            //notify("The given amount should only contain digits");
             ExternalMethods.notify("The given amount should only contain digits");
         }
 
@@ -118,6 +119,22 @@ public class AppController {
             updateCategoryView();
         }
         clearAmountAndDescriptionFields();
+        try {
+            saveAccountChanges();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveAccountChanges() throws IOException {
+        List<User> users = FileSaving.readFromFile("data.txt");
+        for (User user : users) {
+            if (user.getUsername().equals(this.user.getUsername())) {
+                users.remove(user);
+                users.add(this.user);
+            }
+        }
+        FileSaving.writeToFile(users, "data.txt");
     }
 
     @FXML
