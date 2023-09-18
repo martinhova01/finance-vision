@@ -40,7 +40,8 @@ public class LoginController extends AbstractController{
             }
         }
         //TODO: handle invalid username or password
-        throw new IllegalArgumentException("Invalid username or password");
+        //throw new IllegalArgumentException("Invalid username or password");
+        ExternalMethods.notify("Invalid username or password");
 
     }
 
