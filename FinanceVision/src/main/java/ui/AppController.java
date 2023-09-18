@@ -40,7 +40,6 @@ public class AppController {
     public void setUser(User user) {
         this.user = user;
         this.balanceField.setText(String.valueOf(getAccount().getBalance()));
-        initialize(); //Trenger kanskje ikke å kalles?
     }
 
     @FXML
@@ -105,7 +104,6 @@ public class AppController {
         if (! isNumeric(amountString)) {
             ExternalMethods.notify("The given amount should only contain digits");
         }
-
         else {
             double amount = Double.parseDouble(amountString);
             String category = this.categoryList.getValue();
@@ -141,14 +139,14 @@ public class AppController {
     void handleIncome(String description, double amount, String category) {
         this.getAccount().addTransaction(new Income(description, amount));
         this.incomeView.getItems().add(0, "+ " + amount + "    " + description);
-        this.categoryTransactions.put(category, amount);
+        this.categoryTransactions.put(category, this.categoryTransactions.get(category) + amount);
     }
 
     @FXML
     void handleExpense(String description, double amount, String category) {
         this.getAccount().addTransaction(new Expense(description, amount));
         this.expenseView.getItems().add(0, "- " + amount + "    " + description);
-        this.categoryTransactions.put(category, -amount);
+        this.categoryTransactions.put(category, this.categoryTransactions.get(category) - amount);
     }
 
 }
