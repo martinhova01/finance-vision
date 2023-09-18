@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import core.Account;
@@ -28,7 +27,7 @@ public class FileSaving {
  * @param filename the name of the file to read from
  * @throws IOException if the data.txt file is not found
  */
-  static List<User> readFromFile(String filename) throws IOException{
+  public static List<User> readFromFile(String filename) throws IOException{
 
     InputStream is = new FileInputStream(new File("src/main/resources/fileSaving/" + filename));
     BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -85,7 +84,7 @@ public class FileSaving {
    * @param filename the name of the file to write to
    * @throws IOException if the file is not found
    */
-  static void writeToFile(List<User> users, String filename) throws IOException{
+  public static void writeToFile(List<User> users, String filename) throws IOException{
     FileWriter fileWriter = new FileWriter(new File("src/main/resources/fileSaving/" + filename));
         String data = "";
         for (User u : users) {
