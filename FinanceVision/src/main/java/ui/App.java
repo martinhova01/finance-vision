@@ -2,7 +2,6 @@ package ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -13,15 +12,25 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    private static  Stage primaryStage;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
-        Parent parent = fxmlLoader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
+        setPrimaryStage(stage);
+        primaryStage.setTitle("Finance Vision");
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("login.fxml"))));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    private void setPrimaryStage(Stage stage) {
+        App.primaryStage = stage;
+    }
+    
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

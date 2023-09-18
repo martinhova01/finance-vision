@@ -1,64 +1,67 @@
 package ui;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
-import core.Expense;
-import core.Income;
 import core.User;
 import fileSaving.FileSaving;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+public class LoginController extends AbstractController{
 
-    //Har ikke lagd ui da jeg ikke vet hvordan jeg skal knytte det til eksisterende fxml-fil
-
-    @FXML
-    private TextField usernameField, passwordField, fullNameField, emailField;
-    @FXML
-    private RadioButton loginRadioButton, createUserRadioButton;
     @FXML
     private Button loginButton, createUserButton;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
 
     private List<User> users;
 
     @FXML
-    private void initialize() {
-        //Lese fra fil må fikses
+    private void initialize() throws IOException {
         users = FileSaving.readFromFile("data.txt");
     }
-    
+
     @FXML
-    void handleLogin() {
+    void handleLogin() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 System.out.println("Login successful");
-                //håndter login
+                login(user);
                 return;
             }
         }
+        //TODO: handle invalid username or password
         throw new IllegalArgumentException("Invalid username or password");
+
+    }
+
+    private void login(User user) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
+        root = loader.load();
+        
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+            //gets the controller for the main scene and sets the user that is logged in
+        AppController controller = loader.getController();
+        controller.setUser(user);
+
     }
 
     @FXML
-    void handleCreateUser() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String fullName = fullNameField.getText();
-        String email = emailField.getText();
-        for (User user : users) {
-            if (user.getUsername().equals(username)){
-                throw new IllegalArgumentException("Username is taken");
-            }
-        }
-        //Mer validering her eller gjøres det i User-klassen?
-        users.add(new User(username, password, fullName, email, null));
-        //Skrive til fil må fikses
-        FileSaving.writeToFile(users, "data.txt");
+    void handleRegisterUser() throws IOException{
+        switchScene("registerNewUser.fxml");
     }
+
+   
 }
