@@ -28,7 +28,7 @@ public class AppController extends AbstractController {
     @FXML
     private RadioButton incomeRadioButton, expenseRadioButton;
     @FXML
-    private Button addTransactionButton;
+    private Button addTransactionButton, logOutButton;
     @FXML
     private ChoiceBox<String> categoryList;
 
@@ -179,6 +179,11 @@ public class AppController extends AbstractController {
         else {
             this.expenseView.getItems().add(0, "- " + transaction.getAmount() + "    " + transaction.getDescription());
         }
+    }
+
+    @FXML
+    void handleLogOutButton() throws IOException {
+        switchScene("login.fxml");
     }
 
 }
