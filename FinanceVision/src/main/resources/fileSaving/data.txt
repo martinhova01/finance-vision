@@ -1,1 +1,5 @@
-martinhova;heiheihei;martin hova ;martirho@stud.ntnu.no;1000.0;i;lonn;500.0;2023-09-14 12:19:31;e;skatt;200.0;2023-09-14 12:19:31;
+testuser;testpassword;Test User;test@example.com;1000.0;i;lonn;500.0;2023-09-14 12:19:31;e;skatt;200.0;2023-09-14 12:19:31;
+martinhova;martinhova;Martin Høva;mrhova46@gmail.com;10000.0;
+martinreve;123456789;Martin Reve;martin@test.com;10000.0;
+markusklund;987654321;Markus Klund;orjngong@sprignwrpgn.com;100000.0;
+olabismo;123456789;Ola Bismo;ola@poaegnj.com;1234567.0;
