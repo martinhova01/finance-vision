@@ -47,20 +47,22 @@ public class FileSaving {
         int i = 5;
         while(i < data.length){
           String description = data[i + 1];
-          double amount = Double.parseDouble(data[i + 2]);
-          LocalDateTime time = LocalDateTime.parse(data[i + 3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+          String category = data[i + 2];
+          double amount = Double.parseDouble(data[i + 3]);
+          LocalDateTime time = LocalDateTime.parse(data[i + 4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
           if (data[i].equals("i")){
-            Transaction t = new Income(description, amount);
+            Transaction t = new Income(description, amount, category);
             t.setTime(time);
             account.addTransaction(t);
           }
           else{
-            Transaction t = new Expense(description, amount);
+            Transaction t = new Expense(description, amount, category);
             t.setTime(time);
             account.addTransaction(t);
           }
-          i += 4;
+          //i += 4;
+          i += 5;
 
         }
         User newUser = new User(username, password, fullName, email, account);
@@ -77,7 +79,7 @@ public class FileSaving {
    * 
    * Write the user information to a file in the following format:
    * 
-   * username;password;fullname;email;accountStartValue;i;description1;amount1;time1;e;description2;amount2;time2 ...
+   * username;password;fullname;email;accountStartValue;i;description1;category1;amount1;time1;e;description2;category2;amount2;time2 ...
    * username;password.....
    * 
    * @param users a Collection of the users registered in the app.
@@ -97,7 +99,7 @@ public class FileSaving {
             else{
               data += "e;";
             }
-            data += t.getDescription() + ";" + t.getAmount() + ";" + t.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + ";";
+            data += t.getDescription() + ";" + t.getCategory() + ";" + t.getAmount() + ";" + t.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + ";";
 
           }
 
