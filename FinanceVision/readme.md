@@ -1,10 +1,11 @@
-# FinanceVision
-FinanceVision er et enkelt program som lar brukeren holde oversikt over sin private økonomi ved å dokumentere alle inntekter og utgifter.
+# Finance Vision
+Finance Vision er et enkelt program som lar brukeren holde oversikt over sin private økonomi ved å dokumentere alle inntekter og utgifter.
 
 ## Opprett bruker og logg inn
 Når brukeren starter programmet vil de komme inn på en innloggingsside der de blir bedt om å skrive inn brukernavn og passord for å få tilgang til programmet. Dersom brukeren ikke allerede har en bruker, kan de trykke på knappen for å opprette en bruker. De blir dermed sendt til en ny side hvor de blir bedt om å skrive inn fullt navn, epost og hvor mye penger de har på konto. I tillegg må de opprette et brukernavn og passord. Når brukeren deretter trykker på "opprett bruker"-knappen, vil de bli sendt tilbake til innloggingssiden hvor de nå kan logge inn og få tilgang til programmet.
 
 Innloggingsside: [login.png](login.png)
+
 Opprett bruker: [createUser.png](createUser.png)
 
 ## Hovedsiden
