@@ -9,6 +9,7 @@ import java.util.List;
 import core.Account;
 import core.Expense;
 import core.Income;
+import core.Transaction;
 import core.User;
 import fileSaving.FileSaving;
 import javafx.fxml.FXML;
@@ -46,11 +47,20 @@ public class AppController extends AbstractController {
     //Må fikse slik at det adderer incomes og subtraherer expenses
     private void retrieveCategorySum() {
         for (String category : this.categoryTypes) {
-            Double categorySum = this.getAccount()
+/*             Double categorySum = this.getAccount()
             .getTransactions(transaction -> transaction.getCategory().equals(category))
             .stream()
             .mapToDouble(transaction -> transaction.getAmount())
-            .sum();
+            .sum(); */
+            double categorySum = 0;
+            for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(category))) {
+                if (transaction instanceof Income) {
+                    categorySum += transaction.getAmount();
+                }
+                else {
+                    categorySum -= transaction.getAmount();
+                }
+            }
             this.categoryTransactions.put(category, categorySum);
         }
     }
