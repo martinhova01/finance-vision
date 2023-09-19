@@ -14,8 +14,8 @@ public class ExpenseTest {
 
   @BeforeEach
   public void setUp() {
-    expense = new Expense("Netflix", 90.0);
-    expense2 = new Expense("Viaplay", 95.0);
+    expense = new Expense("Netflix", 90.0, "Fun");
+    expense2 = new Expense("Viaplay", 95.0, "Fun");
   }
 
   @Test

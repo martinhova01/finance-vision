@@ -1,2 +1,2 @@
-martinhova;password;Martin Høva;martirho@stud.ntnu.no;1000.0;i;lønn;Food;500.0;2023-09-19 13:23:33;e;skatt;Food;200.0;2023-09-19 13:23:33;
-doejohn;agreatPassword!;John Doe;johndoe@example.com;5000.0;i;gave;Food;700.0;2023-09-19 13:23:33;e;mat;Food;1500.0;2023-09-19 13:23:33;
+martinhova;password;Martin Høva;martirho@stud.ntnu.no;1000.0;i;lønn;Food;500.0;2023-09-19 14:07:07;e;skatt;Food;200.0;2023-09-19 14:07:07;
+doejohn;agreatPassword!;John Doe;johndoe@example.com;5000.0;i;gave;Food;700.0;2023-09-19 14:07:07;e;mat;Food;1500.0;2023-09-19 14:07:07;

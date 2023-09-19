@@ -18,9 +18,9 @@ public class AccountTest {
   public void setUp() {
     account = new Account(1500);
     account2 = new Account(4090.0);
-    expenseFood = new Expense("Food", 105.0);
-    incomeAllowance = new Income("Weekly allowance", 500.0);
-    incomeSalary = new Income("Salary", 1430.0);
+    expenseFood = new Expense("Food", 105.0, "Food");
+    incomeAllowance = new Income("Weekly allowance", 500.0, "Other");
+    incomeSalary = new Income("Salary", 1430.0, "Salary");
     };
 
   

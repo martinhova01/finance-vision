@@ -13,8 +13,8 @@ public class IncomeTest {
 
   @BeforeEach
   public void setUp() {
-    income = new Income("Money from granny", 1000.0);
-    income2 = new Income("Money from dad", 200.0);
+    income = new Income("Money from granny", 1000.0, "Other");
+    income2 = new Income("Money from dad", 200.0, "Other");
     
   }
 
