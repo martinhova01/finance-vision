@@ -23,13 +23,13 @@ public class FileSavingTest {
   @BeforeEach
   public void setUp() throws IOException{
     a1 = new Account(1000);
-    a1.addTransaction(new Income("lønn", 500.0));
-    a1.addTransaction(new Expense("skatt", 200.0));
+    a1.addTransaction(new Income("lønn", 500.0, "Food"));
+    a1.addTransaction(new Expense("skatt", 200.0, "Food"));
     u1 = new User("martinhova", "password", "Martin Høva", "martirho@stud.ntnu.no", a1);
 
     a2 = new Account(5000);
-    a2.addTransaction(new Income("gave", 700.0));
-    a2.addTransaction(new Expense("mat", 1500.0));
+    a2.addTransaction(new Income("gave", 700.0, "Food"));
+    a2.addTransaction(new Expense("mat", 1500.0, "Food"));
     u2 = new User("doejohn", "agreatPassword!", "John Doe", "johndoe@example.com", a2);
 
     List<User> users = new ArrayList<>();

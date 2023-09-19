@@ -39,6 +39,12 @@ public class AppController extends AbstractController {
         this.user = user;
         this.balanceField.setText(String.valueOf(getAccount().getBalance()));
         //Bør kanskje flyttes over i egen metode?:
+        retrieveCategorySum();
+        updateCategoryView();
+    }
+
+    //Må fikse slik at det adderer incomes og subtraherer expenses
+    private void retrieveCategorySum() {
         for (String category : this.categoryTypes) {
             Double categorySum = this.getAccount()
             .getTransactions(transaction -> transaction.getCategory().equals(category))
@@ -47,7 +53,6 @@ public class AppController extends AbstractController {
             .sum();
             this.categoryTransactions.put(category, categorySum);
         }
-        updateCategoryView();
     }
 
     @FXML
@@ -95,28 +100,31 @@ public class AppController extends AbstractController {
     }
 
     private boolean isNumeric(String string) {
-        return string.matches("[0-9]+");
+        return string.matches("\\d*\\.?\\d*") && string.charAt(string.length() - 1) != '.';
     }
 
     @FXML
     void handleAddTransactionButton() {
         String description = this.transactionDescriptionField.getText();
         String amountString = this.transactionAmountField.getText();
+        if (amountString.length() == 0) {
+            notify("Amount field is empty");
+            return;
+        }
         if (! isNumeric(amountString)) {
             notify("The given amount should only contain digits");
+            return;
         }
-        else {
-            double amount = Double.parseDouble(amountString);
-            String category = this.categoryList.getValue();
-            if (incomeRadioButton.isSelected()) {
-                handleIncome(description, amount, category);
-            }
-            else if (expenseRadioButton.isSelected()) {
-                handleExpense(description, amount, category);
-            }
-            updateBalanceView();
-            updateCategoryView();
+        double amount = Double.parseDouble(amountString);
+        String category = this.categoryList.getValue();
+        if (incomeRadioButton.isSelected()) {
+            handleIncome(description, amount, category);
         }
+        else if (expenseRadioButton.isSelected()) {
+            handleExpense(description, amount, category);
+        }
+        updateBalanceView();
+        updateCategoryView();
         clearAmountAndDescriptionFields();
         try {
             saveAccountChanges();
@@ -140,14 +148,14 @@ public class AppController extends AbstractController {
     void handleIncome(String description, double amount, String category) {
         this.getAccount().addTransaction(new Income(description, amount, category));
         this.incomeView.getItems().add(0, "+ " + amount + "    " + description);
-        this.categoryTransactions.put(category, this.categoryTransactions.get(category) + amount);
+        retrieveCategorySum();
     }
 
     @FXML
     void handleExpense(String description, double amount, String category) {
         this.getAccount().addTransaction(new Expense(description, amount, category));
         this.expenseView.getItems().add(0, "- " + amount + "    " + description);
-        this.categoryTransactions.put(category, this.categoryTransactions.get(category) - amount);
+        retrieveCategorySum();
     }
 
 }
