@@ -89,12 +89,23 @@ public class AppController extends AbstractController {
         this.transactionDescriptionField.clear();
     }
 
+    // @FXML
+    // void enableButton() {
+    //     if (! this.categoryList.getValue().equals("Select category") && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected())) {
+    //         this.addTransactionButton.setDisable(false);
+    //     }
+    //     else {
+    //         this.addTransactionButton.setDisable(true);
+    //     }
+    // }
+
     @FXML
-    void enableButton() {
-        if (! this.categoryList.getValue().equals("Select category") && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected())) {
+    void updateButton(){
+        System.out.println("in update!");
+        if (! this.categoryList.getValue().equals("Select category") && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected()) && !transactionAmountField.getText().equals("") && !transactionDescriptionField.getText().equals("")){
             this.addTransactionButton.setDisable(false);
         }
-        else {
+        else{
             this.addTransactionButton.setDisable(true);
         }
     }
