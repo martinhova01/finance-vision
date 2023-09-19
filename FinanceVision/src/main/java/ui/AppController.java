@@ -9,6 +9,7 @@ import java.util.List;
 import core.Account;
 import core.Expense;
 import core.Income;
+import core.Transaction;
 import core.User;
 import fileSaving.FileSaving;
 import javafx.fxml.FXML;
@@ -38,19 +39,29 @@ public class AppController extends AbstractController {
     public void setUser(User user) {
         this.user = user;
         this.balanceField.setText(String.valueOf(getAccount().getBalance()));
-        //Bør kanskje flyttes over i egen metode?:
         retrieveCategorySum();
         updateCategoryView();
+        loadTransactionsFromFile();
     }
 
-    //Må fikse slik at det adderer incomes og subtraherer expenses
+    private void loadTransactionsFromFile() {
+        List<Transaction> fileTransactions = getAccount().getTransactions();
+        for (Transaction transaction : fileTransactions) {
+            addTransactionToView(transaction);
+        }
+    }
+
     private void retrieveCategorySum() {
         for (String category : this.categoryTypes) {
-            Double categorySum = this.getAccount()
-            .getTransactions(transaction -> transaction.getCategory().equals(category))
-            .stream()
-            .mapToDouble(transaction -> transaction.getAmount())
-            .sum();
+            double categorySum = 0;
+            for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(category))) {
+                if (transaction instanceof Income) {
+                    categorySum += transaction.getAmount();
+                }
+                else {
+                    categorySum -= transaction.getAmount();
+                }
+            }
             this.categoryTransactions.put(category, categorySum);
         }
     }
@@ -146,16 +157,28 @@ public class AppController extends AbstractController {
 
     @FXML
     void handleIncome(String description, double amount, String category) {
-        this.getAccount().addTransaction(new Income(description, amount, category));
-        this.incomeView.getItems().add(0, "+ " + amount + "    " + description);
+        Income income = new Income(description, amount, category);
+        this.getAccount().addTransaction(income);
+        addTransactionToView(income);
         retrieveCategorySum();
     }
 
     @FXML
     void handleExpense(String description, double amount, String category) {
-        this.getAccount().addTransaction(new Expense(description, amount, category));
-        this.expenseView.getItems().add(0, "- " + amount + "    " + description);
+        Expense expense = new Expense(description, amount, category);
+        this.getAccount().addTransaction(expense);
+        addTransactionToView(expense);
         retrieveCategorySum();
+    }
+
+    @FXML
+    void addTransactionToView(Transaction transaction) {
+        if (transaction instanceof Income) {
+            this.incomeView.getItems().add(0, "+ " + transaction.getAmount() + "    " + transaction.getDescription());
+        }
+        else {
+            this.expenseView.getItems().add(0, "- " + transaction.getAmount() + "    " + transaction.getDescription());
+        }
     }
 
 }
