@@ -34,7 +34,8 @@ public class AppController extends AbstractController {
 
     private User user;
     private HashMap<String, Double> categoryTransactions = new HashMap<>();
-    private ArrayList<String> categoryTypes = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other"));
+    private ArrayList<String> expenseCategoryTypes = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other")); //add more later
+    private ArrayList<String> incomeCategoryTypes = new ArrayList<>(Arrays.asList("Salary", "Gift", "intrests", "Other")); //add more later
 
     public void setUser(User user) {
         this.user = user;
@@ -52,25 +53,24 @@ public class AppController extends AbstractController {
     }
 
     private void retrieveCategorySum() {
-        for (String category : this.categoryTypes) {
-            double categorySum = 0;
-            for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(category))) {
-                if (transaction instanceof Income) {
-                    categorySum += transaction.getAmount();
-                }
-                else {
-                    categorySum -= transaction.getAmount();
-                }
-            }
-            this.categoryTransactions.put(category, categorySum);
-        }
+        // for (String category : this.categoryTypes) {
+        //     double categorySum = 0;
+        //     for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(category))) {
+        //         if (transaction instanceof Income) {
+        //             categorySum += transaction.getAmount();
+        //         }
+        //         else {
+        //             categorySum -= transaction.getAmount();
+        //         }
+        //     }
+        //     this.categoryTransactions.put(category, categorySum);
+        // }
     }
 
     @FXML
     private void initialize() {
-        this.categoryList.getItems().add("Select category");
-        this.categoryList.getItems().addAll(this.categoryTypes);
-        this.categoryList.setValue("Select category");
+
+        this.balanceField.setFocusTraversable(false);
     }
 
     public User getUser() {
@@ -83,10 +83,10 @@ public class AppController extends AbstractController {
 
     @FXML
     private void updateCategoryView() {
-        this.categoryView.getItems().clear();
-        for (String category : this.categoryTypes) {
-            this.categoryView.getItems().add(category + ": " + this.categoryTransactions.get(category));
-        }
+        // this.categoryView.getItems().clear();
+        // for (String category : this.categoryTypes) {
+        //     this.categoryView.getItems().add(category + ": " + this.categoryTransactions.get(category));
+        // }
     }
 
     @FXML
@@ -112,13 +112,27 @@ public class AppController extends AbstractController {
 
     @FXML
     void updateButton(){
-        System.out.println("in update!");
-        if (! this.categoryList.getValue().equals("Select category") && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected()) && !transactionAmountField.getText().equals("") && !transactionDescriptionField.getText().equals("")){
+        
+        if (categoryList.getValue() != null && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected()) && !transactionAmountField.getText().equals("") && !transactionDescriptionField.getText().equals("")){
             this.addTransactionButton.setDisable(false);
         }
         else{
             this.addTransactionButton.setDisable(true);
         }
+    }
+    @FXML
+    void handleRbtnClicked(){
+
+        if (incomeRadioButton.isSelected()){
+            categoryList.getItems().clear();
+            categoryList.getItems().addAll(this.incomeCategoryTypes);
+        }
+        else if(expenseRadioButton.isSelected()){
+            categoryList.getItems().clear();
+            categoryList.getItems().addAll(this.expenseCategoryTypes);
+        }
+        this.addTransactionButton.setDisable(true);
+
     }
 
     private boolean isNumeric(String string) {
@@ -129,10 +143,7 @@ public class AppController extends AbstractController {
     void handleAddTransactionButton() {
         String description = this.transactionDescriptionField.getText();
         String amountString = this.transactionAmountField.getText();
-        if (amountString.length() == 0) {
-            notify("Amount field is empty");
-            return;
-        }
+    
         if (! isNumeric(amountString)) {
             notify("The given amount should only contain digits");
             return;
@@ -148,6 +159,7 @@ public class AppController extends AbstractController {
         updateBalanceView();
         updateCategoryView();
         clearAmountAndDescriptionFields();
+        this.addTransactionButton.setDisable(true);
         try {
             saveAccountChanges();
         } catch (IOException e) {
