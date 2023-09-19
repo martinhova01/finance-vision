@@ -41,21 +41,37 @@
          <children>
             <ListView fx:id="incomeView" prefHeight="198.0" prefWidth="225.0" GridPane.rowIndex="1" />
             <ListView fx:id="expenseView" prefHeight="198.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" textAlignment="CENTER" wrappingWidth="187.1015625" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="189.6015625" GridPane.columnIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" textAlignment="CENTER" wrappingWidth="187.1015625">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="189.6015625" GridPane.columnIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
          </children>
       </GridPane>
-      <Text layoutX="28.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW TRANSACTION:" textAlignment="CENTER" wrappingWidth="147.1015625" />
-      <RadioButton fx:id="incomeRadioButton" layoutX="25.0" layoutY="328.0" mnemonicParsing="false" onAction="#enableButton" prefHeight="17.0" prefWidth="77.0" text="INCOME">
+      <Text layoutX="14.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW TRANSACTION:" textAlignment="CENTER" wrappingWidth="187.1015625">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <RadioButton fx:id="incomeRadioButton" layoutX="25.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="17.0" prefWidth="77.0" text="INCOME">
          <toggleGroup>
             <ToggleGroup fx:id="transaction" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="expenseRadioButton" layoutX="25.0" layoutY="356.0" mnemonicParsing="false" onAction="#enableButton" prefHeight="17.0" prefWidth="77.0" text="EXPENSE" toggleGroup="$transaction" />
-      <TextField fx:id="transactionAmountField" layoutX="63.0" layoutY="381.0" prefHeight="25.0" prefWidth="167.0" promptText="Write amount" />
-      <TextField fx:id="transactionDescriptionField" layoutX="63.0" layoutY="412.0" prefHeight="25.0" prefWidth="167.0" promptText="Write short description" />
+      <RadioButton fx:id="expenseRadioButton" layoutX="25.0" layoutY="356.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="17.0" prefWidth="77.0" text="EXPENSE" toggleGroup="$transaction" />
+      <TextField fx:id="transactionAmountField" layoutX="63.0" layoutY="381.0" onKeyTyped="#updateButton" prefHeight="25.0" prefWidth="167.0" promptText="Write amount" />
+      <TextField fx:id="transactionDescriptionField" layoutX="63.0" layoutY="412.0" onAction="#updateButton" onKeyTyped="#updateButton" prefHeight="25.0" prefWidth="167.0" promptText="Write short description" />
       <Button fx:id="addTransactionButton" disable="true" layoutX="237.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="41.0" text="ADD" />
-      <ChoiceBox fx:id="categoryList" layoutX="183.0" layoutY="307.0" onContextMenuRequested="#enableButton" prefWidth="150.0" />
-      <ListView fx:id="categoryView" layoutX="550.0" layoutY="122.0" prefHeight="257.0" prefWidth="160.0" />
-      <Text layoutX="535.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST 30 DAYS:" textAlignment="CENTER" wrappingWidth="189.6015625" />
+      <ChoiceBox fx:id="categoryList" layoutX="128.0" layoutY="344.0" onMouseClicked="#updateButton" prefWidth="150.0" />
+      <ListView fx:id="incomeCategoryView" layoutX="553.0" layoutY="185.0" prefHeight="173.0" prefWidth="119.0" />
+      <Text layoutX="577.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST 30 DAYS:" textAlignment="CENTER" wrappingWidth="189.6015625">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <ListView fx:id="expenseCategoryView" layoutX="672.0" layoutY="185.0" prefHeight="173.0" prefWidth="119.0" />
+      <Text layoutX="585.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" />
+      <Text layoutX="703.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" />
+      <Button fx:id="logOutButton" layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleLogOutButton" text="LOG OUT" />
    </children>
 </AnchorPane>
