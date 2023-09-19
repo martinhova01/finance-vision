@@ -13,5 +13,9 @@ I src/test/java ligger det to testklasser. [UserTest](FinanceVision/src/test/jav
 ## Kjøring og testing
 Prosjektet benytter maven for kjøring. Programmet skal altså kjøre ved å stå i FinanceVision-mappa og skrive `mvn javafx:run` i terminalen. Programmet kan testes ved å stå i FinanceVision-mappa og kjøre `mvn test`.
 
+Når man kjører programmet og kommer til innloggingssiden, kan man benytte følgende brukernavn og passord for å slippe å opprette bruker:
+ - Brukernavn: bruker
+ - Passord: Passord123
+
 ## Versjoner
 Prosjektet er testet og kjører for `java 17.0.5` og `maven 3.8.7`.
