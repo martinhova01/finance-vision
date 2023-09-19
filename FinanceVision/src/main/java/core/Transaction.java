@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 public abstract class Transaction {
     private String description;
     private Double amount;
+    private String category;
     private LocalDateTime time;
 
-    public Transaction(String description, Double amount) {
+    public Transaction(String description, Double amount, String category) {
         this.description = description;
         this.amount = amount;
+        this.category = category;
         this.time = LocalDateTime.now();
     }
 
@@ -19,6 +21,10 @@ public abstract class Transaction {
 
     public Double getAmount() {
         return amount;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public LocalDateTime getTime() {
@@ -31,6 +37,10 @@ public abstract class Transaction {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setTime(LocalDateTime time){

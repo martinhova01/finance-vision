@@ -18,7 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
-public class AppController {
+public class AppController extends AbstractController {
 
     @FXML
     private TextField balanceField, transactionDescriptionField, transactionAmountField;
@@ -31,28 +31,30 @@ public class AppController {
     @FXML
     private ChoiceBox<String> categoryList;
 
-
-    //Skal egentlig hente bruker fra innloggingsside, så følgende bruker fjernes når vi får det til.
     private User user;
     private HashMap<String, Double> categoryTransactions = new HashMap<>();
-    private ArrayList<String> categories = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other"));
+    private ArrayList<String> categoryTypes = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other"));
 
     public void setUser(User user) {
         this.user = user;
         this.balanceField.setText(String.valueOf(getAccount().getBalance()));
+        //Bør kanskje flyttes over i egen metode?:
+        for (String category : this.categoryTypes) {
+            Double categorySum = this.getAccount()
+            .getTransactions(transaction -> transaction.getCategory().equals(category))
+            .stream()
+            .mapToDouble(transaction -> transaction.getAmount())
+            .sum();
+            this.categoryTransactions.put(category, categorySum);
+        }
+        updateCategoryView();
     }
 
     @FXML
     private void initialize() {
         this.categoryList.getItems().add("Select category");
-        this.categoryList.getItems().addAll(this.categories);
+        this.categoryList.getItems().addAll(this.categoryTypes);
         this.categoryList.setValue("Select category");
-
-        for (String category : this.categories) {
-            this.categoryTransactions.put(category, 0.0);
-        }
-        updateCategoryView();
-
     }
 
     public User getUser() {
@@ -65,9 +67,8 @@ public class AppController {
 
     @FXML
     private void updateCategoryView() {
-        ArrayList<String> categories = new ArrayList<>(this.categoryTransactions.keySet());
         this.categoryView.getItems().clear();
-        for (String category : categories) {
+        for (String category : this.categoryTypes) {
             this.categoryView.getItems().add(category + ": " + this.categoryTransactions.get(category));
         }
     }
@@ -102,7 +103,7 @@ public class AppController {
         String description = this.transactionDescriptionField.getText();
         String amountString = this.transactionAmountField.getText();
         if (! isNumeric(amountString)) {
-            ExternalMethods.notify("The given amount should only contain digits");
+            notify("The given amount should only contain digits");
         }
         else {
             double amount = Double.parseDouble(amountString);
@@ -137,14 +138,14 @@ public class AppController {
 
     @FXML
     void handleIncome(String description, double amount, String category) {
-        this.getAccount().addTransaction(new Income(description, amount));
+        this.getAccount().addTransaction(new Income(description, amount, category));
         this.incomeView.getItems().add(0, "+ " + amount + "    " + description);
         this.categoryTransactions.put(category, this.categoryTransactions.get(category) + amount);
     }
 
     @FXML
     void handleExpense(String description, double amount, String category) {
-        this.getAccount().addTransaction(new Expense(description, amount));
+        this.getAccount().addTransaction(new Expense(description, amount, category));
         this.expenseView.getItems().add(0, "- " + amount + "    " + description);
         this.categoryTransactions.put(category, this.categoryTransactions.get(category) - amount);
     }

@@ -41,7 +41,8 @@ public class RegisterNewUserController extends AbstractController{
         for (User user : users) {
             if (user.getUsername().equals(username)){
                 //TODO: handle username is taken
-                throw new IllegalArgumentException("Username is taken");
+                //throw new IllegalArgumentException("Username is taken");
+                notify("Username is taken");
             }
         }
 
