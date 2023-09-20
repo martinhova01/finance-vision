@@ -23,8 +23,11 @@ public class User {
 
 
     public void setUsername(String username) {
-        if (username.contains(" ")) {  // må adde username already taken også.
+        if (username.contains(" ")) {
             throw new IllegalArgumentException("username cannot include space");
+        }
+        else if (username.equals("") || username.equals(null)){
+            throw new IllegalArgumentException("username is empty.");
         }
         this.username = username;
     }

@@ -37,10 +37,17 @@ public class RegisterNewUserController extends AbstractController{
         String password = passwordField.getText();
         String fullName = fullNameField.getText();
         String email = emailField.getText();
-        double balance = Double.parseDouble(balanceField.getText());
+        double balance = 0.0;
+        try {
+            balance = Double.parseDouble(balanceField.getText());
+        } catch (Exception e) {
+            notify("balance field is empty or invalid");
+            return;
+        }
         for (User user : users) {
             if (user.getUsername().equals(username)){
                 notify("Username is taken");
+                return;
             }
         }
 
@@ -48,7 +55,8 @@ public class RegisterNewUserController extends AbstractController{
         users.add(new User(username, password, fullName, email, new Account(balance)));
             
         } catch (Exception e) {
-            // TODO: handle exception. invalid input or empty textFields. Check validation in User.java
+            notify(e.getLocalizedMessage());
+            return;
         }
 
         FileSaving.writeToFile(users, "data.txt");

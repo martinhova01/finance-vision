@@ -11,11 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 public class LoginController extends AbstractController{
 
     @FXML
-    private Button loginButton, createUserButton;
+    private Button loginButton, registerUserButton;
     @FXML
     private TextField usernameField;
     @FXML
@@ -26,6 +27,8 @@ public class LoginController extends AbstractController{
     @FXML
     private void initialize() throws IOException {
         users = FileSaving.readFromFile("data.txt");
+        loginButton.setFocusTraversable(false);
+        registerUserButton.setFocusTraversable(false);
     }
 
     @FXML

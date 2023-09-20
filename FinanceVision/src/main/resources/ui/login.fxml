@@ -25,7 +25,7 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <VBox layoutX="262.0" layoutY="148.0" prefHeight="134.0" prefWidth="141.0">
+      <VBox layoutX="262.0" layoutY="148.0" prefHeight="90.0" prefWidth="141.0">
          <children>
             <Label layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="268.0" text="Username">
                <font>
@@ -45,7 +45,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox layoutX="403.0" layoutY="148.0" prefHeight="110.0" prefWidth="161.0">
+      <VBox layoutX="403.0" layoutY="148.0" prefHeight="90.0" prefWidth="161.0">
          <children>
             <TextField fx:id="usernameField" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="141.0">
                <VBox.margin>
