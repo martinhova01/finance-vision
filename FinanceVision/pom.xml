@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>it1901</groupId>
-    <artifactId>packages-template</artifactId>
+    <artifactId>gr3212</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -70,6 +70,26 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -80,11 +100,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-surefire-plugin</artifactId>
 		        <version>3.1.2</version>
-                <configuration>
-                    <argLine>
-                    --add-opens app/core=ALL-UNNAMED --add-opens app/ui=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                    </argLine>
-                </configuration>
+                <!-- <configuration> -->
+                    <!-- <argLine> -->
+                    <!-- add-opens app/core=ALL-UNNAMED add-opens app/ui=ALL-UNNAMED add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED -->
+                    <!-- </argLine> -->
+                <!-- </configuration> -->
+
 	        </plugin>
 
             <plugin>

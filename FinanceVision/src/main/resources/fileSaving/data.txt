@@ -1,1 +1,1 @@
-Markus;123456789;Markus Klund;hei@hot.no;1000.0;i;Panan;Food;200.0;2023-09-19 15:58:23;e;hei;Other;250.0;2023-09-19 15:58:55;i;Faffa;Other;1000.0;2023-09-19 16:28:03;e;brød;Food;50.0;2023-09-19 16:28:46;
+Markus;123456789;Markus Klund;hei@hot.no;1000.0;i;Panan;Food;200.0;2023-09-19 15:58:23;e;hei;Other;250.0;2023-09-19 15:58:55;i;Faffa;Other;1000.0;2023-09-19 16:28:03;e;brï¿½d;Food;50.0;2023-09-19 16:28:46;e;Bukser;Clothes;1000.0;2023-09-19 20:27:40;i;Stipend;Salary;7000.0;2023-09-19 20:28:01;

@@ -24,11 +24,11 @@ public class AppController extends AbstractController {
     @FXML
     private TextField balanceField, transactionDescriptionField, transactionAmountField;
     @FXML
-    private ListView<String> incomeView, expenseView, categoryView;
+    private ListView<String> incomeView, expenseView, incomeCategoryView, expenseCategoryView;
     @FXML
     private RadioButton incomeRadioButton, expenseRadioButton;
     @FXML
-    private Button addTransactionButton;
+    private Button addTransactionButton, logOutButton;
     @FXML
     private ChoiceBox<String> categoryList;
 
@@ -40,8 +40,8 @@ public class AppController extends AbstractController {
     public void setUser(User user) {
         this.user = user;
         this.balanceField.setText(String.valueOf(getAccount().getBalance()));
-        retrieveCategorySum();
-        updateCategoryView();
+        retrieveIncomeAndExpenseCategorySum();
+        updateIncomeAndExpenseCategoryView();
         loadTransactionsFromFile();
     }
 
@@ -52,19 +52,22 @@ public class AppController extends AbstractController {
         }
     }
 
-    private void retrieveCategorySum() {
-        // for (String category : this.categoryTypes) {
-        //     double categorySum = 0;
-        //     for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(category))) {
-        //         if (transaction instanceof Income) {
-        //             categorySum += transaction.getAmount();
-        //         }
-        //         else {
-        //             categorySum -= transaction.getAmount();
-        //         }
-        //     }
-        //     this.categoryTransactions.put(category, categorySum);
-        // }
+    private void retrieveIncomeAndExpenseCategorySum() {
+        //Kan kanskje isteden ha en felles for-løkke som itererer gjennom alle kategoriene samtidig?
+        for (String incomeCategory : this.incomeCategoryTypes) {
+            double incomeCategorySum = 0;
+            for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(incomeCategory))) {
+                incomeCategorySum += transaction.getAmount();
+             }
+             this.categoryTransactions.put(incomeCategory, incomeCategorySum);
+        }
+        for (String expenseCategory : this.expenseCategoryTypes) {
+            double expenseCategorySum = 0;
+            for (Transaction transaction : getAccount().getTransactions(t -> t.getCategory().equals(expenseCategory))) {
+                expenseCategorySum += transaction.getAmount();
+             }
+             this.categoryTransactions.put(expenseCategory, expenseCategorySum);
+        }
     }
 
     @FXML
@@ -82,11 +85,15 @@ public class AppController extends AbstractController {
     }
 
     @FXML
-    private void updateCategoryView() {
-        // this.categoryView.getItems().clear();
-        // for (String category : this.categoryTypes) {
-        //     this.categoryView.getItems().add(category + ": " + this.categoryTransactions.get(category));
-        // }
+    private void updateIncomeAndExpenseCategoryView() {
+        this.incomeCategoryView.getItems().clear();
+        this.expenseCategoryView.getItems().clear();
+        for (String incomeCategory : this.incomeCategoryTypes) {
+            this.incomeCategoryView.getItems().add(incomeCategory + ": " + this.categoryTransactions.get(incomeCategory));
+        }
+        for (String expenseCategory : this.expenseCategoryTypes) {
+            this.expenseCategoryView.getItems().add(expenseCategory + ": " + this.categoryTransactions.get(expenseCategory));
+        }
     }
 
     @FXML
@@ -157,7 +164,7 @@ public class AppController extends AbstractController {
             handleExpense(description, amount, category);
         }
         updateBalanceView();
-        updateCategoryView();
+        updateIncomeAndExpenseCategoryView();
         clearAmountAndDescriptionFields();
         this.addTransactionButton.setDisable(true);
         try {
@@ -183,7 +190,7 @@ public class AppController extends AbstractController {
         Income income = new Income(description, amount, category);
         this.getAccount().addTransaction(income);
         addTransactionToView(income);
-        retrieveCategorySum();
+        retrieveIncomeAndExpenseCategorySum();
     }
 
     @FXML
@@ -191,7 +198,7 @@ public class AppController extends AbstractController {
         Expense expense = new Expense(description, amount, category);
         this.getAccount().addTransaction(expense);
         addTransactionToView(expense);
-        retrieveCategorySum();
+        retrieveIncomeAndExpenseCategorySum();
     }
 
     @FXML
@@ -202,6 +209,11 @@ public class AppController extends AbstractController {
         else {
             this.expenseView.getItems().add(0, "- " + transaction.getAmount() + "    " + transaction.getDescription());
         }
+    }
+
+    @FXML
+    void handleLogOutButton() throws IOException {
+        switchScene("login.fxml");
     }
 
 }

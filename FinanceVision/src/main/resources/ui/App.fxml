@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
    <children>
       <Text layoutX="430.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BALANCE:" wrappingWidth="119.46875">
          <font>
@@ -64,10 +64,14 @@
       <TextField fx:id="transactionDescriptionField" layoutX="63.0" layoutY="412.0" onAction="#updateButton" onKeyTyped="#updateButton" prefHeight="25.0" prefWidth="167.0" promptText="Write short description" />
       <Button fx:id="addTransactionButton" disable="true" layoutX="237.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="41.0" text="ADD" />
       <ChoiceBox fx:id="categoryList" layoutX="128.0" layoutY="344.0" onMouseClicked="#updateButton" prefWidth="150.0" />
-      <ListView fx:id="categoryView" layoutX="550.0" layoutY="122.0" prefHeight="257.0" prefWidth="160.0" />
-      <Text layoutX="535.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST 30 DAYS:" textAlignment="CENTER" wrappingWidth="189.6015625">
+      <ListView fx:id="incomeCategoryView" layoutX="553.0" layoutY="185.0" prefHeight="173.0" prefWidth="119.0" />
+      <Text layoutX="577.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST 30 DAYS:" textAlignment="CENTER" wrappingWidth="189.6015625">
          <font>
             <Font size="18.0" />
          </font></Text>
+      <ListView fx:id="expenseCategoryView" layoutX="672.0" layoutY="185.0" prefHeight="173.0" prefWidth="119.0" />
+      <Text layoutX="585.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" />
+      <Text layoutX="703.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" />
+      <Button fx:id="logOutButton" layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleLogOutButton" text="LOG OUT" />
    </children>
 </AnchorPane>
