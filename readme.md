@@ -11,7 +11,7 @@ Selve programkoden befinner seg inne i src/main/java. Her ligger det tre mapper 
 I src/test/java ligger det to testklasser. [UserTest](FinanceVision/src/test/java/core/UserTest.java) tester [User](FinanceVision/src/main/java/core/User.java)-klassen og [FileSavingTest](FinanceVision/src/test/java/fileSaving/FileSavingTest.java) sjekker om lesing fra og skriving til fil fungerer som det skal.
 
 ## Kjøring og testing
-Prosjektet benytter maven for kjøring. Programmet skal altså kjøre ved å stå i FinanceVision-mappa og skrive `mvn javafx:run` i terminalen. Programmet kan testes ved å stå i FinanceVision-mappa og kjøre `mvn test`.
+Prosjektet benytter maven for kjøring. Programmet skal altså kjøre ved å stå i FinanceVision-mappa og skrive `mvn javafx:run` i terminalen. Programmet kan testes ved å stå i FinanceVision-mappa og kjøre `mvn test`. Etter å ha kjørt testene vil det genereres en JaCoCo-rapport i filen `index.html` i mappen `target/site/jacoco`.
 
 Når man kjører programmet og kommer til innloggingssiden, kan man benytte følgende brukernavn og passord for å slippe å opprette bruker:
  - Brukernavn: bruker
