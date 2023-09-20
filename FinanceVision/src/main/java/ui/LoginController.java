@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.Alert.AlertType;
 
 public class LoginController extends AbstractController{
 
@@ -42,7 +42,7 @@ public class LoginController extends AbstractController{
                 return;
             }
         }
-        notify("Invalid username or password");
+        notify("Invalid username or password", AlertType.WARNING);
 
     }
 

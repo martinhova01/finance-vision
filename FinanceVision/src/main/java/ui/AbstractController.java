@@ -25,9 +25,14 @@ public class AbstractController {
   }
 
   @FXML
-  static void notify(String message) {
-      Alert alert = new Alert(AlertType.WARNING);
-      alert.setTitle("WARNING");
+  static void notify(String message, AlertType type) {
+      Alert alert = new Alert(type);
+      if (type.equals(AlertType.WARNING)) {
+        alert.setTitle("WARNING");
+      }
+      else {
+        alert.setTitle("ERROR");
+      }
       alert.setHeaderText(message);
       alert.showAndWait();
   }

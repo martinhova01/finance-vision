@@ -18,6 +18,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class AppController extends AbstractController {
 
@@ -35,11 +36,12 @@ public class AppController extends AbstractController {
     private User user;
     private HashMap<String, Double> categoryTransactions = new HashMap<>();
     private ArrayList<String> expenseCategoryTypes = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other")); //add more later
-    private ArrayList<String> incomeCategoryTypes = new ArrayList<>(Arrays.asList("Salary", "Gift", "intrests", "Other")); //add more later
+    private ArrayList<String> incomeCategoryTypes = new ArrayList<>(Arrays.asList("Salary", "Gift", "Interests", "Other")); //add more later
 
+    //Setter brukeren, viser total saldo, 
     public void setUser(User user) {
         this.user = user;
-        this.balanceField.setText(String.valueOf(getAccount().getBalance()));
+        updateBalanceView();
         retrieveIncomeAndExpenseCategorySum();
         updateIncomeAndExpenseCategoryView();
         loadTransactionsFromFile();
@@ -52,6 +54,7 @@ public class AppController extends AbstractController {
         }
     }
 
+    //Metode for å hente inn totalsummen for hver kategori, fra kontoen til brukeren til en hashmap (categoryTransactions)
     private void retrieveIncomeAndExpenseCategorySum() {
         //Kan kanskje isteden ha en felles for-løkke som itererer gjennom alle kategoriene samtidig?
         for (String incomeCategory : this.incomeCategoryTypes) {
@@ -84,21 +87,23 @@ public class AppController extends AbstractController {
         return this.user.getAccount();
     }
 
+    //Metode for å oppdatere oversikten over inntekter og utgifter i henhold til kategorien de tilhører
     @FXML
     private void updateIncomeAndExpenseCategoryView() {
         this.incomeCategoryView.getItems().clear();
         this.expenseCategoryView.getItems().clear();
         for (String incomeCategory : this.incomeCategoryTypes) {
-            this.incomeCategoryView.getItems().add(incomeCategory + ": " + this.categoryTransactions.get(incomeCategory));
+            this.incomeCategoryView.getItems().add(incomeCategory + ": " + Math.round(this.categoryTransactions.get(incomeCategory)));
         }
         for (String expenseCategory : this.expenseCategoryTypes) {
-            this.expenseCategoryView.getItems().add(expenseCategory + ": " + this.categoryTransactions.get(expenseCategory));
+            this.expenseCategoryView.getItems().add(expenseCategory + ": " + Math.round(this.categoryTransactions.get(expenseCategory)));
         }
     }
 
+    //Metode for å oppdatere saldo-oversikten
     @FXML
     private void updateBalanceView() {
-        balanceField.setText(String.valueOf(this.user.getAccount().getBalance()));
+        balanceField.setText(String.valueOf(Math.round(this.user.getAccount().getBalance())));
     }
 
     @FXML
@@ -106,16 +111,6 @@ public class AppController extends AbstractController {
         this.transactionAmountField.clear();
         this.transactionDescriptionField.clear();
     }
-
-    // @FXML
-    // void enableButton() {
-    //     if (! this.categoryList.getValue().equals("Select category") && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected())) {
-    //         this.addTransactionButton.setDisable(false);
-    //     }
-    //     else {
-    //         this.addTransactionButton.setDisable(true);
-    //     }
-    // }
 
     @FXML
     void updateButton(){
@@ -152,7 +147,7 @@ public class AppController extends AbstractController {
         String amountString = this.transactionAmountField.getText();
     
         if (! isNumeric(amountString)) {
-            notify("The given amount should only contain digits");
+            notify("The given amount should only contain digits", AlertType.WARNING);
             return;
         }
         double amount = Double.parseDouble(amountString);
@@ -167,22 +162,23 @@ public class AppController extends AbstractController {
         updateIncomeAndExpenseCategoryView();
         clearAmountAndDescriptionFields();
         this.addTransactionButton.setDisable(true);
-        try {
-            saveAccountChanges();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        saveAccountChanges();
     }
 
-    private void saveAccountChanges() throws IOException {
-        List<User> users = FileSaving.readFromFile("data.txt");
-        for (User user : users) {
-            if (user.getUsername().equals(this.user.getUsername())) {
-                users.remove(user);
-                users.add(this.user);
+    // Lagrer endringer til fil
+    private void saveAccountChanges() {
+        try {
+            List<User> users = FileSaving.readFromFile("data.txt");
+            for (User user : users) {
+                if (user.getUsername().equals(this.user.getUsername())) {
+                    users.remove(user);
+                    users.add(this.user);
+                }
             }
+            FileSaving.writeToFile(users, "data.txt");
+        } catch (IOException e) {
+            notify("File not found", AlertType.ERROR);
         }
-        FileSaving.writeToFile(users, "data.txt");
     }
 
     @FXML

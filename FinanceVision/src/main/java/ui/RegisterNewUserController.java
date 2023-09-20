@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class RegisterNewUserController extends AbstractController{
 
@@ -41,12 +42,12 @@ public class RegisterNewUserController extends AbstractController{
         try {
             balance = Double.parseDouble(balanceField.getText());
         } catch (Exception e) {
-            notify("balance field is empty or invalid");
+            notify("balance field is empty or invalid", AlertType.WARNING);
             return;
         }
         for (User user : users) {
             if (user.getUsername().equals(username)){
-                notify("Username is taken");
+                notify("Username is taken", AlertType.WARNING);
                 return;
             }
         }
@@ -55,7 +56,7 @@ public class RegisterNewUserController extends AbstractController{
         users.add(new User(username, password, fullName, email, new Account(balance)));
             
         } catch (Exception e) {
-            notify(e.getLocalizedMessage());
+            notify(e.getLocalizedMessage(), AlertType.WARNING);
             return;
         }
 
