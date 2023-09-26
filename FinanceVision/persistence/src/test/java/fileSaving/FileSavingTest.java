@@ -22,6 +22,7 @@ public class FileSavingTest {
 
   @BeforeEach
   public void setUp() throws IOException{
+
     a1 = new Account(1000);
     a1.addTransaction(new Income("lønn", 500.0, "Food"));
     a1.addTransaction(new Expense("skatt", 200.0, "Food"));

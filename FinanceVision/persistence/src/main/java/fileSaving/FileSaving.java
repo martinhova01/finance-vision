@@ -29,7 +29,7 @@ public class FileSaving {
  */
   public static List<User> readFromFile(String filename) throws IOException{
 
-    InputStream is = new FileInputStream(new File("src/main/resources/fileSaving/" + filename));
+    InputStream is = new FileInputStream(new File("../persistence/src/main/resources/fileSaving/" + filename)); //the app is run from financeVision/ui
     BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
     List<User> result = new ArrayList<>();
@@ -87,7 +87,7 @@ public class FileSaving {
    * @throws IOException if the file is not found
    */
   public static void writeToFile(List<User> users, String filename) throws IOException{
-    FileWriter fileWriter = new FileWriter(new File("src/main/resources/fileSaving/" + filename));
+    FileWriter fileWriter = new FileWriter(new File("../persistence/src/main/resources/fileSaving/" + filename)); //the app is run from financeVision/ui
         String data = "";
         for (User u : users) {
           data += u.getUsername() + ";" + u.getPassword() + ";" + u.getFullName() + ";" + u.getEmail() + ";" + u.getAccount().getStartValue() + ";";
@@ -110,20 +110,4 @@ public class FileSaving {
         fileWriter.close();
   }
 
-
-  // public static void main(String[] args) {
-  //   Account a = new Account(1000);
-  //   a.addTransaction(new Income("lonn", 500.0));
-  //   a.addTransaction(new Expense("skatt", 200.0));
-  //   User u = new User("martinhova", "heiheihei", "martin hova ", "martirho@stud.ntnu.no", a);
-  //   Collection<User> users = new ArrayList<>();
-  //   users.add(u);
-
-  //   try {
-  //     writeToFile(users, "data.txt");
-
-  //   } catch (IOException e) {
-  //     e.printStackTrace();
-  //   }
-  // }
 }
