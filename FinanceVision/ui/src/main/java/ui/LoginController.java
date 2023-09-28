@@ -6,8 +6,6 @@ import java.util.List;
 import core.User;
 import fileSaving.FileSaving;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

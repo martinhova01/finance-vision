@@ -27,16 +27,7 @@ public class AddTransactionController extends AbstractController {
     @FXML
     private DatePicker datePicker;
 
-    @FXML
-    void updateButton(){
-        
-        if (categoryList.getValue() != null && datePicker.getValue() != null && (incomeRadioButton.isSelected() || expenseRadioButton.isSelected()) && !amountField.getText().equals("") && !descriptionField.getText().equals("")){
-            this.addTransactionButton.setDisable(false);
-        }
-        else{
-            this.addTransactionButton.setDisable(true);
-        }
-    }
+    
     @FXML
     void handleRbtnClicked(){
 
@@ -73,7 +64,9 @@ public class AddTransactionController extends AbstractController {
 
         }
         catch(Exception e){
-            notify(e.getLocalizedMessage(), AlertType.WARNING);
+            //TODO: tell the user which field is invalid or empty
+            notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
+            return;
         }
 
         switchScene("App.fxml", user);

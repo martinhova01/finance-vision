@@ -30,7 +30,7 @@
          <font>
             <Font size="24.0" />
          </font></RadioButton>
-      <Button fx:id="addTransactionButton" disable="true" layoutX="262.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="281.0" text="ADD">
+      <Button fx:id="addTransactionButton" layoutX="262.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="281.0" text="ADD">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -79,7 +79,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TextField>
-            <ChoiceBox fx:id="categoryList" onMouseClicked="#updateButton" prefHeight="35.0" prefWidth="230.0">
+            <ChoiceBox fx:id="categoryList" prefHeight="35.0" prefWidth="230.0">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>

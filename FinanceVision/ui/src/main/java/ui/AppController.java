@@ -1,21 +1,17 @@
 package ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+// import java.util.HashMap;
 import java.util.List;
 
 import core.Account;
 import core.Income;
 import core.Transaction;
 import core.User;
-import fileSaving.FileSaving;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 public class AppController extends AbstractController {
 
@@ -26,8 +22,7 @@ public class AppController extends AbstractController {
     @FXML
     private Button addTransactionButton, logOutButton;
 
-    private User user;
-    private HashMap<String, Double> categoryTransactions = new HashMap<>();
+    // private HashMap<String, Double> categoryTransactions = new HashMap<>();
 
     //Setter brukeren
     @Override
@@ -103,29 +98,6 @@ public class AppController extends AbstractController {
     @FXML
     private void updateBalanceView() {
         balanceField.setText(String.valueOf(Math.round(this.user.getAccount().getBalance())));
-    }
-
-
-
-
-    
-
-    
-
-    // Lagrer endringer til fil
-    private void saveAccountChanges() {
-        try {
-            List<User> users = FileSaving.readFromFile("data.txt");
-            for (User user : users) {
-                if (user.getUsername().equals(this.user.getUsername())) {
-                    users.remove(user);
-                    users.add(this.user);
-                }
-            }
-            FileSaving.writeToFile(users, "data.txt");
-        } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
-        }
     }
 
 
