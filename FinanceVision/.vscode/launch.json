@@ -8,6 +8,13 @@
             "type": "java",
             "name": "FileSaving",
             "request": "launch",
+            "mainClass": "persistence/fileSaving.FileSaving",
+            "projectName": "persistence"
+        },
+        {
+            "type": "java",
+            "name": "FileSaving",
+            "request": "launch",
             "mainClass": "app/fileSaving.FileSaving",
             "projectName": "packages-template"
         },

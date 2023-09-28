@@ -3,7 +3,6 @@ package fileSaving;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,6 +16,8 @@ import core.Expense;
 import core.Income;
 import core.Transaction;
 import core.User;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FileSaving {
 
@@ -87,27 +88,27 @@ public class FileSaving {
    * @throws IOException if the file is not found
    */
   public static void writeToFile(List<User> users, String filename) throws IOException{
-    FileWriter fileWriter = new FileWriter(new File("../persistence/src/main/resources/fileSaving/" + filename)); //the app is run from financeVision/ui
-        String data = "";
-        for (User u : users) {
-          data += u.getUsername() + ";" + u.getPassword() + ";" + u.getFullName() + ";" + u.getEmail() + ";" + u.getAccount().getStartValue() + ";";
 
-          for (Transaction t : u.getAccount().getTransactions()){
-            if (t instanceof Income){
-              data += "i;";
-            }
-            else{
-              data += "e;";
-            }
-            data += t.getDescription() + ";" + t.getCategory() + ";" + t.getAmount() + ";" + t.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + ";";
-
-          }
-
-          data += "\n";
-
-        }
-        fileWriter.write(data);
-        fileWriter.close();
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      objectMapper.writeValue(new File("persistence\\src\\main\\resources\\fileSaving\\" + filename), users);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
+
+  public static void main(String[] args){
+
+    User u1 = new User("martinhova", "password", "Martin Høva", "martirho@stud.ntnu.no", new Account(1000));
+    User u2 = new User("doejohn", "agreatPassword!", "John Doe", "johndoe@example.com", new Account(2500));
+    List<User> users = new ArrayList<>(List.of(u1, u2));
+    try {
+      writeToFile(users, "users.json");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+	
+	}
 
 }
