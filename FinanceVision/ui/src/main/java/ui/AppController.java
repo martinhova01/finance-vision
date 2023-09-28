@@ -18,9 +18,9 @@ public class AppController extends AbstractController {
     @FXML
     private TextField balanceField;
     @FXML
-    private ListView<String> incomeView, expenseView, incomeCategoryView, expenseCategoryView;
+    private ListView<String> incomeView, expenseView;
     @FXML
-    private Button addTransactionButton, logOutButton;
+    private Button addTransactionButton, logOutButton, budgetButton;
 
     // private HashMap<String, Double> categoryTransactions = new HashMap<>();
 
@@ -119,6 +119,11 @@ public class AppController extends AbstractController {
     @FXML
     void handleAddTransactionButton() throws IOException {
         switchScene("addTransaction.fxml", user);
+    }
+
+    @FXML
+    void handleBudgetButton() throws IOException{
+        switchScene("budget.fxml", user);
     }
 
     
