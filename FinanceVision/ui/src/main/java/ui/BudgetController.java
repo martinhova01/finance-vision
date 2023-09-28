@@ -183,6 +183,9 @@ public class BudgetController extends AbstractController {
       if(user.getBudget() == null){
         limit = null;
       }
+      else if(!user.getBudget().getCategories().contains(category)){
+        limit = null;
+      }
       else{
         limit = user.getBudget().getLimit(category);
       }
