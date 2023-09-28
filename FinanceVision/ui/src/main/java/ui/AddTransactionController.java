@@ -61,6 +61,7 @@ public class AddTransactionController extends AbstractController {
                 t = new Expense(description, amount, category, time);
             }
             user.getAccount().addTransaction(t);
+            saveToFile();
 
         }
         catch(Exception e){
