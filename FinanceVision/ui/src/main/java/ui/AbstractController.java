@@ -37,6 +37,10 @@ public abstract class AbstractController {
     this.user = user;
   }
 
+  public void setScene(Scene scene){
+    this.scene = scene;
+  }
+
 
   /**
    * Switches scene to a new fxml file and keeps the cuurent user logged in
@@ -54,6 +58,7 @@ public abstract class AbstractController {
         stage.show();
 
         AbstractController controller = loader.getController();
+        controller.setScene(scene);
         controller.setUser(user);
   }
 

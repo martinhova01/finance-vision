@@ -75,6 +75,6 @@ public class AddTransactionController extends AbstractController {
 
     @FXML
     void handleBack() throws IOException{
-        switchScene("App.fxml");
+        switchScene("App.fxml", user);
     }
 }
