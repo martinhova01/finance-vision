@@ -1,1 +1,30 @@
-[{"username":"martinhova","password":"password","fullName":"Martin Høva","email":"martirho@stud.ntnu.no","account":{"startValue":1000.0,"transactions":[{"description":"mat","amount":100.0,"category":"food","time":"2023-09-29 18:11:30"}]}},{"username":"doejohn","password":"agreatPassword!","fullName":"John Doe","email":"johndoe@example.com","account":{"startValue":2500.0,"transactions":[]}}]
+[
+  {
+    "username": "martinhova",
+    "password": "password",
+    "fullName": "Martin Høva",
+    "email": "martirho@stud.ntnu.no",
+    "account": {
+      "startValue": 1000.0,
+      "transactions": [
+        {
+          "type": "income",
+          "description": "mat",
+          "amount": 100.0,
+          "category": "food",
+          "date": "2023-09-29 21:35:17"
+        }
+      ]
+    }
+  },
+  {
+    "username": "doejohn",
+    "password": "agreatPassword!",
+    "fullName": "John Doe",
+    "email": "johndoe@example.com",
+    "account": {
+      "startValue": 2500.0,
+      "transactions": []
+    }
+  }
+]

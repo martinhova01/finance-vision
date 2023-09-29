@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 
 import core.Account;
 import core.Income;
+import core.Transaction;
 import core.User;
 
 public class JsonFileSaving {
@@ -24,7 +25,11 @@ public class JsonFileSaving {
   public static void serializeUsers(List<User> users, String filename) throws JsonIOException, IOException {
     PrintWriter writer = new PrintWriter(new File(JSON_FILE_PATH + filename));
     
-    Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new TimeAdapter()).create();
+    Gson gson = new GsonBuilder()
+    .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
+    .registerTypeAdapter(Transaction.class, new TransactionAdapter())
+    .setPrettyPrinting()
+    .create();
     //gson.toJson(users, new FileWriter(new File(JSON_FILE_PATH + filename)));
     String jsonString = gson.toJson(users);
     System.out.println(jsonString);
@@ -33,7 +38,10 @@ public class JsonFileSaving {
   }
 
   public static List<User> deserializeUsers(String filename) throws FileNotFoundException {
-    Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new TimeAdapter()).create();
+    Gson gson = new GsonBuilder()
+    .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
+    .registerTypeAdapter(Transaction.class, new TransactionAdapter())
+    .create();
     FileReader reader = new FileReader(new File(JSON_FILE_PATH + filename));
     List<User> users = gson.fromJson(reader, new TypeToken<ArrayList<User>>(){}.getType());
     return users;
