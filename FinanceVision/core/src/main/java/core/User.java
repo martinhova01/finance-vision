@@ -1,5 +1,6 @@
 package core;
 
+
 public class User {
     private String username;
     private String password;
@@ -7,13 +8,16 @@ public class User {
     private String email;
     private Account account;
 
-
     public User(String username, String password, String fullName, String email, Account account) {
         setUsername(username);
         setPassword(password);
         setFullName(fullName);
         setEmail(email);
         this.account = account;
+    }
+
+    public User() {
+        
     }
 
 

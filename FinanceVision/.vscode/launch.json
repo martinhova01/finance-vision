@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JsonFileHandler",
+            "request": "launch",
+            "mainClass": "persistence/fileSaving.JsonFileHandler",
+            "projectName": "persistence"
+        },
+        {
+            "type": "java",
             "name": "JsonFileSaving",
             "request": "launch",
             "mainClass": "persistence/fileSaving.JsonFileSaving",
