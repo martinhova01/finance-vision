@@ -6,8 +6,6 @@ import java.util.List;
 import core.User;
 import fileSaving.FileSaving;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -38,7 +36,7 @@ public class LoginController extends AbstractController{
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 System.out.println("Login successful");
-                login(user);
+                switchScene("App.fxml", user);
                 return;
             }
         }
@@ -46,19 +44,7 @@ public class LoginController extends AbstractController{
 
     }
 
-    private void login(User user) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
-        root = loader.load();
-        
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        
-            //gets the controller for the main scene and sets the user that is logged in
-        AppController controller = loader.getController();
-        controller.setUser(user);
-
-    }
+    
 
     @FXML
     void handleRegisterUser() throws IOException{
