@@ -21,6 +21,10 @@ public abstract class Transaction {
         setTime(time);
     }
 
+    public Transaction() {
+        
+    }
+
 
     public String getDescription() {
         return description;

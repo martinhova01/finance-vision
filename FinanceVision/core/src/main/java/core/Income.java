@@ -11,5 +11,9 @@ public class Income extends Transaction{
     public Income(String description, double amount, String category, LocalDateTime time){
         super(description, amount, category, time);
     }
+
+    public Income() {
+        
+    }
     
 }

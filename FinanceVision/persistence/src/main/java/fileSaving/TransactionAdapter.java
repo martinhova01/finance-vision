@@ -20,10 +20,8 @@ public class TransactionAdapter extends TypeAdapter<Transaction> {
     out.beginObject();
     if (transaction instanceof Income) {
         out.name("type").value("income");
-        // Additional properties for income...
     } else if (transaction instanceof Expense) {
         out.name("type").value("expense");
-        // Additional properties for expense...
     }
     out.name("description").value(transaction.getDescription());
     out.name("amount").value(transaction.getAmount());
@@ -40,32 +38,26 @@ public class TransactionAdapter extends TypeAdapter<Transaction> {
     }
     in.beginObject();
     in.nextName();
+    Transaction transaction;
     if (in.nextString().equals("income")) {
-      in.nextName();
-      String description = in.nextString();
-      in.nextName();
-      double amount = Double.parseDouble(in.nextString());
-      in.nextName();
-      String category = in.nextString();
-      in.nextName();
-      in.nextString();
-      //LocalDateTime date = LocalDateTime.parse(in.nextName(), formatter);
-      in.endObject();
-      return new Income(description, amount, category);
-
+      transaction = new Income();
     } else {
+      transaction = new Expense();
+    }
       in.nextName();
       String description = in.nextString();
+      transaction.setDescription(description);
       in.nextName();
       double amount = Double.parseDouble(in.nextString());
+      transaction.setAmount(amount);
       in.nextName();
       String category = in.nextString();
+      transaction.setCategory(category);
       in.nextName();
-      in.nextString();
-      //LocalDateTime date = LocalDateTime.parse(in.nextName(), formatter);
+      LocalDateTime date = LocalDateTime.parse(in.nextString(), formatter);
+      transaction.setTime(date);
       in.endObject();
-      return new Expense(description, amount, category);
-    }
+      return transaction;
   }
   
 }

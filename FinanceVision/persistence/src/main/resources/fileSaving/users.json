@@ -12,7 +12,14 @@
           "description": "mat",
           "amount": 100.0,
           "category": "food",
-          "date": "2023-09-30 08:53:43"
+          "date": "2023-09-30 09:18:03"
+        },
+        {
+          "type": "expense",
+          "description": "leie",
+          "amount": 5500.0,
+          "category": "Rent",
+          "date": "2023-09-30 09:18:03"
         }
       ]
     }
@@ -24,7 +31,22 @@
     "email": "johndoe@example.com",
     "account": {
       "startValue": 2500.0,
-      "transactions": []
+      "transactions": [
+        {
+          "type": "expense",
+          "description": "klaer",
+          "amount": 350.0,
+          "category": "Other",
+          "date": "2023-09-30 09:18:03"
+        },
+        {
+          "type": "income",
+          "description": "mat",
+          "amount": 25.0,
+          "category": "food",
+          "date": "2023-09-30 09:18:03"
+        }
+      ]
     }
   }
 ]

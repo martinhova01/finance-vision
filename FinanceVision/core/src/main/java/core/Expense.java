@@ -11,4 +11,8 @@ public class Expense extends Transaction {
     public Expense(String description, double amount, String category, LocalDateTime time){
         super(description, amount, category, time);
     }
+
+    public Expense() {
+        
+    }
 }
