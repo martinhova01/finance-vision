@@ -1,5 +1,8 @@
 package core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class User {
     private String username;
@@ -7,6 +10,12 @@ public class User {
     private String fullName;
     private String email;
     private Account account;
+    private Budget budget;
+
+
+    public static final List<String> defaultExpenseCategories = new ArrayList<>(Arrays.asList("Food", "Clothes", "Housing", "Other")); //add more later
+    public static final List<String> defaultIncomeCategories = new ArrayList<>(Arrays.asList("Salary", "Gift", "Interests", "Other")); //add more later
+
 
     public User(String username, String password, String fullName, String email, Account account) {
         setUsername(username);
@@ -14,6 +23,7 @@ public class User {
         setFullName(fullName);
         setEmail(email);
         this.account = account;
+        this.budget = null;
     }
 
     public User() {
@@ -86,9 +96,15 @@ public class User {
         this.account = account; 
     }
 
-    
 
-    
+    public Budget getBudget() {
+        return budget;
+    }
 
+
+    public void setBudget(Budget budget) {
+        this.budget = budget;
+    }
     
 }
+

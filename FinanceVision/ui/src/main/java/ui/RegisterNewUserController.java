@@ -70,4 +70,5 @@ public class RegisterNewUserController extends AbstractController{
         switchScene("login.fxml");
     }
 
+
 }
