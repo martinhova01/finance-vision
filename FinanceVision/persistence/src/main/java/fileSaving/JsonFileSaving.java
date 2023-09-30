@@ -22,6 +22,7 @@ import core.User;
 
 public class JsonFileSaving {
   private static final String JSON_FILE_PATH = "persistence\\src\\main\\resources\\fileSaving\\";
+  //private static final String JSON_FILE_PATH = "FinanceVision\\persistence\\src\\main\\resources\\fileSaving\\";
 
   public static void serializeUsers(List<User> users, String filename) throws JsonIOException, IOException {
     PrintWriter writer = new PrintWriter(new File(JSON_FILE_PATH + filename));
@@ -60,8 +61,8 @@ public class JsonFileSaving {
 
     List<User> users = new ArrayList<>(List.of(u1, u2));
     try {
-    serializeUsers(users, "users.json");
-    List<User> readUsers = deserializeUsers("users.json");
+    serializeUsers(users, "testdata.json");
+    List<User> readUsers = deserializeUsers("testdata.json");
     for (User user : readUsers) {
         System.err.println(user.getUsername());
     }

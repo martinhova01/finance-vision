@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "ui/ui.App",
+            "projectName": "ui"
+        },
+        {
+            "type": "java",
+            "name": "JsonFileSavingTest",
+            "request": "launch",
+            "mainClass": "persistence/fileSaving.JsonFileSavingTest",
+            "projectName": "persistence"
+        },
+        {
+            "type": "java",
             "name": "JsonFileHandler",
             "request": "launch",
             "mainClass": "persistence/fileSaving.JsonFileHandler",
