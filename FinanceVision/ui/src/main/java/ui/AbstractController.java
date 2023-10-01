@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public abstract class AbstractController {
   public void saveToFile(){
     try {
             //List<User> users = FileSaving.readFromFile("data.txt");
-            List<User> users = JsonFileSaving.deserializeUsers("data.json");
+            List<User> users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/testdata.json"));
             for (User user : users) {
                 if (user.getUsername().equals(this.user.getUsername())) {
                     users.remove(user);
@@ -97,7 +98,7 @@ public abstract class AbstractController {
                 }
             }
             //FileSaving.writeToFile(users, "data.txt");
-            JsonFileSaving.serializeUsers(users, "data.json");
+            JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/testdata.json"));
         } catch (IOException e) {
             notify("File not found", AlertType.ERROR);
         }
