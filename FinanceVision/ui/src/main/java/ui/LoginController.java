@@ -25,7 +25,6 @@ public class LoginController extends AbstractController{
 
     @FXML
     private void initialize() throws IOException {
-        //users = FileSaving.readFromFile("data.txt");
         users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/testdata.json"));
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);

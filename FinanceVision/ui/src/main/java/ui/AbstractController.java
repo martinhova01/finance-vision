@@ -44,7 +44,7 @@ public abstract class AbstractController {
 
 
   /**
-   * Switches scene to a new fxml file and keeps the cuurent user logged in
+   * Switches scene to a new fxml file and keeps the curent user logged in
    * 
    * @param fxmlFileName the fxml file to switch to
    * @param user the current user logged in
@@ -84,12 +84,11 @@ public abstract class AbstractController {
 
 
   /**
-   * Saves updates done to the current user to the file data.txt
+   * Saves updates done to the current user to the file data.json
    * 
    */
   public void saveToFile(){
     try {
-            //List<User> users = FileSaving.readFromFile("data.txt");
             List<User> users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/testdata.json"));
             for (User user : users) {
                 if (user.getUsername().equals(this.user.getUsername())) {
@@ -97,7 +96,6 @@ public abstract class AbstractController {
                     users.add(this.user);
                 }
             }
-            //FileSaving.writeToFile(users, "data.txt");
             JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/testdata.json"));
         } catch (IOException e) {
             notify("File not found", AlertType.ERROR);

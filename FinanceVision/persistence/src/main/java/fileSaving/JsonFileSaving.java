@@ -20,9 +20,6 @@ import core.Transaction;
 import core.User;
 
 public class JsonFileSaving {
-  // private static final String JSON_FILE_PATH = "persistence\\src\\main\\resources\\fileSaving\\";
-  // private static final String JSON_FILE_PATH = "../persistence/src/main/resources/fileSaving/";
-
 
   public static void serializeUsers(List<User> users, File f) throws IOException {
     FileWriter writer = new FileWriter(f);
@@ -32,8 +29,6 @@ public class JsonFileSaving {
     .registerTypeAdapter(Transaction.class, new TransactionAdapter())
     .setPrettyPrinting()
     .create();
-    String jsonString = gson.toJson(users);
-    System.out.println(jsonString);
     writer.write(gson.toJson(users));
     writer.close();
   }
