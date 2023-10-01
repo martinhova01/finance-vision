@@ -3,8 +3,8 @@ package fileSaving;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,12 @@ import core.Transaction;
 import core.User;
 
 public class JsonFileSaving {
-  private static final String JSON_FILE_PATH = "persistence\\src\\main\\resources\\fileSaving\\";
-  //private static final String JSON_FILE_PATH = "..\\persistence\\src\\main\\resources\\fileSaving\\";
+  // private static final String JSON_FILE_PATH = "persistence\\src\\main\\resources\\fileSaving\\";
+  // private static final String JSON_FILE_PATH = "../persistence/src/main/resources/fileSaving/";
 
 
-  public static void serializeUsers(List<User> users, String filename) throws IOException {
-    PrintWriter writer = new PrintWriter(new File(JSON_FILE_PATH + filename));
+  public static void serializeUsers(List<User> users, File f) throws IOException {
+    FileWriter writer = new FileWriter(f);
     
     Gson gson = new GsonBuilder()
     .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
@@ -38,12 +38,12 @@ public class JsonFileSaving {
     writer.close();
   }
 
-  public static List<User> deserializeUsers(String filename) throws FileNotFoundException {
+  public static List<User> deserializeUsers(File f) throws FileNotFoundException {
     Gson gson = new GsonBuilder()
     .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
     .registerTypeAdapter(Transaction.class, new TransactionAdapter())
     .create();
-    FileReader reader = new FileReader(new File(JSON_FILE_PATH + filename));
+    FileReader reader = new FileReader(f);
     List<User> users = gson.fromJson(reader, new TypeToken<ArrayList<User>>(){}.getType());
     return users;
   } 
@@ -60,8 +60,9 @@ public class JsonFileSaving {
 
     List<User> users = new ArrayList<>(List.of(u1, u2));
     try {
-    serializeUsers(users, "testdata.json");
-    List<User> readUsers = deserializeUsers("testdata.json");
+    File f = new File(System.getProperty("user.home") + "/data.txt");
+    serializeUsers(users, f);
+    List<User> readUsers = deserializeUsers(f);
     for (User user : readUsers) {
         System.err.println(user.getUsername());
     }

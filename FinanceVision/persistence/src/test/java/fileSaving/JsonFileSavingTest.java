@@ -3,6 +3,7 @@ package fileSaving;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,10 @@ public class JsonFileSavingTest {
     users.add(u1);
     users.add(u2);
 
-    JsonFileSaving.serializeUsers(users, "testdata.json");
+    File f = new File(System.getProperty("user.home") + "/testdata.json");
+    JsonFileSaving.serializeUsers(users, f);
 
-    List<User> readUsers = JsonFileSaving.deserializeUsers("testdata.json");
+    List<User> readUsers = JsonFileSaving.deserializeUsers(f);
 
     u1Read = readUsers.get(0);
     u2Read = readUsers.get(1);
@@ -79,25 +81,25 @@ public class JsonFileSavingTest {
     assertEquals(u2.getAccount().getIncomes().get(0).getDescription(), u2Read.getAccount().getIncomes().get(0).getDescription());
   }
 
-  public static void main(String[] args){
+  // public static void main(String[] args){
 
-    User u1 = new User("martinhova", "password", "Martin Høva", "martirho@stud.ntnu.no", new Account(1000));
-    User u2 = new User("doejohn", "agreatPassword!", "John Doe", "johndoe@example.com", new Account(2500));
-    u1.getAccount().addTransaction(new Income("mat", 100.0, "food"));
-    u2.getAccount().addTransaction(new Expense("klaer", 350.0, "Other"));
-    u2.getAccount().addTransaction(new Income("mat", 25.0, "food"));
-    u1.getAccount().addTransaction(new Expense("leie", 5500.0, "Rent"));
+  //   User u1 = new User("martinhova", "password", "Martin Høva", "martirho@stud.ntnu.no", new Account(1000));
+  //   User u2 = new User("doejohn", "agreatPassword!", "John Doe", "johndoe@example.com", new Account(2500));
+  //   u1.getAccount().addTransaction(new Income("mat", 100.0, "food"));
+  //   u2.getAccount().addTransaction(new Expense("klaer", 350.0, "Other"));
+  //   u2.getAccount().addTransaction(new Income("mat", 25.0, "food"));
+  //   u1.getAccount().addTransaction(new Expense("leie", 5500.0, "Rent"));
 
-    List<User> users = new ArrayList<>(List.of(u1, u2));
-    try {
-    JsonFileSaving.serializeUsers(users, "testdata.json");
-    List<User> readUsers = JsonFileSaving.deserializeUsers("testdata.json");
-    for (User user : readUsers) {
-        System.err.println(user.getUsername());
-    }
-    } catch (Exception e) {
-    e.printStackTrace();
-    System.out.println("Feil");
-    }
-	}
+  //   List<User> users = new ArrayList<>(List.of(u1, u2));
+  //   try {
+  //   JsonFileSaving.serializeUsers(users, "testdata.json");
+  //   List<User> readUsers = JsonFileSaving.deserializeUsers("testdata.json");
+  //   for (User user : readUsers) {
+  //       System.err.println(user.getUsername());
+  //   }
+  //   } catch (Exception e) {
+  //   e.printStackTrace();
+  //   System.out.println("Feil");
+  //   }
+	// }
 }
