@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 
 import core.Account;
@@ -22,9 +21,10 @@ import core.User;
 
 public class JsonFileSaving {
   private static final String JSON_FILE_PATH = "persistence\\src\\main\\resources\\fileSaving\\";
-  //private static final String JSON_FILE_PATH = "FinanceVision\\persistence\\src\\main\\resources\\fileSaving\\";
+  //private static final String JSON_FILE_PATH = "..\\persistence\\src\\main\\resources\\fileSaving\\";
 
-  public static void serializeUsers(List<User> users, String filename) throws JsonIOException, IOException {
+
+  public static void serializeUsers(List<User> users, String filename) throws IOException {
     PrintWriter writer = new PrintWriter(new File(JSON_FILE_PATH + filename));
     
     Gson gson = new GsonBuilder()
@@ -32,7 +32,6 @@ public class JsonFileSaving {
     .registerTypeAdapter(Transaction.class, new TransactionAdapter())
     .setPrettyPrinting()
     .create();
-    //gson.toJson(users, new FileWriter(new File(JSON_FILE_PATH + filename)));
     String jsonString = gson.toJson(users);
     System.out.println(jsonString);
     writer.write(gson.toJson(users));

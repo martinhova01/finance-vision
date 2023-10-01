@@ -48,5 +48,23 @@
         }
       ]
     }
+  },
+  {
+    "username": "Marstar",
+    "password": "123456789",
+    "fullName": "Markus Klund",
+    "email": "markus.klund@hotmail.com",
+    "account": {
+      "startValue": 1000.0,
+      "transactions": [
+        {
+          "type": "expense",
+          "description": "Mat",
+          "amount": 200.0,
+          "category": "Food",
+          "date": "2023-10-01 00:00:00"
+        }
+      ]
+    }
   }
 ]

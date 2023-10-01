@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import core.User;
-import fileSaving.FileSaving;
+import fileSaving.JsonFileSaving;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -88,14 +88,16 @@ public abstract class AbstractController {
    */
   public void saveToFile(){
     try {
-            List<User> users = FileSaving.readFromFile("data.txt");
+            //List<User> users = FileSaving.readFromFile("data.txt");
+            List<User> users = JsonFileSaving.deserializeUsers("data.json");
             for (User user : users) {
                 if (user.getUsername().equals(this.user.getUsername())) {
                     users.remove(user);
                     users.add(this.user);
                 }
             }
-            FileSaving.writeToFile(users, "data.txt");
+            //FileSaving.writeToFile(users, "data.txt");
+            JsonFileSaving.serializeUsers(users, "data.json");
         } catch (IOException e) {
             notify("File not found", AlertType.ERROR);
         }
