@@ -26,6 +26,10 @@ public class User {
         this.budget = null;
     }
 
+    public User() {
+        
+    }
+
 
     public String getUsername() {
         return username;
@@ -103,3 +107,4 @@ public class User {
     }
     
 }
+

@@ -1,10 +1,11 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import core.User;
-import fileSaving.FileSaving;
+import fileSaving.JsonFileSaving;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -24,7 +25,7 @@ public class LoginController extends AbstractController{
 
     @FXML
     private void initialize() throws IOException {
-        users = FileSaving.readFromFile("data.txt");
+        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
     }

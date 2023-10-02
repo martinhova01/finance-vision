@@ -1,11 +1,12 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import core.Account;
 import core.User;
-import fileSaving.FileSaving;
+import fileSaving.JsonFileSaving;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -28,7 +29,8 @@ public class RegisterNewUserController extends AbstractController{
 
     @FXML
     private void initialize() throws IOException {
-        users = FileSaving.readFromFile("data.txt");
+        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
+
     }
   
 
@@ -60,7 +62,7 @@ public class RegisterNewUserController extends AbstractController{
             return;
         }
 
-        FileSaving.writeToFile(users, "data.txt");
+        JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/data.json"));
 
         switchScene("login.fxml");
     }
