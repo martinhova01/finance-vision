@@ -89,14 +89,13 @@ public abstract class AbstractController {
    */
   public void saveToFile(){
     try {
-            List<User> users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/testdata.json"));
-            for (User user : users) {
-                if (user.getUsername().equals(this.user.getUsername())) {
-                    users.remove(user);
-                    users.add(this.user);
-                }
+            List<User> users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
+            for (int i = 0; i < users.size(); i++) {
+              if (users.get(i).getUsername().equals(this.user.getUsername())) {
+                users.set(i, this.user);
+              }
             }
-            JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/testdata.json"));
+            JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/data.json"));
         } catch (IOException e) {
             notify("File not found", AlertType.ERROR);
         }

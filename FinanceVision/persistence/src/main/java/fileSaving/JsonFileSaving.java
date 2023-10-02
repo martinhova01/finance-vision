@@ -55,7 +55,7 @@ public class JsonFileSaving {
 
     List<User> users = new ArrayList<>(List.of(u1, u2));
     try {
-    File f = new File(System.getProperty("user.home") + "/data.txt");
+    File f = new File(System.getProperty("user.home") + "/data.json");
     serializeUsers(users, f);
     List<User> readUsers = deserializeUsers(f);
     for (User user : readUsers) {

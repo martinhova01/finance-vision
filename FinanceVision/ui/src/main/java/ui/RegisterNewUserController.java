@@ -29,7 +29,7 @@ public class RegisterNewUserController extends AbstractController{
 
     @FXML
     private void initialize() throws IOException {
-        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/testdata.json"));
+        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
 
     }
   
@@ -62,7 +62,7 @@ public class RegisterNewUserController extends AbstractController{
             return;
         }
 
-        JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/testdata.json"));
+        JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/data.json"));
 
         switchScene("login.fxml");
     }
