@@ -1,4 +1,4 @@
-<!-- <FindBugsFilter>
+<FindBugsFilter>
     <Match>
         <Bug pattern="SA_LOCAL_SELF_COMPARISON" />
     </Match>
@@ -8,4 +8,8 @@
     <Match>
         <Bug pattern="EI_EXPOSE_REP2" />
     </Match>
-</FindBugsFilter> -->
+        <!-- controllers extending AbstractController -->
+    <Match>
+        <Bug pattern=" UI_INHERITANCE_UNSAFE_GETRESOURCE"/>
+    </Match>
+</FindBugsFilter>

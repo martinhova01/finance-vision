@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  */
 public abstract class AbstractController {
 
-    protected Stage stage = App.getPrimaryStage();
+    protected Stage stage;
     protected Scene scene;
     protected Parent root;
     protected User user;
@@ -40,6 +40,7 @@ public abstract class AbstractController {
         this.stage = stage;
     }
 
+
     /**
      * Switches scene to a new fxml file.
      *
@@ -48,10 +49,14 @@ public abstract class AbstractController {
      */
     public void switchScene(String fxmlFileName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        root = loader.load();
-        scene = new Scene(root);
+        Parent root = loader.load();
+        
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        AbstractController controller = loader.getController();
+        controller.setStage(stage);
     }
 
     /**
@@ -70,6 +75,7 @@ public abstract class AbstractController {
         stage.show();
 
         AbstractController controller = loader.getController();
+        controller.setStage(stage);
         controller.setScene(scene);
         controller.setUser(user);
     }
@@ -93,6 +99,7 @@ public abstract class AbstractController {
         stage.show();
 
         AbstractController controller = loader.getController();
+        controller.setStage(stage);
         controller.setScene(scene);
         controller.setUser(user);
         controller.setTransaction(transaction);

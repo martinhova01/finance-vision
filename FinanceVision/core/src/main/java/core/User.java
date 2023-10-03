@@ -59,7 +59,7 @@ public class User {
     public void setUsername(String username) {
         if (username.contains(" ")) {
             throw new IllegalArgumentException("username cannot include space");
-        } else if (username.equals("") || username.equals(null)) {
+        } else if (username.equals("")) {
             throw new IllegalArgumentException("username is empty.");
         }
         this.username = username;

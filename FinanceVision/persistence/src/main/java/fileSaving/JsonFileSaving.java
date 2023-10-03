@@ -6,10 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import core.Transaction;
 import core.User;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +27,15 @@ public class JsonFileSaving {
      * @throws IOException if the file is not found
      */
     public static void serializeUsers(List<User> users, File f) throws IOException {
-        FileWriter writer = new FileWriter(f);
-      
-        Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
-            .registerTypeAdapter(Transaction.class, new TransactionAdapter())
-            .setPrettyPrinting()
-            .create();
-        writer.write(gson.toJson(users));
-        writer.close();
+        try (FileWriter writer = new FileWriter(f, StandardCharsets.UTF_8);){
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
+                .registerTypeAdapter(Transaction.class, new TransactionAdapter())
+                .setPrettyPrinting()
+                .create();
+            writer.write(gson.toJson(users));
+            writer.close();
+        }
     }
 
     /**
@@ -43,15 +43,16 @@ public class JsonFileSaving {
      *
      * @param f the file to read from
      * @return a list of user objects
-     * @throws FileNotFoundException if the file is not found
+     * @throws IOException
      */
-    public static List<User> deserializeUsers(File f) throws FileNotFoundException {
+    public static List<User> deserializeUsers(File f) throws IOException {
         Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
             .registerTypeAdapter(Transaction.class, new TransactionAdapter())
             .create();
-        FileReader reader = new FileReader(f);
+        FileReader reader = new FileReader(f, StandardCharsets.UTF_8);
         List<User> users = gson.fromJson(reader, new TypeToken<ArrayList<User>>(){}.getType());
+        reader.close();
         return users;
     } 
 
