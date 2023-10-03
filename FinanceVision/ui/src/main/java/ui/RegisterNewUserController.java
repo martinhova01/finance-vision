@@ -1,36 +1,46 @@
 package ui;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import core.Account;
 import core.User;
 import fileSaving.JsonFileSaving;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Controller-class for registering a new user.
+ */
 public class RegisterNewUserController extends AbstractController {
 
     @FXML
-    private TextField usernameField, fullNameField, emailField, balanceField;
+    private TextField usernameField;
+    @FXML
+    private TextField fullNameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField balanceField;
 
     @FXML
     private PasswordField passwordField;
 
     @FXML
-    private Button backButton, registerUserButton;
+    private Button backButton;
+    @FXML
+    private Button registerUserButton;
 
     private List<User> users;
 
 
     @FXML
     private void initialize() throws IOException {
-        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
-
+        users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
+            "user.home") + "/data.json"));
     }
   
 
@@ -55,14 +65,14 @@ public class RegisterNewUserController extends AbstractController {
         }
 
         try {
-        users.add(new User(username, password, fullName, email, new Account(balance)));
-            
+            users.add(new User(username, password, fullName, email, new Account(balance)));
         } catch (Exception e) {
             notify(e.getLocalizedMessage(), AlertType.WARNING);
             return;
         }
 
-        JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/data.json"));
+        JsonFileSaving.serializeUsers(users, new File(System.getProperty(
+            "user.home") + "/data.json"));
 
         switchScene("login.fxml");
     }

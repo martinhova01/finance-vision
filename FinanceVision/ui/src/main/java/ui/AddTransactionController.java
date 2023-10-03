@@ -13,14 +13,23 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller for adding a transaction.
+ */
 public class AddTransactionController extends AbstractController {
     
     @FXML
-    private TextField descriptionField, amountField;
+    private TextField descriptionField;
     @FXML
-    private RadioButton incomeRadioButton, expenseRadioButton;
+    private TextField amountField;
     @FXML
-    private Button addTransactionButton, backButton;
+    private RadioButton incomeRadioButton;
+    @FXML
+    private RadioButton expenseRadioButton;
+    @FXML
+    private Button addTransactionButton;
+    @FXML
+    private Button backButton;
     @FXML
     private ChoiceBox<String> categoryList;
     @FXML
@@ -28,13 +37,12 @@ public class AddTransactionController extends AbstractController {
 
     
     @FXML
-    void handleRbtnClicked(){
+    void handleRbtnClicked() {
 
         if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultIncomeCategories);
-        }
-        else if (expenseRadioButton.isSelected()) {
+        } else if (expenseRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultExpenseCategories);
 
@@ -45,7 +53,7 @@ public class AddTransactionController extends AbstractController {
 
     @FXML
     void handleAddTransactionButton() throws IOException {
-        try{
+        try {
             String description = descriptionField.getText();
             String amountString = amountField.getText();
             double amount = Double.parseDouble(amountString);
@@ -55,15 +63,13 @@ public class AddTransactionController extends AbstractController {
             Transaction t;
             if (incomeRadioButton.isSelected()) {
                 t = new Income(description, amount, category, time);
-            }
-            else {
+            } else {
                 t = new Expense(description, amount, category, time);
             }
             user.getAccount().addTransaction(t);
             saveToFile();
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             //TODO: tell the user which field is invalid or empty
             notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;

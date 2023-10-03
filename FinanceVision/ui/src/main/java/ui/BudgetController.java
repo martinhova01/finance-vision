@@ -6,19 +6,21 @@ import core.User;
 import java.io.IOException;
 import java.time.YearMonth;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 
+/**
+ * Controller for creating a budget.
+ */
 public class BudgetController extends AbstractController {
 
     @FXML
     private Button backButton;
-
     @FXML 
     private GridPane grid;
 
@@ -65,18 +67,16 @@ public class BudgetController extends AbstractController {
         if (limit == null) {
             limitStr = "limit not set";
             progressBar.setProgress(0.0);
-        }
-        else {
+        } else {
             limitStr = limit.toString();
             String color = "green";
             if (amount / limit > 1) {
-              color = "red";
+                color = "red";
             }
             progressBar.setProgress(amount / limit);
             progressBar.setStyle("-fx-accent: " + color + ";");
         }
 
-        HBox limitBox = new HBox(10);
         TextField limTextField = new TextField(limitStr);
         limTextField.setEditable(false);
         limTextField.setPrefWidth(100);
@@ -88,6 +88,8 @@ public class BudgetController extends AbstractController {
             editLimit(e.getSource());
         });
 
+        HBox limitBox = new HBox(10);
+        
         limitBox.getChildren().addAll(limTextField, editButton);
         grid.add(limitBox, 2, r);
 
@@ -97,25 +99,25 @@ public class BudgetController extends AbstractController {
     
     /**
      * Makes it possible for the user to edit the limit of a given budget-category.
-     * 
+     *
      * @param clicked the button that is clicked
      */
     private void editLimit(Object clicked) {
         Button b = (Button) clicked;
         b.setText("set");
 
-        TextField limitTextField = (TextField)scene.lookup("#limit" + b.getId());
+        TextField limitTextField = (TextField) scene.lookup("#limit" + b.getId());
         limitTextField.setEditable(true);
         limitTextField.requestFocus();
 
         b.setOnMouseClicked((e) -> {
-          setLimit(e.getSource(), limitTextField);
+            setLimit(e.getSource(), limitTextField);
         });
     }
 
     /**
      * Updates the limit of a given category and saves the changes.
-     * 
+     *
      * @param clicked the button that was clicked
      * @param limitTextField the TextField to get the limit value from
      */
@@ -133,17 +135,18 @@ public class BudgetController extends AbstractController {
         b.setOnMouseClicked((e) -> {
             editLimit(e.getSource());
         });
-        int row = Integer.parseInt(b.getId());
 
         limitTextField.setEditable(false);
 
         if (user.getBudget() == null) {
             user.setBudget(new Budget());
         }
-        String category = ((TextField)scene.lookup("#category" + b.getId())).getText();
+        String category = ((TextField) scene.lookup("#category" + b.getId())).getText();
         user.getBudget().addCategory(category, limit);
         
         saveToFile();
+
+        int row = Integer.parseInt(b.getId());
 
         updateProgressBar(row, category);
 
@@ -151,19 +154,19 @@ public class BudgetController extends AbstractController {
 
     /**
      * Update the progressbar at a given row.
-     * 
+     *
      * @param row the row to update
      * @param category the category of the row
      */
     private void updateProgressBar(int row, String category) {
-        ProgressBar bar = (ProgressBar)scene.lookup("#bar" + row);
+        ProgressBar bar = (ProgressBar) scene.lookup("#bar" + row);
         double used = getCategorySum(category);
         double limit = user.getBudget().getLimit(category);
         double percentage = used / limit;
         bar.setProgress(percentage);
 
         String color = "green";
-        if (percentage> 1) {
+        if (percentage > 1) {
             color = "red";
         }
         bar.setStyle("-fx-accent: " + color + ";");
@@ -175,39 +178,37 @@ public class BudgetController extends AbstractController {
      */
     private void init() {
 
-        for (int i = 0; i < core.User.defaultExpenseCategories.size(); i++) { {
-          String category = core.User.defaultExpenseCategories.get(i);
+        for (int i = 0; i < core.User.defaultExpenseCategories.size(); i++) {
+            String category = core.User.defaultExpenseCategories.get(i);
+            
+            Double limit;
           
-          Double limit;
-          if (user.getBudget() == null) {
-              limit = null;
-          }
-          else if (!user.getBudget().getCategories().contains(category)) {
-              limit = null;
-          }
-          else {
-              limit = user.getBudget().getLimit(category);
-          }
-          double categorySum = getCategorySum(category);
+            if (user.getBudget() == null) {
+                limit = null;
+            } else if (!user.getBudget().getCategories().contains(category)) {
+                limit = null;
+            } else {
+                limit = user.getBudget().getLimit(category);
+            }
+            double categorySum = getCategorySum(category);
 
-          addRow(i + 1, category, categorySum, limit);
-      
-        }
+            addRow(i + 1, category, categorySum, limit);
         }
     }
 
     /**
      * Gets the sum of the expenses of a given category.
-     * Only include the expenses from the current month
-     * 
+     * Only include the expenses from the current month.
+     *
      * @param category the category to sum up
      * @return the sum of the categories
      */
     private double getCategorySum(String category) {
         double categorySum = 0;
-        for (Transaction transaction : user.getAccount().getTransactions(t -> t.getCategory().equals(category)
-        && YearMonth.from(t.getTime()).equals(YearMonth.now()))) {
-          categorySum += transaction.getAmount();
+        for (Transaction transaction : user.getAccount().getTransactions(
+            t -> t.getCategory().equals(category)
+            && YearMonth.from(t.getTime()).equals(YearMonth.now()))) {
+            categorySum += transaction.getAmount();
         }
 
         return categorySum;

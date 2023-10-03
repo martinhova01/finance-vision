@@ -11,10 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller-class for the logging in.
+ */
 public class LoginController extends AbstractController {
 
     @FXML
-    private Button loginButton, registerUserButton;
+    private Button loginButton;
+    @FXML
+    private Button registerUserButton;
     @FXML
     private TextField usernameField;
     @FXML
@@ -24,7 +29,8 @@ public class LoginController extends AbstractController {
 
     @FXML
     private void initialize() throws IOException {
-        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
+        users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
+            "user.home") + "/data.json"));
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
     }
@@ -50,6 +56,5 @@ public class LoginController extends AbstractController {
     void handleRegisterUser() throws IOException {
         switchScene("registerNewUser.fxml");
     }
-
-   
+    
 }

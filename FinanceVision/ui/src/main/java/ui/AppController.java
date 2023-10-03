@@ -12,23 +12,37 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller for the main page of the application.
+ */
 public class AppController extends AbstractController {
 
     @FXML
     private TextField balanceField;
     @FXML
-    private ListView<Transaction> incomeView, expenseView;
+    private ListView<Transaction> incomeView;
     @FXML
-    private Button addTransactionButton, editTransactionButton, deleteTransactionButton, logOutButton, budgetButton;
+    private ListView<Transaction> expenseView;
+    @FXML
+    private Button addTransactionButton;
+    @FXML
+    private Button editTransactionButton;
+    @FXML
+    private Button deleteTransactionButton;
+    @FXML
+    private Button logOutButton;
+    @FXML
+    private Button budgetButton;
 
-    //Setter brukeren
     @Override
     public void setUser(User user) {
         this.user = user;
-        init();
-        
+        init();        
     }
-        // viser total saldo og transaksjoner
+    
+    /**
+     * Shows total bank balance and list of transactions.
+     */
     public void init() {
         updateBalanceView();
 
@@ -40,7 +54,6 @@ public class AppController extends AbstractController {
 
 
     private void loadTransactionsFromFile() {
-
         List<Transaction> fileTransactions = getAccount().getTransactions();
         for (Transaction transaction : fileTransactions) {
             addTransactionToView(transaction);
@@ -60,7 +73,6 @@ public class AppController extends AbstractController {
         return this.user.getAccount();
     }
 
-    //Metode for å oppdatere saldo-oversikten
     @FXML
     private void updateBalanceView() {
         balanceField.setText(String.valueOf(Math.round(this.user.getAccount().getBalance())));
@@ -71,8 +83,7 @@ public class AppController extends AbstractController {
     void addTransactionToView(Transaction transaction) {
         if (transaction instanceof Income) {
             this.incomeView.getItems().add(0, transaction);
-        }
-        else {
+        } else {
             this.expenseView.getItems().add(0, transaction);
         }
     }
@@ -105,7 +116,7 @@ public class AppController extends AbstractController {
     }
 
     @FXML
-    void handleEditTransaction() throws IOException{
+    void handleEditTransaction() throws IOException {
         if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
             notify("No transaction selected", AlertType.ERROR);
             return;
