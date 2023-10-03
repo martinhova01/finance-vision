@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
    <children>
-      <ListView fx:id="incomeView" layoutX="25.0" layoutY="94.0" prefHeight="300.0" prefWidth="250.0" />
+      <ListView fx:id="incomeView" layoutX="25.0" layoutY="94.0" onMouseClicked="#handleIncomeView" prefHeight="300.0" prefWidth="250.0" />
       <Text layoutX="275.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="250.0">
          <font>
             <Font size="18.0" />
@@ -30,7 +30,7 @@
          </font>
       </Text>
       <Button fx:id="logOutButton" layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleLogOutButton" text="LOG OUT" />
-      <Button fx:id="addTransactionButton" layoutX="178.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" text="Add New Transaction">
+      <Button fx:id="addTransactionButton" layoutX="25.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" text="Add New Transaction">
          <font>
             <Font size="18.0" />
          </font>
@@ -40,10 +40,20 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <ListView fx:id="expenseView" layoutX="275.0" layoutY="94.0" prefHeight="300.0" prefWidth="250.0" />
+      <ListView fx:id="expenseView" layoutX="275.0" layoutY="94.0" onMouseClicked="#handleExpenseView" prefHeight="300.0" prefWidth="250.0" />
       <Button fx:id="budgetButton" layoutX="588.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleBudgetButton" prefHeight="39.0" prefWidth="167.0" text="Budget">
          <font>
             <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="editTransactionButton" layoutX="340.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleEditTransaction" text="Edit Transaction">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteTransactionButton" layoutX="430.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleDeleteTransaction" text="Delete Transaction">
+         <font>
+            <Font size="10.0" />
          </font>
       </Button>
    </children>
