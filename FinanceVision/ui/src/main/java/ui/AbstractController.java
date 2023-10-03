@@ -1,11 +1,12 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import core.Transaction;
 import core.User;
-import fileSaving.FileSaving;
+import fileSaving.JsonFileSaving;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,7 +50,7 @@ public abstract class AbstractController {
 
 
   /**
-   * Switches scene to a new fxml file and keeps the cuurent user logged in
+   * Switches scene to a new fxml file and keeps the curent user logged in
    * 
    * @param fxmlFileName the fxml file to switch to
    * @param user the current user logged in
@@ -111,19 +112,18 @@ public abstract class AbstractController {
 
 
   /**
-   * Saves updates done to the current user to the file data.txt
+   * Saves updates done to the current user to the file data.json
    * 
    */
   public void saveToFile(){
     try {
-            List<User> users = FileSaving.readFromFile("data.txt");
-            for (User user : users) {
-                if (user.getUsername().equals(this.user.getUsername())) {
-                    users.remove(user);
-                    users.add(this.user);
-                }
+            List<User> users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
+            for (int i = 0; i < users.size(); i++) {
+              if (users.get(i).getUsername().equals(this.user.getUsername())) {
+                users.set(i, this.user);
+              }
             }
-            FileSaving.writeToFile(users, "data.txt");
+            JsonFileSaving.serializeUsers(users, new File(System.getProperty("user.home") + "/data.json"));
         } catch (IOException e) {
             notify("File not found", AlertType.ERROR);
         }
