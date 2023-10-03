@@ -48,6 +48,10 @@ public abstract class AbstractController {
     this.scene = scene;
   }
 
+  public void setStage(Stage stage) {
+    this.stage = stage;
+  }
+
 
   /**
    * Switches scene to a new fxml file and keeps the curent user logged in
