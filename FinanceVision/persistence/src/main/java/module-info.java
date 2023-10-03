@@ -1,7 +1,7 @@
 module persistence {
-    exports fileSaving;
+    exports filesaving;
     requires transitive core;
     requires transitive com.google.gson;
-    opens fileSaving to com.google.gson;
+    opens filesaving to com.google.gson;
 
 }
