@@ -27,13 +27,20 @@ public class EditTransactionController extends AbstractController {
     @FXML
     private DatePicker datePicker;
 
-    @FXML
-    public void initialize(){
+    @Override
+    public void setTransaction(Transaction t){
+        super.setTransaction(t);
+        init();
+
+    }
+    public void init(){
         if (transaction instanceof Income){
             incomeRadioButton.setSelected(true);
+            categoryList.getItems().addAll(core.User.defaultIncomeCategories);
         }
         else{
             expenseRadioButton.setSelected(true);
+            categoryList.getItems().addAll(core.User.defaultExpenseCategories);
         }
         amountField.setText(transaction.getAmount().toString());
         descriptionField.setText(transaction.getDescription());

@@ -26,17 +26,14 @@
          </font>
       </Text>
       <RadioButton fx:id="incomeRadioButton" layoutX="244.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="20.0" prefWidth="136.0" text="INCOME">
-         <toggleGroup>
-            <ToggleGroup fx:id="transaction" />
-         </toggleGroup>
          <font>
             <Font size="24.0" />
          </font>
-      </RadioButton>
-      <RadioButton fx:id="expenseRadioButton" layoutX="423.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="35.0" prefWidth="167.0" text="EXPENSE">
          <toggleGroup>
-            <ToggleGroup fx:id="transaction1" />
+            <ToggleGroup fx:id="rbtnGroup" />
          </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="expenseRadioButton" layoutX="423.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="35.0" prefWidth="167.0" text="EXPENSE" toggleGroup="$rbtnGroup">
          <font>
             <Font size="24.0" />
          </font>

@@ -109,14 +109,17 @@ public class AppController extends AbstractController {
     void handleEditTransaction() throws IOException{
         if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()){
             notify("No transaction selected", AlertType.ERROR);
+            return;
         }
-        else{
-            switchScene("editTransaction.fxml", user, selectedTransaction);
-        }
+        switchScene("editTransaction.fxml", user, selectedTransaction);
     }
 
     @FXML
     void handleDeleteTransaction() {
+        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()){
+            notify("No transaction selected", AlertType.ERROR);
+            return;
+        }
         getAccount().removeTransaction(selectedTransaction);
         saveToFile();
         init();
