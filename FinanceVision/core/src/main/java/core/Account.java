@@ -51,6 +51,10 @@ public class Account {
         transactions.add(t);
     }
 
+    public void removeTransaction(Transaction t){
+        transactions.remove(t);
+    }
+
     public List<Transaction> getIncomes(){
         return getTransactions(t -> t instanceof Income);
     }

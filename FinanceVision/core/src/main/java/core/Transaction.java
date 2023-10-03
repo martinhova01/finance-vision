@@ -70,4 +70,15 @@ public abstract class Transaction {
         this.time = time;
     }
 
+
+    @Override
+    public String toString() {
+        if (this instanceof Income){
+            return "+ " + getAmount() + "    " + getDescription();
+        }
+        else{
+            return "- " + getAmount() + "    " + getDescription();
+        }   
+    }
+
 }
