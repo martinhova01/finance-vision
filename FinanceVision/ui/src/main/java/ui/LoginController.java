@@ -1,21 +1,25 @@
 package ui;
 
+import core.User;
+import filesaving.JsonFileSaving;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import core.User;
-import fileSaving.JsonFileSaving;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
-public class LoginController extends AbstractController{
+/**
+ * Controller-class for the logging in.
+ */
+public class LoginController extends AbstractController {
 
     @FXML
-    private Button loginButton, registerUserButton;
+    private Button loginButton;
+    @FXML
+    private Button registerUserButton;
     @FXML
     private TextField usernameField;
     @FXML
@@ -25,7 +29,8 @@ public class LoginController extends AbstractController{
 
     @FXML
     private void initialize() throws IOException {
-        users = JsonFileSaving.deserializeUsers(new File(System.getProperty("user.home") + "/data.json"));
+        users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
+            "user.home") + "/data.json"));
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
     }
@@ -35,7 +40,7 @@ public class LoginController extends AbstractController{
         String username = usernameField.getText();
         String password = passwordField.getText();
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)){
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 System.out.println("Login successful");
                 switchScene("App.fxml", user);
                 return;
@@ -48,9 +53,8 @@ public class LoginController extends AbstractController{
     
 
     @FXML
-    void handleRegisterUser() throws IOException{
+    void handleRegisterUser() throws IOException {
         switchScene("registerNewUser.fxml");
     }
-
-   
+    
 }

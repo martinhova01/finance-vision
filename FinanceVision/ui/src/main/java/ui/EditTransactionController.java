@@ -1,11 +1,10 @@
 package ui;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
 import core.Expense;
 import core.Income;
 import core.Transaction;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -14,31 +13,42 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller for editing a transaction.
+ */
 public class EditTransactionController extends AbstractController {
 
     @FXML
-    private TextField amountField, descriptionField;
+    private TextField amountField;
     @FXML
-    private RadioButton incomeRadioButton, expenseRadioButton;
+    private TextField descriptionField;
     @FXML
-    private Button confirmButton, backButton;
+    private RadioButton incomeRadioButton;
+    @FXML
+    private RadioButton expenseRadioButton;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private Button backButton;
     @FXML
     private ChoiceBox<String> categoryList;
     @FXML
     private DatePicker datePicker;
 
     @Override
-    public void setTransaction(Transaction t){
+    public void setTransaction(Transaction t) {
         super.setTransaction(t);
         init();
-
     }
-    public void init(){
-        if (transaction instanceof Income){
+
+    /**
+     * Loads in the transaction to edit.
+     */
+    public void init() {
+        if (transaction instanceof Income) {
             incomeRadioButton.setSelected(true);
             categoryList.getItems().addAll(core.User.defaultIncomeCategories);
-        }
-        else{
+        } else {
             expenseRadioButton.setSelected(true);
             categoryList.getItems().addAll(core.User.defaultExpenseCategories);
         }
@@ -48,13 +58,15 @@ public class EditTransactionController extends AbstractController {
         datePicker.setValue(transaction.getTime().toLocalDate());
     }
 
+    /**
+     * Changes the category list when clicking on a radiobutton.
+     */
     @FXML
-    public void handleRbtnClicked(){
-        if (incomeRadioButton.isSelected()){
+    public void handleRbtnClicked() {
+        if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultIncomeCategories);
-        }
-        else if(expenseRadioButton.isSelected()){
+        } else if (expenseRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultExpenseCategories);
 
@@ -62,9 +74,14 @@ public class EditTransactionController extends AbstractController {
         }
     }
 
+    /**
+     * Saves the changes and directs the user back to the main page.
+     *
+     * @throws IOException if one or more fields are empty or contains invalid data
+     */
     @FXML
     public void handleConfirm() throws IOException {
-        try{
+        try {
             user.getAccount().removeTransaction(transaction);
 
             String description = descriptionField.getText();
@@ -76,14 +93,12 @@ public class EditTransactionController extends AbstractController {
             Transaction t;
             if (incomeRadioButton.isSelected()) {
                 t = new Income(description, amount, category, time);
-            }
-            else {
+            } else {
                 t = new Expense(description, amount, category, time);
             }
             user.getAccount().addTransaction(t);
             saveToFile();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
@@ -92,7 +107,7 @@ public class EditTransactionController extends AbstractController {
     }
 
     @FXML
-    public void handleBack() throws IOException{
+    public void handleBack() throws IOException {
         switchScene("App.fxml", user);
     }
     
