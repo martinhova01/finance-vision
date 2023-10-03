@@ -1,18 +1,17 @@
 package ui;
 
+import core.User;
+import fileSaving.JsonFileSaving;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import core.User;
-import fileSaving.JsonFileSaving;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
-public class LoginController extends AbstractController{
+public class LoginController extends AbstractController {
 
     @FXML
     private Button loginButton, registerUserButton;
@@ -35,7 +34,7 @@ public class LoginController extends AbstractController{
         String username = usernameField.getText();
         String password = passwordField.getText();
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)){
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 System.out.println("Login successful");
                 switchScene("App.fxml", user);
                 return;
@@ -48,7 +47,7 @@ public class LoginController extends AbstractController{
     
 
     @FXML
-    void handleRegisterUser() throws IOException{
+    void handleRegisterUser() throws IOException {
         switchScene("registerNewUser.fxml");
     }
 

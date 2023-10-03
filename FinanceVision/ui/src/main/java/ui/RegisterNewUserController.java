@@ -13,7 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class RegisterNewUserController extends AbstractController{
+public class RegisterNewUserController extends AbstractController {
 
     @FXML
     private TextField usernameField, fullNameField, emailField, balanceField;
@@ -48,7 +48,7 @@ public class RegisterNewUserController extends AbstractController{
             return;
         }
         for (User user : users) {
-            if (user.getUsername().equals(username)){
+            if (user.getUsername().equals(username)) {
                 notify("Username is taken", AlertType.WARNING);
                 return;
             }
@@ -68,7 +68,7 @@ public class RegisterNewUserController extends AbstractController{
     }
 
     @FXML
-    void handleBack() throws IOException{
+    void handleBack() throws IOException {
         switchScene("login.fxml");
     }
 

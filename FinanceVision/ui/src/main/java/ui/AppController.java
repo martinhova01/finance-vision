@@ -1,12 +1,11 @@
 package ui;
 
-import java.io.IOException;
-import java.util.List;
-
 import core.Account;
 import core.Income;
 import core.Transaction;
 import core.User;
+import java.io.IOException;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -89,7 +88,7 @@ public class AppController extends AbstractController {
     }
 
     @FXML
-    void handleBudgetButton() throws IOException{
+    void handleBudgetButton() throws IOException {
         switchScene("budget.fxml", user);
     }
 
@@ -107,7 +106,7 @@ public class AppController extends AbstractController {
 
     @FXML
     void handleEditTransaction() throws IOException{
-        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()){
+        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
             notify("No transaction selected", AlertType.ERROR);
             return;
         }
@@ -116,7 +115,7 @@ public class AppController extends AbstractController {
 
     @FXML
     void handleDeleteTransaction() {
-        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()){
+        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
             notify("No transaction selected", AlertType.ERROR);
             return;
         }

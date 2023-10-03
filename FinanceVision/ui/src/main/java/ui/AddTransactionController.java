@@ -1,11 +1,10 @@
 package ui;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
 import core.Expense;
 import core.Income;
 import core.Transaction;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -31,11 +30,11 @@ public class AddTransactionController extends AbstractController {
     @FXML
     void handleRbtnClicked(){
 
-        if (incomeRadioButton.isSelected()){
+        if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultIncomeCategories);
         }
-        else if(expenseRadioButton.isSelected()){
+        else if (expenseRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultExpenseCategories);
 
@@ -64,7 +63,7 @@ public class AddTransactionController extends AbstractController {
             saveToFile();
 
         }
-        catch(Exception e){
+        catch(Exception e) {
             //TODO: tell the user which field is invalid or empty
             notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
@@ -74,7 +73,7 @@ public class AddTransactionController extends AbstractController {
     }
 
     @FXML
-    void handleBack() throws IOException{
+    void handleBack() throws IOException {
         switchScene("App.fxml", user);
     }
 }
