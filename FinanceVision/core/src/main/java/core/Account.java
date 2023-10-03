@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+
 public class Account {
     
     private double startValue;
     private List<Transaction> transactions;
-
 
     public Account(double startValue) {
         this.startValue = startValue;
         transactions = new ArrayList<>();
     }
 
+    public Account() {
+
+    }
+    
     public double getBalance(){
         double balance = startValue;
         for (Transaction t : transactions){
@@ -31,12 +35,24 @@ public class Account {
 
     }
 
+    public void setStartValue(double startValue) {
+        this.startValue = startValue;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
     public double getStartValue(){
         return startValue;
     }
 
     public void addTransaction(Transaction t){
         transactions.add(t);
+    }
+
+    public void removeTransaction(Transaction t){
+        transactions.remove(t);
     }
 
     public List<Transaction> getIncomes(){

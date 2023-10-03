@@ -21,6 +21,10 @@ public abstract class Transaction {
         setTime(time);
     }
 
+    public Transaction() {
+        
+    }
+
 
     public String getDescription() {
         return description;
@@ -64,6 +68,17 @@ public abstract class Transaction {
             throw new IllegalArgumentException("Time is not set");
         }
         this.time = time;
+    }
+
+
+    @Override
+    public String toString() {
+        if (this instanceof Income){
+            return "+ " + getAmount() + "    " + getDescription();
+        }
+        else{
+            return "- " + getAmount() + "    " + getDescription();
+        }   
     }
 
 }
