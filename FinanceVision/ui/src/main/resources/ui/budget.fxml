@@ -5,18 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.BudgetController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="cell" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.BudgetController">
    <children>
       <Label layoutX="341.0" layoutY="14.0" prefHeight="68.0" prefWidth="123.0" text="Budget">
          <font>
             <Font size="38.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" text="&lt;-Back">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="&lt;-Back">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -31,26 +32,42 @@
             <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="105.46875">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Used" wrappingWidth="57.46875" GridPane.columnIndex="1">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Limit" wrappingWidth="59.46875" GridPane.columnIndex="2">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="\%" wrappingWidth="59.46875" GridPane.columnIndex="3">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="105.46875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell" GridPane.columnIndex="1">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Used" wrappingWidth="57.46875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell" GridPane.columnIndex="2">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Limit" wrappingWidth="59.46875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell" GridPane.columnIndex="3">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="\%" wrappingWidth="59.46875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>
