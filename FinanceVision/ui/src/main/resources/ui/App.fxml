@@ -46,12 +46,12 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="editTransactionButton" layoutX="340.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleEditTransaction" styleClass="defaultButton" text="Edit Transaction">
+      <Button fx:id="editTransactionButton" layoutX="295.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleEditTransaction" styleClass="defaultButton" text="Edit Transaction">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="deleteTransactionButton" layoutX="430.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleDeleteTransaction" styleClass="defaultButton" text="Delete Transaction">
+      <Button fx:id="deleteTransactionButton" layoutX="406.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleDeleteTransaction" styleClass="defaultButton" text="Delete Transaction">
          <font>
             <Font size="10.0" />
          </font>

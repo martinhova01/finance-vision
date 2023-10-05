@@ -21,7 +21,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <GridPane fx:id="grid" layoutX="96.0" layoutY="69.0" prefHeight="381.0" prefWidth="614.0">
+      <GridPane fx:id="grid" layoutX="96.0" layoutY="69.0" prefHeight="350.0" prefWidth="614.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,7 +32,7 @@
             <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" styleClass="budgetCell">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="105.46875">
                      <font>
@@ -41,7 +41,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell" GridPane.columnIndex="1">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" styleClass="budgetCell" GridPane.columnIndex="1">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Used" wrappingWidth="57.46875">
                      <font>
@@ -50,7 +50,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell" GridPane.columnIndex="2">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" styleClass="budgetCell" GridPane.columnIndex="2">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Limit" wrappingWidth="59.46875">
                      <font>
@@ -59,7 +59,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cell" GridPane.columnIndex="3">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" styleClass="budgetCell" GridPane.columnIndex="3">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="\%" wrappingWidth="59.46875">
                      <font>

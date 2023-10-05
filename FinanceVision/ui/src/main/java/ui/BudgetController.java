@@ -54,11 +54,17 @@ public class BudgetController extends AbstractController {
         TextField categoryField = new TextField(category);
         categoryField.setId("category" + r);
         categoryField.setEditable(false);
-        grid.add(categoryField, 0, r);
+        HBox cellCategory = new HBox(10);
+        cellCategory.getStyleClass().add("budgetCell");
+        cellCategory.getChildren().addAll(categoryField);
+        grid.add(cellCategory, 0, r);
 
         TextField amountTextField = new TextField(amount.toString());
         amountTextField.setEditable(false);
-        grid.add(amountTextField, 1, r);
+        HBox cellAmount = new HBox(10);
+        cellAmount.getStyleClass().add("budgetCell");
+        cellAmount.getChildren().addAll(amountTextField);
+        grid.add(cellAmount, 1, r);
 
         String limitStr;
         ProgressBar progressBar = new ProgressBar();
@@ -76,6 +82,10 @@ public class BudgetController extends AbstractController {
             progressBar.setProgress(amount / limit);
             progressBar.setStyle("-fx-accent: " + color + ";");
         }
+        HBox cellBar = new HBox(10);
+        cellBar.getStyleClass().add("budgetCell");
+        cellBar.getChildren().addAll(progressBar);
+        grid.add(cellBar, 3, r);
 
         TextField limTextField = new TextField(limitStr);
         limTextField.setEditable(false);
@@ -83,17 +93,18 @@ public class BudgetController extends AbstractController {
         limTextField.setId("limit" + r);
 
         Button editButton = new Button("edit");
+        editButton.getStyleClass().add("editButton");
         editButton.setId("" + r);
         editButton.setOnMouseClicked((e) -> {
             editLimit(e.getSource());
         });
 
         HBox limitBox = new HBox(10);
+        limitBox.getStyleClass().add("budgetCell");
         
         limitBox.getChildren().addAll(limTextField, editButton);
         grid.add(limitBox, 2, r);
 
-        grid.add(progressBar, 3, r);
     }
 
     
