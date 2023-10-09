@@ -4,6 +4,7 @@ import core.User;
 import filesaving.JsonFileSaving;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -29,8 +30,14 @@ public class LoginController extends AbstractController {
 
     @FXML
     private void initialize() throws IOException {
-        users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
-            "user.home") + "/data.json"));
+            try {
+                users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
+                "user.home") + "/data.json"));
+            } catch (Exception e) {
+                users = new ArrayList<>();
+                JsonFileSaving.serializeUsers(users, new File(System.getProperty(
+                "user.home") + "/data.json"));
+            }
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
     }
