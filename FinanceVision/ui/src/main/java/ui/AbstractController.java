@@ -2,7 +2,7 @@ package ui;
 
 import core.Transaction;
 import core.User;
-import filesaving.JsonFileSaving;
+import filesaving.FileHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +23,7 @@ public abstract class AbstractController {
     protected Parent root;
     protected User user;
     protected Transaction transaction;
+    protected FileHandler fileHandler;
 
     public void setUser(User user) {
         this.user = user;
@@ -38,6 +39,10 @@ public abstract class AbstractController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setFileHandler(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
     }
 
 
@@ -57,6 +62,8 @@ public abstract class AbstractController {
 
         AbstractController controller = loader.getController();
         controller.setStage(stage);
+        controller.setFileHandler(fileHandler);
+        controller.init();
     }
 
     /**
@@ -78,6 +85,8 @@ public abstract class AbstractController {
         controller.setStage(stage);
         controller.setScene(scene);
         controller.setUser(user);
+        controller.setFileHandler(fileHandler);
+        controller.init();
     }
 
     /**
@@ -103,6 +112,8 @@ public abstract class AbstractController {
         controller.setScene(scene);
         controller.setUser(user);
         controller.setTransaction(transaction);
+        controller.setFileHandler(fileHandler);
+        controller.init();
     }
 
     
@@ -129,18 +140,20 @@ public abstract class AbstractController {
      */
     public void saveToFile() {
         try {
-            List<User> users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
+            List<User> users = fileHandler.deserializeUsers(new File(System.getProperty(
                 "user.home") + "/data.json"));
             for (int i = 0; i < users.size(); i++) {
                 if (users.get(i).getUsername().equals(this.user.getUsername())) {
                     users.set(i, this.user);
                 }
             }
-            JsonFileSaving.serializeUsers(users, new File(System.getProperty(
+            fileHandler.serializeUsers(users, new File(System.getProperty(
                 "user.home") + "/data.json"));
         } catch (IOException e) {
             notify("File not found", AlertType.ERROR);
         }
     }
+
+    public abstract void init();
   
 }

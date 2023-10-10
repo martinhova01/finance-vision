@@ -43,6 +43,7 @@ public class AppController extends AbstractController {
     /**
      * Shows total bank balance and list of transactions.
      */
+    @Override
     public void init() {
         updateBalanceView();
 
