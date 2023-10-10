@@ -9,16 +9,22 @@ import org.junit.jupiter.api.Test;
 
 public class UserTest {
     private User user;
+    private User user2;
+    private Account account;
 
     @BeforeEach
     public void setUp() {
         // Create a new User instance before each test
-        user = new User("johndoe", "password123", "John Doe", "johndoe@example.com", new Account(1000.0));
+        account = new Account(1000.0);
+        user = new User("johndoe", "password123", "John Doe", "johndoe@example.com", account);
+        user2 = new User();
     }
 
     @Test
     public void testGetUsername() {
         assertEquals("johndoe", user.getUsername());
+        user2.setUsername("johnwick");
+        assertEquals("johnwick", user2.getUsername());
     }
 
     @Test
@@ -41,6 +47,7 @@ public class UserTest {
         user.setUsername("newusername");
         assertEquals("newusername", user.getUsername());
         assertThrows(IllegalArgumentException.class, () -> user.setUsername("user name"), "username cannot include a space");
+        assertThrows(IllegalArgumentException.class, () -> user.setUsername(""), "username cannot be empty");
     }
 
     @Test
@@ -64,6 +71,26 @@ public class UserTest {
         assertThrows(IllegalArgumentException.class, () -> user.setEmail("johndoe.com"), "email must contain @");
         assertThrows(IllegalArgumentException.class, () -> user.setEmail("johndoe@example"), "email must contain .xxx");
         
+    }
+
+    @Test
+    public void testGetAccount() {
+        assertEquals(account, user.getAccount());
+    }
+
+    @Test
+    public void testSetAccount() {
+        Account account2 = new Account(2000);
+        user.setAccount(account2);
+        assertEquals(account2, user.getAccount());
+    }
+
+    @Test
+    public void testSetAndGetBudget() {
+        Budget budget = new Budget();
+        budget.addCategory("Other", 2000);
+        user.setBudget(budget);
+        assertEquals(budget, user.getBudget());
     }
 
 }
