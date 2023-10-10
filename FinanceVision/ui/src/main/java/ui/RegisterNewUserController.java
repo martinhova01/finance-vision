@@ -2,7 +2,6 @@ package ui;
 
 import core.Account;
 import core.User;
-import filesaving.JsonFileSaving;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -36,11 +35,14 @@ public class RegisterNewUserController extends AbstractController {
 
     private List<User> users;
 
-
-    @FXML
-    private void initialize() throws IOException {
-        users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
-            "user.home") + "/data.json"));
+    @Override
+    public void init() {
+        try {
+            users = fileHandler.deserializeUsers(new File(System.getProperty(
+                "user.home") + "/data.json"));
+        } catch (IOException e) {
+            notify("File not found", AlertType.ERROR);
+        }
     }
   
 
@@ -71,7 +73,7 @@ public class RegisterNewUserController extends AbstractController {
             return;
         }
 
-        JsonFileSaving.serializeUsers(users, new File(System.getProperty(
+        fileHandler.serializeUsers(users, new File(System.getProperty(
             "user.home") + "/data.json"));
 
         switchScene("login.fxml");

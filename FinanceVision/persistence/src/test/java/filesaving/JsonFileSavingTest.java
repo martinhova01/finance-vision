@@ -38,9 +38,10 @@ public class JsonFileSavingTest {
     users.add(u2);
 
     File f = new File(System.getProperty("user.home") + "/testdata.json");
-    JsonFileSaving.serializeUsers(users, f);
+    FileHandler fileHandler = new JsonFileSaving();
+    fileHandler.serializeUsers(users, f);
 
-    List<User> readUsers = JsonFileSaving.deserializeUsers(f);
+    List<User> readUsers = fileHandler.deserializeUsers(f);
 
     u1Read = readUsers.get(0);
     u2Read = readUsers.get(1);
