@@ -1,6 +1,7 @@
 package ui;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -53,9 +54,6 @@ public class RegisterUserTest extends ApplicationTest {
         clickOn("#balanceField");
         write("1000");
     }
-
-
-
     
 
 
@@ -63,7 +61,8 @@ public class RegisterUserTest extends ApplicationTest {
     public void testRegisterUser() {
         setUp();
         click("Register user");
-        Assertions.assertNotNull(lookup("#loginButton").query());
+        Node loginButton = lookup("#loginButton").query();
+        Assertions.assertTrue(loginButton.isVisible());
     }
 
     @Test
@@ -72,7 +71,8 @@ public class RegisterUserTest extends ApplicationTest {
         clickOn("#usernameField");
         write(" invalid");
         click("Register user");
-        Assertions.assertTrue(getRootNode().lookup("#loginButton") == null);
+        Node loginButton = lookup("#backButton").query();
+        Assertions.assertTrue(loginButton.isVisible());
     }
 
     @Test
@@ -81,13 +81,15 @@ public class RegisterUserTest extends ApplicationTest {
         clickOn("#balanceField");
         write("....");
         click("Register user");
-        Assertions.assertTrue(getRootNode().lookup("#loginButton") == null);
+        Node loginButton = lookup("#backButton").query();
+        Assertions.assertTrue(loginButton.isVisible());
     }
 
     @Test
     public void testBack() {
         clickOn("#backButton");
-        Assertions.assertNotNull(lookup("#loginButton").query());
+        Node loginButton = lookup("#loginButton").query();
+        Assertions.assertTrue(loginButton.isVisible());
     }
 
 

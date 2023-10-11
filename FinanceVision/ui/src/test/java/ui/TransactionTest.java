@@ -19,6 +19,7 @@ import core.Transaction;
 import core.User;
 import filesaving.FileHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
@@ -65,7 +66,8 @@ public class TransactionTest extends ApplicationTest {
     public void testBackButton() {
         clickOn("#addTransactionButton");
         clickOn("#backButton");
-        Assertions.assertTrue(getRootNode().lookup("#backButton") == null);
+        Node backButton = lookup("#logOutButton").query();
+        Assertions.assertTrue(backButton.isVisible());
     }
 
 
@@ -80,7 +82,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Salary");
         clickOn("#addTransactionButton");
-        Assertions.assertTrue(getRootNode().lookup("#backButton") == null);
+        Node backButton = lookup("#logOutButton").query();
+        Assertions.assertTrue(backButton.isVisible());
 
     }
 
@@ -124,9 +127,5 @@ public class TransactionTest extends ApplicationTest {
         Assertions.assertTrue(found, "Transaksjonen ble ikke endret");
     }
 
-
-    public Parent getRootNode() {
-        return root;
-    }
 
 }
