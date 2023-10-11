@@ -30,10 +30,16 @@ public class LoginController extends AbstractController {
     @Override
     public void init() {
         try {
-            users = fileHandler.deserializeUsers(new File(System.getProperty(
+            this.users = fileHandler.deserializeUsers(new File(System.getProperty(
                 "user.home") + "/data.json"));
         } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
+            this.users = new ArrayList<>();
+            try {
+                fileHandler.serializeUsers(this.users, new File(System.getProperty(
+                    "user.home") + "/data.json"));
+            } catch (IOException e1) {
+                notify("File not found", AlertType.ERROR);
+            }
         }
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
