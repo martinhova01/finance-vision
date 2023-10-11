@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Class for saving userdata to a json file.
  */
-public class JsonFileSaving {
+public class JsonFileSaving implements FileHandler {
 
     /**
      * Serialize objects to JSON.
@@ -26,8 +26,8 @@ public class JsonFileSaving {
      * @param f the file to save to
      * @throws IOException if the file is not found
      */
-    public static void serializeUsers(List<User> users, File f) throws IOException {
-        try (FileWriter writer = new FileWriter(f, StandardCharsets.UTF_8);){
+    public void serializeUsers(List<User> users, File f) throws IOException {
+        try (FileWriter writer = new FileWriter(f, StandardCharsets.UTF_8);) {
             Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
                 .registerTypeAdapter(Transaction.class, new TransactionAdapter())
@@ -43,9 +43,9 @@ public class JsonFileSaving {
      *
      * @param f the file to read from
      * @return a list of user objects
-     * @throws IOException
+     * @throws IOException if file not found
      */
-    public static List<User> deserializeUsers(File f) throws IOException {
+    public List<User> deserializeUsers(File f) throws IOException {
         Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
             .registerTypeAdapter(Transaction.class, new TransactionAdapter())

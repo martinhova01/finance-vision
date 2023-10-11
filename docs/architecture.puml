@@ -1,0 +1,32 @@
+@startuml arcitecture
+component core {
+	package core.core
+}
+
+component persistence {
+	package persistence.filesaving
+}
+
+component Gson{
+}
+
+persistence.filesaving ..> Gson
+persistence.filesaving ..> core.core
+
+component ui{
+	package ui.ui
+}
+
+ui.ui ..> core.core
+ui.ui ..> persistence.filesaving
+
+component javafx {
+	component javafx-fxml {
+	}
+	component javafx-controls{
+	}
+
+}
+
+ui.ui ..> javafx
+@enduml

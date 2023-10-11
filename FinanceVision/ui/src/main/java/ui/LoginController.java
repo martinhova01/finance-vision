@@ -1,7 +1,6 @@
 package ui;
 
 import core.User;
-import filesaving.JsonFileSaving;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,17 +26,15 @@ public class LoginController extends AbstractController {
     private PasswordField passwordField;
 
     private List<User> users;
-
-    @FXML
-    private void initialize() throws IOException {
-            try {
-                users = JsonFileSaving.deserializeUsers(new File(System.getProperty(
+    
+    @Override
+    public void init() {
+        try {
+            users = fileHandler.deserializeUsers(new File(System.getProperty(
                 "user.home") + "/data.json"));
-            } catch (Exception e) {
-                users = new ArrayList<>();
-                JsonFileSaving.serializeUsers(users, new File(System.getProperty(
-                "user.home") + "/data.json"));
-            }
+        } catch (IOException e) {
+            notify("File not found", AlertType.ERROR);
+        }
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
     }
