@@ -4,6 +4,7 @@ import core.Expense;
 import core.Income;
 import core.Transaction;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -81,5 +82,10 @@ public class AddTransactionController extends AbstractController {
     @FXML
     void handleBack() throws IOException {
         switchScene("App.fxml", user);
+    }
+
+    @Override
+    public void init() {
+        datePicker.setValue(LocalDate.now());
     }
 }

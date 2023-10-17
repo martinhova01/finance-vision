@@ -1,5 +1,6 @@
 package ui;
 
+import filesaving.JsonFileSaving;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,11 +17,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // setPrimaryStage(stage);
-        // primaryStage.setTitle("Finance Vision");
-        // primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("login.fxml"))));
-        // primaryStage.show();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
         
@@ -30,8 +26,10 @@ public class App extends Application {
         primaryStage.show();
 
         AbstractController controller = loader.getController();
+        controller.setFileHandler(new JsonFileSaving());
         controller.setStage(stage);
         controller.setScene(scene);
+        controller.init();
     }
 
     public static void main(String[] args) {

@@ -2,7 +2,6 @@ package ui;
 
 import core.Budget;
 import core.Transaction;
-import core.User;
 import java.io.IOException;
 import java.time.YearMonth;
 import javafx.fxml.FXML;
@@ -32,11 +31,7 @@ public class BudgetController extends AbstractController {
         switchScene("App.fxml", user);
     }
 
-    @Override
-    public void setUser(User user) {
-        super.setUser(user);
-        init();
-    }
+    
 
 
     /**
@@ -187,7 +182,8 @@ public class BudgetController extends AbstractController {
      * Display the budget stored in the user to the screen.
      * This method is called after the user is set
      */
-    private void init() {
+    @Override
+    public void init() {
 
         for (int i = 0; i < core.User.defaultExpenseCategories.size(); i++) {
             String category = core.User.defaultExpenseCategories.get(i);

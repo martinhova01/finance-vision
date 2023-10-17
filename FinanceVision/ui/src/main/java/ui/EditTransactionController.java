@@ -44,6 +44,7 @@ public class EditTransactionController extends AbstractController {
     /**
      * Loads in the transaction to edit.
      */
+    @Override
     public void init() {
         if (transaction instanceof Income) {
             incomeRadioButton.setSelected(true);
@@ -81,8 +82,8 @@ public class EditTransactionController extends AbstractController {
      */
     @FXML
     public void handleConfirm() throws IOException {
+        Transaction t;
         try {
-            user.getAccount().removeTransaction(transaction);
 
             String description = descriptionField.getText();
             String amountString = amountField.getText();
@@ -90,18 +91,20 @@ public class EditTransactionController extends AbstractController {
             String category = this.categoryList.getValue();
             LocalDateTime time = datePicker.getValue().atStartOfDay();
 
-            Transaction t;
             if (incomeRadioButton.isSelected()) {
                 t = new Income(description, amount, category, time);
             } else {
                 t = new Expense(description, amount, category, time);
             }
-            user.getAccount().addTransaction(t);
-            saveToFile();
+
         } catch (Exception e) {
             notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
+
+        user.getAccount().removeTransaction(transaction);
+        user.getAccount().addTransaction(t);
+        saveToFile();
         
         switchScene("App.fxml", user);
     }
