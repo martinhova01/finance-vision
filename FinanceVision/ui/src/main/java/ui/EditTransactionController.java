@@ -48,10 +48,10 @@ public class EditTransactionController extends AbstractController {
     public void init() {
         if (transaction instanceof Income) {
             incomeRadioButton.setSelected(true);
-            categoryList.getItems().addAll(core.User.defaultIncomeCategories);
+            handleRbtnClicked();
         } else {
             expenseRadioButton.setSelected(true);
-            categoryList.getItems().addAll(core.User.defaultExpenseCategories);
+            handleRbtnClicked();
         }
         amountField.setText(transaction.getAmount().toString());
         descriptionField.setText(transaction.getDescription());
