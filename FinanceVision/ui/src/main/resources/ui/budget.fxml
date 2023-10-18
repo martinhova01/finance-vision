@@ -20,7 +20,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <GridPane fx:id="grid" layoutX="96.0" layoutY="69.0" prefHeight="381.0" prefWidth="614.0">
+      <GridPane fx:id="grid" layoutX="97.0" layoutY="70.0" prefHeight="323.0" prefWidth="614.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,5 +53,10 @@
             </Text>
          </children>
       </GridPane>
+      <Button fx:id="editBudgetButton" layoutX="324.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleEditBudget" prefHeight="51.0" prefWidth="159.0" text="Edit Budget">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

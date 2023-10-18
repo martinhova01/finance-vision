@@ -1,7 +1,8 @@
 package core;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +28,8 @@ public class Budget {
         categoryLimits.put(category, limit);
     }
 
-    public Collection<String> getCategories() {
-        return categoryLimits.keySet();
+    public List<String> getCategories() {
+        return new ArrayList<>(categoryLimits.keySet());
     }
 
     public double getLimit(String category) {
