@@ -57,11 +57,6 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="transactionFilterList" layoutX="216.0" layoutY="67.0" prefHeight="25.0" prefWidth="119.0" />
-      <Text layoutX="183.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTION FILTER" textAlignment="CENTER" wrappingWidth="185.96875">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
+      <ChoiceBox fx:id="transactionFilterList" layoutX="228.0" layoutY="67.0" prefHeight="25.0" prefWidth="95.0" />
    </children>
 </AnchorPane>

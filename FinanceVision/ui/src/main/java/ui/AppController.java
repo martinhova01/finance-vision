@@ -46,7 +46,7 @@ public class AppController extends AbstractController {
     @Override
     public void setUser(User user) {
         this.user = user;
-        init();        
+        //init();        
     }
     
     /**
@@ -59,34 +59,35 @@ public class AppController extends AbstractController {
         incomeView.getItems().clear();
         expenseView.getItems().clear();
         loadTransactionsFromFile();
-
-        transactionFilterList.setOnAction(this::handleFilterTransactionsList);
-        transactionFilterList.getItems().clear();
+        
         transactionFilterList.getItems().addAll(List.of("All", "Today", "This week", "This month", "This year"));
+        transactionFilterList.setOnAction(this::handleFilterTransactionsList);
+        transactionFilterList.getSelectionModel().selectFirst();
     }
-
-
-
+    
+    
+    
     private void loadTransactionsFromFile() {
         List<Transaction> fileTransactions = getAccount().getTransactions();
         for (Transaction transaction : fileTransactions) {
             addTransactionToView(transaction);
         }
     }
-
+    
     @FXML
     private void initialize() {
         this.balanceField.setFocusTraversable(false);
-    }
 
+    }
+    
     public User getUser() {
         return this.user;
     }
-
+    
     public Account getAccount() {
         return this.user.getAccount();
     }
-
+    
     @FXML
     private void updateBalanceView() {
         balanceField.setText(String.valueOf(Math.round(this.user.getAccount().getBalance())));
@@ -151,7 +152,6 @@ public class AppController extends AbstractController {
 
     @FXML
     void handleFilterTransactionsList(ActionEvent event) {
-        //ActionEvent event
         List<Transaction> allTransactions = getAccount().getTransactions();
         String selectedTime = transactionFilterList.getValue();
         incomeView.getItems().clear();
