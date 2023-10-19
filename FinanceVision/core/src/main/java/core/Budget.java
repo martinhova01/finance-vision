@@ -25,6 +25,9 @@ public class Budget {
      * @param limit the given limit
      */
     public void addCategory(String category, double limit) {
+        if (category.equals("")) {
+            throw new IllegalArgumentException("empty category");
+        }
         categoryLimits.put(category, limit);
     }
 

@@ -1,17 +1,14 @@
 package ui;
 
-import core.Budget;
 import core.Transaction;
 import java.io.IOException;
 import java.time.YearMonth;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 
 /**
@@ -25,17 +22,15 @@ public class BudgetController extends AbstractController {
     private Button editBudgetButton;
     @FXML 
     private GridPane grid;
+    @FXML
+    private ScrollPane scrollPane;
 
-    // private int maxRows = 8; //used if we add more categories
 
 
     @FXML
     void handleBack() throws IOException {
         switchScene("App.fxml", user);
     }
-
-    
-
 
     /**
      * Adds a new row to the table of budget-categories.
@@ -82,82 +77,6 @@ public class BudgetController extends AbstractController {
         grid.add(progressBar, 3, r);
     }
 
-    
-    // /**
-    //  * Makes it possible for the user to edit the limit of a given budget-category.
-    //  *
-    //  * @param clicked the button that is clicked
-    //  */
-    // private void editLimit(Object clicked) {
-    //     Button b = (Button) clicked;
-    //     b.setText("set");
-
-    //     TextField limitTextField = (TextField) scene.lookup("#limit" + b.getId());
-    //     limitTextField.setEditable(true);
-    //     limitTextField.requestFocus();
-
-    //     b.setOnMouseClicked((e) -> {
-    //         setLimit(e.getSource(), limitTextField);
-    //     });
-    // }
-
-    // /**
-    //  * Updates the limit of a given category and saves the changes.
-    //  *
-    //  * @param clicked the button that was clicked
-    //  * @param limitTextField the TextField to get the limit value from
-    //  */
-    // private void setLimit(Object clicked, TextField limitTextField) {
-    //     double limit;
-    //     try {
-    //         limit = Double.parseDouble(limitTextField.getText());
-    //     } catch (Exception e) {
-    //         notify("invalid limit", AlertType.WARNING);
-    //         limitTextField.requestFocus();
-    //         return;
-    //     }
-    //     Button b = (Button) clicked;
-    //     b.setText("edit");
-    //     b.setOnMouseClicked((e) -> {
-    //         editLimit(e.getSource());
-    //     });
-
-    //     limitTextField.setEditable(false);
-
-    //     if (user.getBudget() == null) {
-    //         user.setBudget(new Budget());
-    //     }
-    //     String category = ((TextField) scene.lookup("#category" + b.getId())).getText();
-    //     user.getBudget().addCategory(category, limit);
-        
-    //     saveToFile();
-
-    //     int row = Integer.parseInt(b.getId());
-
-    //     updateProgressBar(row, category);
-
-    // }
-
-    // /**
-    //  * Update the progressbar at a given row.
-    //  *
-    //  * @param row the row to update
-    //  * @param category the category of the row
-    //  */
-    // private void updateProgressBar(int row, String category) {
-    //     ProgressBar bar = (ProgressBar) scene.lookup("#bar" + row);
-    //     double used = getCategorySum(category);
-    //     double limit = user.getBudget().getLimit(category);
-    //     double percentage = used / limit;
-    //     bar.setProgress(percentage);
-
-    //     String color = "green";
-    //     if (percentage > 1) {
-    //         color = "red";
-    //     }
-    //     bar.setStyle("-fx-accent: " + color + ";");
-    // }
-
     /**
      * Display the budget stored in the user to the screen.
      * This method is called after the user is set
@@ -165,13 +84,14 @@ public class BudgetController extends AbstractController {
     @Override
     public void init() {
 
+        scrollPane.setContent(grid);
         for (int i = 0; i < user.getBudget().getCategories().size(); i++) {
             String category = user.getBudget().getCategories().get(i);
             
             Double limit = user.getBudget().getLimit(category);
             double categorySum = getCategorySum(category);
 
-            addRow(i + 1, category, categorySum, limit);
+            addRow(i, category, categorySum, limit);
         }
     }
 
