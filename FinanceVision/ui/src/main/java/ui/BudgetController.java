@@ -55,18 +55,14 @@ public class BudgetController extends AbstractController {
         ProgressBar progressBar = new ProgressBar();
         progressBar.setId("bar" + r);
 
-        if (limit == null) {
-            limitStr = "limit not set";
-            progressBar.setProgress(0.0);
-        } else {
-            limitStr = limit.toString();
-            String color = "green";
-            if (amount / limit > 1) {
-                color = "red";
-            }
-            progressBar.setProgress(amount / limit);
-            progressBar.setStyle("-fx-accent: " + color + ";");
+        limitStr = limit.toString();
+        String color = "green";
+        if (amount / limit > 1) {
+            color = "red";
         }
+        progressBar.setProgress(amount / limit);
+        progressBar.setStyle("-fx-accent: " + color + ";");
+        
 
         Label limTextField = new Label(limitStr);
         limTextField.setPrefWidth(100);

@@ -1,16 +1,18 @@
 package ui;
 
-import java.io.IOException;
-
 import core.Budget;
+import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller for editing the budget.
+ */
 public class EditBudgetController extends AbstractController {
 
     @FXML
@@ -78,8 +80,8 @@ public class EditBudgetController extends AbstractController {
     }
 
     private void handleRemoveButton(int rowNumber) {
-        categoryBox.getChildren().remove((HBox)scene.lookup("#categoryContainer" + rowNumber));
-        limitBox.getChildren().remove((TextField)scene.lookup("#limit" + rowNumber));
+        categoryBox.getChildren().remove((HBox) scene.lookup("#categoryContainer" + rowNumber));
+        limitBox.getChildren().remove((TextField) scene.lookup("#limit" + rowNumber));
     }
 
     @FXML
@@ -92,14 +94,14 @@ public class EditBudgetController extends AbstractController {
         Budget b = new Budget();
         for (int i = 0; i < rowNumber; i++) {
 
-                //the row has been removed
+            //the row has been removed
             if (scene.lookup("#category" + i) == null) {
                 continue;
             }
-            String category = ((TextField)scene.lookup("#category" + i)).getText();
+            String category = ((TextField) scene.lookup("#category" + i)).getText();
             Double limit;
             try {
-                limit = Double.parseDouble(((TextField)scene.lookup("#limit" + i)).getText());
+                limit = Double.parseDouble(((TextField) scene.lookup("#limit" + i)).getText());
               
             } catch (Exception e) {
                 notify("invalid limit", AlertType.WARNING);
