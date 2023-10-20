@@ -68,9 +68,8 @@ public class AppController extends AbstractController {
     
     private void loadTransactionsFromFile() {
         List<Transaction> fileTransactions = getAccount().getTransactions();
-        for (Transaction transaction : fileTransactions) {
-            addTransactionToView(transaction);
-        }
+        fileTransactions.stream().sorted((t1, t2) -> t1.getTime().compareTo(t2.getTime()))
+        .forEach(t -> addTransactionToView(t));
     }
     
     @FXML
@@ -148,6 +147,9 @@ public class AppController extends AbstractController {
         init();
     }
 
+    /**
+     * Method for filtering the transactions by current day, month or year.
+     */
     @FXML
     void handleFilterTransactionsList(ActionEvent event) {
         List<Transaction> allTransactions = getAccount().getTransactions();
@@ -172,11 +174,14 @@ public class AppController extends AbstractController {
             });
         }
         else if (selectedTime.equals("This month")) {
-            timeFilterStream = timeFilterStream.filter(t -> t.getTime().getMonth().equals(LocalDate.now().getMonth()));
+            timeFilterStream = timeFilterStream.filter(t -> t.getTime().getMonth().equals(LocalDate.now().getMonth()) 
+            && t.getTime().getYear() == LocalDate.now().getYear());
         }
         else if (selectedTime.equals("This year")) {
             timeFilterStream = timeFilterStream.filter(t -> t.getTime().getYear() == LocalDate.now().getYear());
         }
-        timeFilterStream.forEach(t -> addTransactionToView(t));
+        timeFilterStream
+        .sorted((t1, t2) -> t1.getTime().compareTo(t2.getTime()))
+        .forEach(t -> addTransactionToView(t));
     }
 }
