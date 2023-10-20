@@ -28,7 +28,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="416.0" layoutY="79.0" prefHeight="35.0" prefWidth="58.0" text="Limit">
+      <Label layoutX="416.0" layoutY="79.0" prefHeight="35.0" prefWidth="203.0" text="Limit (one month)">
          <font>
             <Font size="24.0" />
          </font>

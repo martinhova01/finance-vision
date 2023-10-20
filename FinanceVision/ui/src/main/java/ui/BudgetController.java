@@ -24,6 +24,12 @@ public class BudgetController extends AbstractController {
     private GridPane grid;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private Label usedTotal;
+    @FXML
+    private Label limitTotal;
+    @FXML
+    private ProgressBar progressBarTotal;
 
 
 
@@ -79,6 +85,8 @@ public class BudgetController extends AbstractController {
      */
     @Override
     public void init() {
+        double totalSum = 0.0;
+        double totalLimit = 0.0;
 
         scrollPane.setContent(grid);
         for (int i = 0; i < user.getBudget().getCategories().size(); i++) {
@@ -86,9 +94,20 @@ public class BudgetController extends AbstractController {
             
             Double limit = user.getBudget().getLimit(category);
             double categorySum = getCategorySum(category);
+            totalSum += categorySum;
+            totalLimit += limit;
 
             addRow(i, category, categorySum, limit);
         }
+        usedTotal.setText("" + totalSum);
+        limitTotal.setText("" + totalLimit);
+        
+        String color = "green";
+        if (totalSum / totalLimit > 1) {
+            color = "red";
+        }
+        progressBarTotal.setProgress(totalSum / totalLimit);
+        progressBarTotal.setStyle("-fx-accent: " + color + ";");
     }
 
     /**

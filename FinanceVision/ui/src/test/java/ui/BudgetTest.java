@@ -43,7 +43,7 @@ public class BudgetTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws IOException {
         Account account = new Account(3000);
-        account.addTransaction(new Expense("mat", 700.0, "Food"));
+        account.addTransaction(new Expense("mat", 2000.0, "Food"));
         Transaction tooOld = new Expense("old", 500.0, "Clothes", LocalDateTime.MIN);
         account.addTransaction(tooOld);
         user = new User("testuser", "password", "Test User", "test@user.com", account);

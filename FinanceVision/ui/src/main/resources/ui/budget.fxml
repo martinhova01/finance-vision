@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.BudgetController">
    <children>
-      <Label layoutX="341.0" layoutY="14.0" prefHeight="68.0" prefWidth="123.0" text="Budget">
+      <Label layoutX="224.0" layoutY="6.0" prefHeight="68.0" prefWidth="340.0" text="Budget - this month">
          <font>
             <Font size="38.0" />
          </font>
@@ -20,7 +21,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="editBudgetButton" layoutX="324.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleEditBudget" prefHeight="51.0" prefWidth="159.0" text="Edit Budget">
+      <Button fx:id="editBudgetButton" layoutX="622.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleEditBudget" prefHeight="51.0" prefWidth="164.0" text="Edit Budget">
          <font>
             <Font size="24.0" />
          </font>
@@ -61,5 +62,21 @@
             <Font size="24.0" />
          </font>
       </Text>
+      <Label layoutX="50.0" layoutY="380.0" prefHeight="35.0" prefWidth="91.0" text="Total:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="usedTotal" layoutX="205.0" layoutY="380.0" prefHeight="35.0" prefWidth="91.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="limitTotal" layoutX="378.0" layoutY="380.0" prefHeight="35.0" prefWidth="91.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="progressBarTotal" layoutX="537.0" layoutY="389.0" prefWidth="200.0" progress="0.0" />
    </children>
 </AnchorPane>
