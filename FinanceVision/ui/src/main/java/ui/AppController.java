@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,11 +62,9 @@ public class AppController extends AbstractController {
         loadTransactionsFromFile();
         
         transactionFilterList.getItems().addAll(List.of("All", "Today", "This week", "This month", "This year"));
-        transactionFilterList.setOnAction(this::handleFilterTransactionsList);
         transactionFilterList.getSelectionModel().selectFirst();
+        transactionFilterList.setOnAction(this::handleFilterTransactionsList);
     }
-    
-    
     
     private void loadTransactionsFromFile() {
         List<Transaction> fileTransactions = getAccount().getTransactions();
@@ -77,7 +76,6 @@ public class AppController extends AbstractController {
     @FXML
     private void initialize() {
         this.balanceField.setFocusTraversable(false);
-
     }
     
     public User getUser() {
@@ -156,17 +154,13 @@ public class AppController extends AbstractController {
         String selectedTime = transactionFilterList.getValue();
         incomeView.getItems().clear();
         expenseView.getItems().clear();
-        if (selectedTime.equals("All")) {
-            loadTransactionsFromFile();
-        }
-        else if (selectedTime.equals("Today")) {
-            allTransactions.stream()
-            .filter(t -> t.getTime().toLocalDate().equals(LocalDate.now()))
-            .forEach(t -> addTransactionToView(t));
+        Stream<Transaction> timeFilterStream = allTransactions.stream();
+
+        if (selectedTime.equals("Today")) {
+            timeFilterStream = timeFilterStream.filter(t -> t.getTime().toLocalDate().equals(LocalDate.now()));
         }
         else if (selectedTime.equals("This week")) {
-            allTransactions.stream()
-            .filter(new Predicate<Transaction>() {
+            timeFilterStream = timeFilterStream.filter(new Predicate<Transaction>() {
                 @Override
                 public boolean test(Transaction t) {
                     LocalDate tDate = t.getTime().toLocalDate();
@@ -175,20 +169,14 @@ public class AppController extends AbstractController {
                     LocalDate nowDateStartOfWeek = nowDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
                     return tDateStartOfWeek.equals(nowDateStartOfWeek);
                 }
-            })
-            .forEach(t -> addTransactionToView(t));
+            });
         }
         else if (selectedTime.equals("This month")) {
-            allTransactions.stream()
-            .filter(t -> t.getTime().getMonth().equals(LocalDate.now().getMonth()))
-            .forEach(t -> addTransactionToView(t));
+            timeFilterStream = timeFilterStream.filter(t -> t.getTime().getMonth().equals(LocalDate.now().getMonth()));
         }
         else if (selectedTime.equals("This year")) {
-            allTransactions.stream()
-            .filter(t -> t.getTime().getYear() == LocalDate.now().getYear())
-            .forEach(t -> addTransactionToView(t));
+            timeFilterStream = timeFilterStream.filter(t -> t.getTime().getYear() == LocalDate.now().getYear());
         }
-
+        timeFilterStream.forEach(t -> addTransactionToView(t));
     }
-
 }
