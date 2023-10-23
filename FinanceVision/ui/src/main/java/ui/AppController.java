@@ -44,11 +44,11 @@ public class AppController extends AbstractController {
     @FXML
     private ChoiceBox<String> transactionFilterList;
 
-    @Override
-    public void setUser(User user) {
-        this.user = user;
-        //init();        
-    }
+    //@Override
+    //public void setUser(User user) {
+    //    this.user = user;
+    //    init();        
+    //}
     
     /**
      * Shows total bank balance and list of transactions.
