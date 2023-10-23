@@ -113,10 +113,16 @@ public abstract class Transaction {
     @Override
     public String toString() {
         if (this instanceof Income) {
-            return "+ " + getAmount() + "    " + getDescription();
+            return "+ " + getAmount() + "    " + getDescription() + "    " + getTime().toLocalDate();
+            // + "    " + getTime().toLocalDate()
         } else {
-            return "- " + getAmount() + "    " + getDescription();
+            return "- " + getAmount() + "    " + getDescription() + "    " + getTime().toLocalDate();
+            // + "    " + getTime().toLocalDate()
         }   
     }
 
+    public static void main(String[] args) {
+        System.out.println("Dato" + LocalDateTime.now().toLocalDate().toString());
+    }
+    
 }

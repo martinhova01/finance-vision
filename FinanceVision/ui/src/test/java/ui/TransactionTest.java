@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
+
 public class TransactionTest extends ApplicationTest {
     
     private AbstractController abstractController;
@@ -43,8 +45,16 @@ public class TransactionTest extends ApplicationTest {
         mockFileHandler = Mockito.mock(FileHandler.class);
         Account account = new Account(1000);
         Income vippsIncome = new Income("Vipps", 500, "Salary", LocalDateTime.now());
+        Income income1 = new Income("Money from granny", 1000.0, "Other", LocalDateTime.now().minusDays(1));
+        Income income2 = new Income("Money from dad", 200.0, "Other", LocalDateTime.now().minusWeeks(1));
+        Income income3 = new Income("Salary", 2500.0, "Other", LocalDateTime.now().minusMonths(1));
+        Income income4 = new Income("Christmas present", 100.0, "Other", LocalDateTime.now().minusYears(1));
         Expense foodExpense = new Expense("Food", 100, "Food", LocalDateTime.now());
         account.addTransaction(vippsIncome);
+        account.addTransaction(income1);
+        account.addTransaction(income2);
+        account.addTransaction(income3);
+        account.addTransaction(income4);
         account.addTransaction(foodExpense);
         user = new User("testuser", "password", "Test User", "test@valid.com", account);
         when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
@@ -59,6 +69,49 @@ public class TransactionTest extends ApplicationTest {
         stage.setScene(new Scene(root));
         stage.show();
 
+    }
+
+    @Test
+    public void testFilterTransactions() {
+        ListView<Transaction> incomeView = lookup("#incomeView").query();
+        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
+        clickOn("#transactionFilterList");
+        clickOn("Today");
+        boolean found = false;
+        for (Transaction transaction : incomeView.getItems()) {
+            if (transaction.getDescription().equals("Money from granny")) {
+                found = true;
+                break;
+            }
+        }
+        Assertions.assertFalse(found, "Filtrerte ikke bort transaksjon fra i går");
+        clickOn("#transactionFilterList");
+        clickOn("This week");
+        for (Transaction transaction : incomeView.getItems()) {
+            if (transaction.getDescription().equals("Money from dad")) {
+                found = true;
+                break;
+            }
+        }
+        Assertions.assertFalse(found, "Filtrerte ikke bort transaksjon fra forrige uke");
+        clickOn("#transactionFilterList");
+        clickOn("This month");
+        for (Transaction transaction : incomeView.getItems()) {
+            if (transaction.getDescription().equals("Salary")) {
+                found = true;
+                break;
+            }
+        }
+        Assertions.assertFalse(found, "Filtrerte ikke bort transaksjon fra forrige måned");
+        clickOn("#transactionFilterList");
+        clickOn("This year");
+        for (Transaction transaction : incomeView.getItems()) {
+            if (transaction.getDescription().equals("Christmas present")) {
+                found = true;
+                break;
+            }
+        }
+        Assertions.assertFalse(found, "Filtrerte ikke bort transaksjon fra forrige år");
     }
 
 
