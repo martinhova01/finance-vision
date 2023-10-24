@@ -48,10 +48,10 @@ public class EditTransactionController extends AbstractController {
     public void init() {
         if (transaction instanceof Income) {
             incomeRadioButton.setSelected(true);
-            categoryList.getItems().addAll(core.User.defaultIncomeCategories);
+            handleRbtnClicked();
         } else {
             expenseRadioButton.setSelected(true);
-            categoryList.getItems().addAll(core.User.defaultExpenseCategories);
+            handleRbtnClicked();
         }
         amountField.setText(transaction.getAmount().toString());
         descriptionField.setText(transaction.getDescription());
@@ -66,10 +66,10 @@ public class EditTransactionController extends AbstractController {
     public void handleRbtnClicked() {
         if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(core.User.defaultIncomeCategories);
+            categoryList.getItems().addAll(user.getBudget().getCategories());
         } else if (expenseRadioButton.isSelected()) {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(core.User.defaultExpenseCategories);
+            categoryList.getItems().addAll(user.getBudget().getCategories());
 
             //add the additional categories for this user
         }
@@ -84,7 +84,6 @@ public class EditTransactionController extends AbstractController {
     public void handleConfirm() throws IOException {
         Transaction t;
         try {
-
             String description = descriptionField.getText();
             String amountString = amountField.getText();
             double amount = Double.parseDouble(amountString);

@@ -1,16 +1,14 @@
 package ui;
 
-import core.Budget;
 import core.Transaction;
 import java.io.IOException;
 import java.time.YearMonth;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 
 /**
@@ -20,19 +18,25 @@ public class BudgetController extends AbstractController {
 
     @FXML
     private Button backButton;
+    @FXML
+    private Button editBudgetButton;
     @FXML 
     private GridPane grid;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private Label usedTotal;
+    @FXML
+    private Label limitTotal;
+    @FXML
+    private ProgressBar progressBarTotal;
 
-    // private int maxRows = 10; //used if we add more categories
 
 
     @FXML
     void handleBack() throws IOException {
         switchScene("App.fxml", user);
     }
-
-    
-
 
     /**
      * Adds a new row to the table of budget-categories.
@@ -46,125 +50,33 @@ public class BudgetController extends AbstractController {
         RowConstraints row = new RowConstraints(35);
         grid.getRowConstraints().add(row);
 
-        TextField categoryField = new TextField(category);
+        Label categoryField = new Label(category);
         categoryField.setId("category" + r);
-        categoryField.setEditable(false);
         grid.add(categoryField, 0, r);
 
-        TextField amountTextField = new TextField(amount.toString());
-        amountTextField.setEditable(false);
+        Label amountTextField = new Label(amount.toString());
         grid.add(amountTextField, 1, r);
 
         String limitStr;
         ProgressBar progressBar = new ProgressBar();
         progressBar.setId("bar" + r);
 
-        if (limit == null) {
-            limitStr = "limit not set";
-            progressBar.setProgress(0.0);
-        } else {
-            limitStr = limit.toString();
-            String color = "green";
-            if (amount / limit > 1) {
-                color = "red";
-            }
-            progressBar.setProgress(amount / limit);
-            progressBar.setStyle("-fx-accent: " + color + ";");
+        limitStr = limit.toString();
+        String color = "green";
+        if (amount / limit > 1) {
+            color = "red";
         }
+        progressBar.setProgress(amount / limit);
+        progressBar.setStyle("-fx-accent: " + color + ";");
+        
 
-        TextField limTextField = new TextField(limitStr);
-        limTextField.setEditable(false);
+        Label limTextField = new Label(limitStr);
         limTextField.setPrefWidth(100);
         limTextField.setId("limit" + r);
 
-        Button editButton = new Button("edit");
-        editButton.setId("" + r);
-        editButton.setOnMouseClicked((e) -> {
-            editLimit(e.getSource());
-        });
-
-        HBox limitBox = new HBox(10);
-        
-        limitBox.getChildren().addAll(limTextField, editButton);
-        grid.add(limitBox, 2, r);
+        grid.add(limTextField, 2, r);
 
         grid.add(progressBar, 3, r);
-    }
-
-    
-    /**
-     * Makes it possible for the user to edit the limit of a given budget-category.
-     *
-     * @param clicked the button that is clicked
-     */
-    private void editLimit(Object clicked) {
-        Button b = (Button) clicked;
-        b.setText("set");
-
-        TextField limitTextField = (TextField) scene.lookup("#limit" + b.getId());
-        limitTextField.setEditable(true);
-        limitTextField.requestFocus();
-
-        b.setOnMouseClicked((e) -> {
-            setLimit(e.getSource(), limitTextField);
-        });
-    }
-
-    /**
-     * Updates the limit of a given category and saves the changes.
-     *
-     * @param clicked the button that was clicked
-     * @param limitTextField the TextField to get the limit value from
-     */
-    private void setLimit(Object clicked, TextField limitTextField) {
-        double limit;
-        try {
-            limit = Double.parseDouble(limitTextField.getText());
-        } catch (Exception e) {
-            notify("invalid limit", AlertType.WARNING);
-            limitTextField.requestFocus();
-            return;
-        }
-        Button b = (Button) clicked;
-        b.setText("edit");
-        b.setOnMouseClicked((e) -> {
-            editLimit(e.getSource());
-        });
-
-        limitTextField.setEditable(false);
-
-        if (user.getBudget() == null) {
-            user.setBudget(new Budget());
-        }
-        String category = ((TextField) scene.lookup("#category" + b.getId())).getText();
-        user.getBudget().addCategory(category, limit);
-        
-        saveToFile();
-
-        int row = Integer.parseInt(b.getId());
-
-        updateProgressBar(row, category);
-
-    }
-
-    /**
-     * Update the progressbar at a given row.
-     *
-     * @param row the row to update
-     * @param category the category of the row
-     */
-    private void updateProgressBar(int row, String category) {
-        ProgressBar bar = (ProgressBar) scene.lookup("#bar" + row);
-        double used = getCategorySum(category);
-        double limit = user.getBudget().getLimit(category);
-        double percentage = used / limit;
-        bar.setProgress(percentage);
-
-        String color = "green";
-        if (percentage > 1) {
-            color = "red";
-        }
-        bar.setStyle("-fx-accent: " + color + ";");
     }
 
     /**
@@ -173,23 +85,29 @@ public class BudgetController extends AbstractController {
      */
     @Override
     public void init() {
+        double totalSum = 0.0;
+        double totalLimit = 0.0;
 
-        for (int i = 0; i < core.User.defaultExpenseCategories.size(); i++) {
-            String category = core.User.defaultExpenseCategories.get(i);
+        scrollPane.setContent(grid);
+        for (int i = 0; i < user.getBudget().getCategories().size(); i++) {
+            String category = user.getBudget().getCategories().get(i);
             
-            Double limit;
-          
-            if (user.getBudget() == null) {
-                limit = null;
-            } else if (!user.getBudget().getCategories().contains(category)) {
-                limit = null;
-            } else {
-                limit = user.getBudget().getLimit(category);
-            }
+            Double limit = user.getBudget().getLimit(category);
             double categorySum = getCategorySum(category);
+            totalSum += categorySum;
+            totalLimit += limit;
 
-            addRow(i + 1, category, categorySum, limit);
+            addRow(i, category, categorySum, limit);
         }
+        usedTotal.setText("" + totalSum);
+        limitTotal.setText("" + totalLimit);
+        
+        String color = "green";
+        if (totalSum / totalLimit > 1) {
+            color = "red";
+        }
+        progressBarTotal.setProgress(totalSum / totalLimit);
+        progressBarTotal.setStyle("-fx-accent: " + color + ";");
     }
 
     /**
@@ -208,5 +126,10 @@ public class BudgetController extends AbstractController {
         }
 
         return categorySum;
+    }
+
+    @FXML
+    private void handleEditBudget() throws IOException {
+        switchScene("editBudget.fxml", user);
     }
 }

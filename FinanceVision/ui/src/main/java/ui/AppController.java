@@ -44,7 +44,7 @@ public class AppController extends AbstractController {
     @FXML
     private ChoiceBox<String> transactionFilterList;
     
-    private Transaction selectedTransaction;
+    //private Transaction selectedTransaction;
 
     /**
      * Shows total bank balance and list of transactions.
@@ -112,20 +112,21 @@ public class AppController extends AbstractController {
         switchScene("budget.fxml", user);
     }
 
-
     @FXML
-    private void handleIncomeView() {
-        selectedTransaction = incomeView.getSelectionModel().getSelectedItem();
-    }
-
-    @FXML
-    private void handleExpenseView() {
-        selectedTransaction = expenseView.getSelectionModel().getSelectedItem();
-    }
+    private Transaction getSelectedTransaction() {
+        if (!incomeView.getSelectionModel().isEmpty()) {
+            return incomeView.getSelectionModel().getSelectedItem();
+        } else if (!expenseView.getSelectionModel().isEmpty()) {
+            return expenseView.getSelectionModel().getSelectedItem();
+        } else {
+            return null;
+        }
+    } 
 
     @FXML
     private void handleEditTransaction() throws IOException {
-        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
+        Transaction selectedTransaction = getSelectedTransaction();
+        if (selectedTransaction == null) {
             notify("No transaction selected", AlertType.ERROR);
             return;
         }
@@ -134,7 +135,8 @@ public class AppController extends AbstractController {
 
     @FXML
     private void handleDeleteTransaction() {
-        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
+        Transaction selectedTransaction = getSelectedTransaction();
+        if (selectedTransaction == null) {
             notify("No transaction selected", AlertType.ERROR);
             return;
         }
