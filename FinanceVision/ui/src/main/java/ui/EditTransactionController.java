@@ -84,7 +84,6 @@ public class EditTransactionController extends AbstractController {
     public void handleConfirm() throws IOException {
         Transaction t;
         try {
-
             String description = descriptionField.getText();
             String amountString = amountField.getText();
             double amount = Double.parseDouble(amountString);
