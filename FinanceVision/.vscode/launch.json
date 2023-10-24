@@ -6,13 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Transaction",
-            "request": "launch",
-            "mainClass": "core/core.Transaction",
-            "projectName": "core"
-        },
-        {
-            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "ui/ui.App",
