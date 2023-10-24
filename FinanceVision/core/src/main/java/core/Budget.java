@@ -1,7 +1,8 @@
 package core;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,11 +25,14 @@ public class Budget {
      * @param limit the given limit
      */
     public void addCategory(String category, double limit) {
+        if (category.equals("")) {
+            throw new IllegalArgumentException("empty category");
+        }
         categoryLimits.put(category, limit);
     }
 
-    public Collection<String> getCategories() {
-        return categoryLimits.keySet();
+    public List<String> getCategories() {
+        return new ArrayList<>(categoryLimits.keySet());
     }
 
     public double getLimit(String category) {

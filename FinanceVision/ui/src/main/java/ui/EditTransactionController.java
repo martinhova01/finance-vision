@@ -66,10 +66,10 @@ public class EditTransactionController extends AbstractController {
     public void handleRbtnClicked() {
         if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(core.User.defaultIncomeCategories);
+            categoryList.getItems().addAll(user.getBudget().getCategories());
         } else if (expenseRadioButton.isSelected()) {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(core.User.defaultExpenseCategories);
+            categoryList.getItems().addAll(user.getBudget().getCategories());
 
             //add the additional categories for this user
         }
