@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,12 +18,13 @@ public class IncomeTest {
   private Income income3;
   private Income income4;
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private LocalDateTime testDateTime = LocalDateTime.parse("2023-10-10 09:09:09", formatter);
 
 
   @BeforeEach
   public void setUp() {
     income = new Income("Money from granny", 1000.0, "Other");
-    income2 = new Income("Money from dad", 200.0, "Other", LocalDateTime.parse("2023-10-10 09:09:09", formatter));
+    income2 = new Income("Money from dad", 200.0, "Other", testDateTime);
     income3 = new Income("Salary", 2500.0, "Other");
     income4 = new Income();
     income4.setDescription("Christmas present");
@@ -78,10 +80,10 @@ public class IncomeTest {
 
   @Test
   public void testToString() {
-    assertEquals("+ 1000.0    Money from granny", income.toString());
-    assertEquals("+ 200.0    Money from dad", income2.toString());
-    assertEquals("+ 2500.0    Salary", income3.toString());
-    assertEquals("+ 100.0    Christmas present", income4.toString());
+    assertEquals("+ 1000.0    Money from granny    " + LocalDate.now(), income.toString());
+    assertEquals("+ 200.0    Money from dad    " + testDateTime.toLocalDate(), income2.toString());
+    assertEquals("+ 2500.0    Salary    " + LocalDate.now(), income3.toString());
+    assertEquals("+ 100.0    Christmas present    " + LocalDate.now(), income4.toString());
   }
 
 }

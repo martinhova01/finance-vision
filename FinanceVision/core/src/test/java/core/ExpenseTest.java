@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,13 +18,14 @@ public class ExpenseTest {
   private Expense expense3;
   private Expense expense4;
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private LocalDateTime testDateTime = LocalDateTime.parse("2023-10-10 09:09:09", formatter);
 
 
 
   @BeforeEach
   public void setUp() {
     expense = new Expense("Netflix", 90.0, "Fun");
-    expense2 = new Expense("Viaplay", 95.0, "Fun", LocalDateTime.parse("2023-10-10 09:09:09", formatter));
+    expense2 = new Expense("Viaplay", 95.0, "Fun", testDateTime);
     expense3 = new Expense("Rent", 2500.0, "Other");
     expense4 = new Expense();
     expense4.setDescription("Taxes");
@@ -78,10 +80,10 @@ public class ExpenseTest {
 
   @Test
   public void testToString() {
-    assertEquals("- 90.0    Netflix", expense.toString());
-    assertEquals("- 95.0    Viaplay", expense2.toString());
-    assertEquals("- 2500.0    Rent", expense3.toString());
-    assertEquals("- 200.0    Taxes", expense4.toString());
+    assertEquals("- 90.0    Netflix    " + LocalDate.now(), expense.toString());
+    assertEquals("- 95.0    Viaplay    " + testDateTime.toLocalDate(), expense2.toString());
+    assertEquals("- 2500.0    Rent    " + LocalDate.now(), expense3.toString());
+    assertEquals("- 200.0    Taxes    " + LocalDate.now(), expense4.toString());
   }
   
 
