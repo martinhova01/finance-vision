@@ -5,29 +5,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LoginController">
+<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LoginController">
    <children>
-      <Button fx:id="loginButton" layoutX="303.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Log in">
+      <Button fx:id="loginButton" layoutX="303.0" layoutY="296.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Log in">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="380.0" mnemonicParsing="false" onAction="#handleRegisterUser" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Register new user">
+      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleRegisterUser" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Register new user">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="251.0" layoutY="29.0" text="Finance Vision">
+      <Label layoutX="251.0" layoutY="29.0" styleClass="label" text="Finance Vision">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
       <VBox layoutX="262.0" layoutY="148.0" prefHeight="90.0" prefWidth="141.0">
          <children>
-            <Label layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="268.0" text="Username">
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="268.0" styleClass="label" text="Username">
                <font>
                   <Font size="24.0" />
                </font>
@@ -35,7 +38,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <Label layoutX="10.0" layoutY="80.0" prefHeight="35.0" prefWidth="171.0" text="Password">
+            <Label layoutX="10.0" layoutY="80.0" prefHeight="35.0" prefWidth="171.0" styleClass="label" text="Password">
                <font>
                   <Font size="24.0" />
                </font>
@@ -55,5 +58,17 @@
             <PasswordField fx:id="passwordField" layoutX="10.0" layoutY="190.0" prefHeight="35.0" />
          </children>
       </VBox>
+      <AnchorPane layoutX="14.0" layoutY="416.0" />
+      <ImageView fx:id="piggy" fitHeight="50.0" fitWidth="51.0" layoutX="12.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/piggy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="piggyCoin" fitHeight="23.0" fitWidth="44.0" layoutX="25.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/piggyCoin.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="loginSuccessful" layoutX="62.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login successful!" />
    </children>
 </AnchorPane>
