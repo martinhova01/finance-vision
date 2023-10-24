@@ -1,0 +1,124 @@
+.label{
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+
+
+}
+
+TextField, PasswordField, ComboBox, DatePicker {
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: #6f6f6f;
+    -fx-background-color: #f6edde;
+    -fx-border-radius: 5px; 
+    -fx-background-radius: 5px;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #4c5326;
+}
+.budgetCell{
+    -fx-border-style: solid;
+    -fx-border-color: grey;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
+    -fx-pref-height: 50px;
+    -fx-margin-right: 5px;
+}
+
+ListView{
+    -fx-border-style: solid;
+    -fx-border-width: 0px
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+}
+
+ListView:selected{
+    -fx-border-color: #ff0000; 
+}
+
+.list-cell {
+    -fx-background-color: #f6edde;
+    -fx-border-color: #474646; /* Svart ramme */
+    -fx-border-style: solid; /* Fast ramme */
+}
+
+.list-cell:odd {
+    -fx-background-color: #e1dacc;
+    -fx-border-color: #474646; /* Svart ramme */
+    -fx-border-style: solid; /* Fast ramme */
+}
+
+.list-cell:selected {
+    -fx-background-color: #b9b9b9; /* Bakgrunnsfarge for valgte celler (rød) */
+}
+
+GridPane{
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+    -fx-border-color: rgb(48, 48, 48);
+    
+}
+
+
+AnchorPane{
+    /* -fx-background-color: #DAD2BC; */
+
+}
+
+#editTransactionButton, #deleteTransactionButton{
+    -fx-font-size: 12px;
+    -fx-border-width: 2px;
+}
+
+.editButton{
+    -fx-background-color: blue;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 10px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+
+.background{
+    -fx-background-image: url("img/appBackground.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+.appBackground {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #EAE7DC, #D8C3A5);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+.defaultButton{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #EAE7DC, #D8C3A5);
+    -fx-border-color: #8C7A6A;
+    -fx-text-fill: #4c5326;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0.0, 0, 2);
+
+}
+.defaultButton:hover {
+	-fx-background:linear-gradient(to bottom, #a99985 5%, #eae0c2 100%);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #D8C3A5, #EAE7DC);
+}
+.button:pressed {
+    -fx-translate-y: 2px;
+}
+
+

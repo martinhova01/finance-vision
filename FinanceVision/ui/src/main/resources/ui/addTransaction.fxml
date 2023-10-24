@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddTransactionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddTransactionController">
    <children>
       <Text layoutX="170.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Transaction" textAlignment="CENTER" wrappingWidth="465.1015625">
          <font>
@@ -30,7 +30,7 @@
          <font>
             <Font size="24.0" />
          </font></RadioButton>
-      <Button fx:id="addTransactionButton" layoutX="262.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="281.0" text="ADD">
+      <Button fx:id="addTransactionButton" layoutX="262.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="281.0" styleClass="defaultButton" text="ADD">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -91,7 +91,7 @@
             </DatePicker>
          </children>
       </VBox>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" text="&lt;-Back">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="&lt;-Back">
          <font>
             <Font size="24.0" />
          </font>

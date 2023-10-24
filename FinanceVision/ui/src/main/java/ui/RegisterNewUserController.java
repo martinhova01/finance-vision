@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -68,6 +69,14 @@ public class RegisterNewUserController extends AbstractController {
 
         try {
             users.add(new User(username, password, fullName, email, new Account(balance)));
+            // notify("User created", AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.INFORMATION);
+
+            alert.setTitle("Success");
+            alert.setHeaderText("User created");
+            alert.setContentText("You can now log in with your new account");
+            alert.showAndWait();
+            
         } catch (Exception e) {
             notify(e.getLocalizedMessage(), AlertType.WARNING);
             return;

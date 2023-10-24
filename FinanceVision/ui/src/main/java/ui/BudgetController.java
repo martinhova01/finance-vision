@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 
 /**
@@ -52,10 +53,16 @@ public class BudgetController extends AbstractController {
 
         Label categoryField = new Label(category);
         categoryField.setId("category" + r);
-        grid.add(categoryField, 0, r);
+        HBox cellCategory = new HBox(10);
+        cellCategory.getStyleClass().add("budgetCell");
+        cellCategory.getChildren().addAll(categoryField);
+        grid.add(cellCategory, 0, r);
 
         Label amountTextField = new Label(amount.toString());
-        grid.add(amountTextField, 1, r);
+        HBox cellAmount = new HBox(10);
+        cellAmount.getStyleClass().add("budgetCell");
+        cellAmount.getChildren().addAll(amountTextField);
+        grid.add(cellAmount, 1, r);
 
         String limitStr;
         ProgressBar progressBar = new ProgressBar();
@@ -68,6 +75,10 @@ public class BudgetController extends AbstractController {
         }
         progressBar.setProgress(amount / limit);
         progressBar.setStyle("-fx-accent: " + color + ";");
+        HBox cellBar = new HBox(10);
+        cellBar.getStyleClass().add("budgetCell");
+        cellBar.getChildren().addAll(progressBar);
+        grid.add(cellBar, 3, r);
         
 
         Label limTextField = new Label(limitStr);
@@ -76,7 +87,6 @@ public class BudgetController extends AbstractController {
 
         grid.add(limTextField, 2, r);
 
-        grid.add(progressBar, 3, r);
     }
 
     /**
