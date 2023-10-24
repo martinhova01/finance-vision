@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 /**
  * Controller for the main page of the application.
@@ -43,6 +44,8 @@ public class AppController extends AbstractController {
     private Button budgetButton;
     @FXML
     private ChoiceBox<String> transactionFilterList;
+    @FXML
+    private ImageView userIcon;
     
     //private Transaction selectedTransaction;
 
@@ -185,5 +188,10 @@ public class AppController extends AbstractController {
         timeFilterStream
             .sorted((t1, t2) -> t1.getTime().compareTo(t2.getTime()))
             .forEach(t -> addTransactionToView(t));
+    }
+
+    @FXML
+    private void handleUserSettings() throws IOException {
+        switchScene("userSettings.fxml", user);
     }
 }
