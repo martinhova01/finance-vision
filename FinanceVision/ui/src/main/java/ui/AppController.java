@@ -107,21 +107,21 @@ public class AppController extends AbstractController {
         switchScene("budget.fxml", user);
     }
 
-    private Transaction selectedTransaction;
-
     @FXML
-    void handleIncomeView() {
-        selectedTransaction = incomeView.getSelectionModel().getSelectedItem();
-    }
-
-    @FXML
-    void handleExpenseView() {
-        selectedTransaction = expenseView.getSelectionModel().getSelectedItem();
-    }
+    Transaction getSelectedTransaction() {
+        if (!incomeView.getSelectionModel().isEmpty()) {
+            return incomeView.getSelectionModel().getSelectedItem();
+        } else if (!expenseView.getSelectionModel().isEmpty()) {
+            return expenseView.getSelectionModel().getSelectedItem();
+        } else {
+            return null;
+        }
+    } 
 
     @FXML
     void handleEditTransaction() throws IOException {
-        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
+        Transaction selectedTransaction = getSelectedTransaction();
+        if (selectedTransaction == null) {
             notify("No transaction selected", AlertType.ERROR);
             return;
         }
@@ -130,7 +130,8 @@ public class AppController extends AbstractController {
 
     @FXML
     void handleDeleteTransaction() {
-        if (incomeView.getSelectionModel().isEmpty() && expenseView.getSelectionModel().isEmpty()) {
+        Transaction selectedTransaction = getSelectedTransaction();
+        if (selectedTransaction == null) {
             notify("No transaction selected", AlertType.ERROR);
             return;
         }

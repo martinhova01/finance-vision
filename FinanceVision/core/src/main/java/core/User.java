@@ -16,8 +16,8 @@ public class User {
     private Budget budget;
 
 
-    public static final List<String> defaultExpenseCategories = new ArrayList<>(
-        Arrays.asList("Food", "Clothes", "Housing", "Other")); //add more later
+    private static final List<String> defaultExpenseCategories = new ArrayList<>(
+        Arrays.asList("Food", "Clothes", "Housing", "Other"));
     
     public static final List<String> defaultIncomeCategories = new ArrayList<>(
         Arrays.asList("Salary", "Gift", "Interests", "Other")); //add more later
@@ -38,7 +38,11 @@ public class User {
         setFullName(fullName);
         setEmail(email);
         this.account = account;
-        this.budget = null;
+        this.budget = new Budget();
+
+        for (String category : defaultExpenseCategories) {
+            budget.addCategory(category, 0);
+        }
     }
 
     public User() {
