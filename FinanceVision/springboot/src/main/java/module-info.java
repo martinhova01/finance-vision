@@ -8,6 +8,7 @@ module springboot {
     requires spring.boot.autoconfigure;
 
     requires core;
+    requires persistence;
 
     opens financevision.springboot.restserver to spring.beans, spring.context, spring.web;
 }
