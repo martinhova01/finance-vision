@@ -150,5 +150,6 @@
         <module>core</module>
         <module>ui</module>
         <module>persistence</module>
+        <module>springboot</module>
     </modules>
 </project>
