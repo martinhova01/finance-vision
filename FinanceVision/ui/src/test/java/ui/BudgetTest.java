@@ -59,7 +59,7 @@ public class BudgetTest extends ApplicationTest {
         root = fxmlLoader.load();
         controller = fxmlLoader.getController();
         controller.setUser(user);
-        controller.setFileHandler(mockFileHandler);
+        controller.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
         controller.init();
         Scene scene = new Scene(root);
         stage.setScene(scene);

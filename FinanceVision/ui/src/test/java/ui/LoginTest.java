@@ -38,9 +38,7 @@ public class LoginTest extends ApplicationTest {
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
-        abstractController.setFileHandler(mockFileHandler);
-        abstractController.init();
-        abstractController.setFileHandler(mockFileHandler);
+        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
         abstractController.init();
         stage.setScene(new Scene(root));
         stage.show();

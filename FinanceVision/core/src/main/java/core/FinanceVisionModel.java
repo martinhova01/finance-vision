@@ -16,7 +16,7 @@ public class FinanceVisionModel {
 
     /**
      * Adds a user to the list of users or replace the user with the same username.
-     * 
+     *
      * @param user the user to be added
      */
     public void putUser(User user) {
@@ -31,7 +31,7 @@ public class FinanceVisionModel {
     /**
      * Removes the user from the list of users.
      * If user not in the list, it does nothing.
-     * 
+     *
      * @param user the user to be removed
      */
     public void removeUser(User user) {
@@ -40,17 +40,17 @@ public class FinanceVisionModel {
 
     /**
      * Checks if a username is taken.
-     * 
+     *
      * @param username the username to check
      * @return true if the username is allready taken
      */
     public boolean containsUser(String username) {
-       return getUsernames().contains(username);
+        return getUsernames().contains(username);
     }
 
     /**
      * Gets a list of all the usernames.
-     * 
+     *
      * @return a list of all usernames
      */
     public List<String> getUsernames() {
@@ -59,7 +59,9 @@ public class FinanceVisionModel {
 
    
     /**
-     * @param user the user to find
+     * Gets a user based on username.
+     *
+     * @param username the user to find
      * @return the user or null if not found
      */
     public User getUser(String username) {
@@ -73,7 +75,14 @@ public class FinanceVisionModel {
         }
         return null;
     }
-    
 
+    /**
+     * Gets a list of all users.
+     *
+     * @return a copy of the list of users
+     */
+    public List<User> getUsers() {
+        return new ArrayList<>(users);
+    }
     
 }

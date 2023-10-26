@@ -34,7 +34,7 @@ public class RegisterUserTest extends ApplicationTest {
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
-        abstractController.setFileHandler(Mockito.mock(FileHandler.class));
+        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mock));
         abstractController.init();
         stage.setScene(new Scene(root));
         stage.show();

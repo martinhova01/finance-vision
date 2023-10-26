@@ -26,7 +26,7 @@ public class App extends Application {
         primaryStage.show();
 
         AbstractController controller = loader.getController();
-        controller.setFileHandler(new JsonFileSaving());
+        controller.setModelAccess(new DirectFinanceVisionModelAccess(new JsonFileSaving()));
         controller.setStage(stage);
         controller.setScene(scene);
         controller.init();
