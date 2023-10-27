@@ -67,6 +67,13 @@ public class LoginTest extends ApplicationTest {
         Assertions.assertTrue(logOutButton.isVisible());
     }
 
+    @Test
+    public void testRegisterUser() {
+        clickOn("#registerUserButton");
+        Node backButton = lookup("#backButton").query();
+        Assertions.assertTrue(backButton.isVisible());
+    }    
+
     public Parent getRootNode() {
         return root;
     }
