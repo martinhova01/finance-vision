@@ -1,5 +1,7 @@
 package financevision.springboot.restserver;
 
+import core.FinanceVisionModel;
+import core.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import core.FinanceVisionModel;
-import core.User;
-
+/**
+ * Class that defines the REST api for the Finance Vision model.
+ * This includes GET, PUT and DELETE methods.
+ */
 @RestController
 @RequestMapping(FinanceVisionController.FINANCE_VISION_SERVICE_PATH)
 public class FinanceVisionController {
@@ -27,6 +30,11 @@ public class FinanceVisionController {
         this.financeVisionService = financeVisionService;
     }
 
+    /**
+     * Gets the entire model object stored in the remote endpoint.
+     *
+     * @return the model
+     */
     @GetMapping
     public FinanceVisionModel getFinanceVisionModel() {
         return financeVisionService.getModel();
@@ -34,7 +42,7 @@ public class FinanceVisionController {
 
     /**
      * Get the user with the given username.
-     * 
+     *
      * @param name the username of the user
      * @return the user to get or null if not found
      */
@@ -44,8 +52,8 @@ public class FinanceVisionController {
     }
 
     /**
-     * Add or replace a user
-     * 
+     * Add or replace a user.
+     *
      * @param name the username of the user
      * @param user the user to put
      * @returns true if this method is called whithout error
@@ -58,7 +66,7 @@ public class FinanceVisionController {
 
     /**
      * Delete a user.
-     * 
+     *
      * @param name the username of the user to delete
      * @returns true if this method is called whithout error
      */
