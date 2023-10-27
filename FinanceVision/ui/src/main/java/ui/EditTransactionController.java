@@ -64,15 +64,17 @@ public class EditTransactionController extends AbstractController {
      */
     @FXML
     public void handleRbtnClicked() {
-        if (incomeRadioButton.isSelected()) {
+        categoryList.getItems().clear();
+        categoryList.getItems().addAll(user.getBudget().getCategories());
+/*         if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(user.getBudget().getCategories());
-        } else if (expenseRadioButton.isSelected()) {
+        } else {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(user.getBudget().getCategories());
 
             //add the additional categories for this user
-        }
+        } */
     }
 
     /**

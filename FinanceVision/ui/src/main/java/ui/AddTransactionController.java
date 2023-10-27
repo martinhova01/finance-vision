@@ -43,7 +43,7 @@ public class AddTransactionController extends AbstractController {
         if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(core.User.defaultIncomeCategories);
-        } else if (expenseRadioButton.isSelected()) {
+        } else {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(user.getBudget().getCategories());
 

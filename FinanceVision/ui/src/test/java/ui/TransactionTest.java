@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.matcher.control.LabeledMatchers;
+
 import core.Account;
 import core.Expense;
 import core.Income;
@@ -74,7 +75,7 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testFilterTransactions() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
+        //VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         clickOn("#transactionFilterList");
         clickOn("Today");
         boolean found = false;
@@ -125,8 +126,10 @@ public class TransactionTest extends ApplicationTest {
 
 
     @Test
-    public void testAddTransaction() {
+    public void testAddIncome() {
         clickOn("#addTransactionButton");
+        clickOn("#addTransactionButton");
+        click("OK");
         clickOn("#incomeRadioButton");
         clickOn("#amountField");
         write("100");
@@ -135,9 +138,25 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Salary");
         clickOn("#addTransactionButton");
-        Node backButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(backButton.isVisible());
+        Node logOutButton = lookup("#logOutButton").query();
+        Assertions.assertTrue(logOutButton.isVisible());
 
+    }
+
+    @Test
+    public void testAddExpense() {
+        clickOn("#addTransactionButton");
+        clickOn("#expenseRadioButton");
+        clickOn("#amountField");
+        write("100");
+        clickOn("#descriptionField");
+        write("Food");        
+        clickOn("#categoryList");
+        clickOn("Food");
+        clickOn("#addTransactionButton");
+/*         Node logOutButton = lookup("#logOutButton").query();
+        Assertions.assertTrue(logOutButton.isVisible());
+ */
     }
 
     @Test
@@ -158,7 +177,7 @@ public class TransactionTest extends ApplicationTest {
     }
 
     @Test
-    public void testEditTransaction() {
+    public void testEditIncome() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
         VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
@@ -177,8 +196,37 @@ public class TransactionTest extends ApplicationTest {
         if (descriptionField.getText().equals("Vipps1")) {
             found = true;
         }
+        clickOn("#backButton");
         Assertions.assertTrue(found, "Transaksjonen ble ikke endret");
     }
 
+    @Test
+    public void testEditExpense() {
+        ListView<Transaction> expenseView = lookup("#expenseView").query();
+        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) expenseView.lookup(".virtual-flow");
+        ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        clickOn(firstCell, MouseButton.PRIMARY);
+        clickOn("#editTransactionButton");
+        clickOn("#descriptionField");
+        write("1");
+        clickOn("#confirmButton");
+        boolean found = false;
+        ListView<Transaction> expenseView2 = lookup("#expenseView").query();
+        VirtualFlow<ListCell<Transaction>> virtualFlow2 = (VirtualFlow<ListCell<Transaction>>) expenseView2.lookup(".virtual-flow");
+        ListCell<Transaction> firstCell2 = virtualFlow2.getFirstVisibleCell();
+        clickOn(firstCell2, MouseButton.PRIMARY);
+        clickOn("#editTransactionButton");
+        TextField descriptionField = lookup("#descriptionField").query();
+        if (descriptionField.getText().equals("Food1")) {
+            found = true;
+        }
+        clickOn("#backButton");
+        Assertions.assertTrue(found, "Transaksjonen ble ikke endret");
+    }
 
+    private void click(String... labels) {
+        for (var label : labels) {
+            clickOn(LabeledMatchers.hasText(label));
+        }
+    }
 }
