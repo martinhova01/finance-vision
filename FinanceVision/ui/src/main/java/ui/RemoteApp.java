@@ -6,9 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class RemoteApp extends Application{
-
-    private Stage primaryStage;
+/**
+ * Javafx app using remote endpoint.
+ */
+public class RemoteApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -16,21 +17,16 @@ public class RemoteApp extends Application{
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
-        setPrimaryStage(stage);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
 
         AbstractController controller = loader.getController();
         controller.setStage(stage);
         controller.setScene(scene);
         controller.init();
-  }
-
-  private void setPrimaryStage(Stage stage) {
-    this.primaryStage = stage;
     }
 
-  public static void main(String[] args) {
-    launch(RemoteApp.class, args);
-  }
+    public static void main(String[] args) {
+        launch(RemoteApp.class, args);
+    }
 }

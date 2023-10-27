@@ -54,6 +54,11 @@ public class JsonFileSaving implements FileHandler {
         return users;
     } 
 
+    /**
+     * Create the Gson object with custom typeAdapters.
+     *
+     * @return the gson object
+     */
     public Gson createGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())

@@ -148,7 +148,7 @@ public class User {
     @Override
     public boolean equals(Object other) {
         if (other instanceof User) {
-            return this.getUsername().equals(((User)other).getUsername());
+            return this.getUsername().equals(((User) other).getUsername());
         }
         return super.equals(other);
     }

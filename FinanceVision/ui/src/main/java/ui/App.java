@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -21,9 +20,8 @@ public class App extends Application {
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
-        setPrimaryStage(stage);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
 
         AbstractController controller = loader.getController();
         controller.setModelAccess(new DirectFinanceVisionModelAccess(new JsonFileSaving()));
@@ -34,13 +32,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-    
-    private void setPrimaryStage(Stage stage) {
-        this.primaryStage = stage;
-    }
-    
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 }
