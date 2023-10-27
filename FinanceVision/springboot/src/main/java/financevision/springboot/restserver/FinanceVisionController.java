@@ -48,20 +48,24 @@ public class FinanceVisionController {
      * 
      * @param name the username of the user
      * @param user the user to put
+     * @returns true if this method is called whithout error
      */
     @PutMapping(path = "/user/{name}")
-    public void putUser(@PathVariable("name") String name, @RequestBody User user) {
+    public boolean putUser(@PathVariable("name") String name, @RequestBody User user) {
         getFinanceVisionModel().putUser(user);
+        return true;
     }
 
     /**
      * Delete a user.
      * 
      * @param name the username of the user to delete
+     * @returns true if this method is called whithout error
      */
     @DeleteMapping(path = "/user/{name}")
-    public void removeUser(@PathVariable("name") String name) {
+    public boolean removeUser(@PathVariable("name") String name) {
         getFinanceVisionModel().removeUser(getFinanceVisionModel().getUser(name));
+        return true;
     }
 
 }

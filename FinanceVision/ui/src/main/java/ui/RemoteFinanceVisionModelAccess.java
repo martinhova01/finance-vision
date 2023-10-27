@@ -1,17 +1,14 @@
 package ui;
 
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.util.List;
 
 import com.google.gson.Gson;
 
-import core.Account;
 import core.FinanceVisionModel;
 import core.User;
 import filesaving.JsonFileSaving;
@@ -19,9 +16,8 @@ import filesaving.JsonFileSaving;
 public class RemoteFinanceVisionModelAccess implements FinanceVisionModelAccess{
 
     private final URI endpointBaseURI;
-    private static final String APPLICATION_JSON = "application/json";
 
-    private static final String APPLICATION_FORM_URLENCODED = "application/x-www-form-urlencoded";
+    private static final String APPLICATION_JSON = "application/json";
   
     private static final String ACCEPT_HEADER = "Accept";
   
@@ -37,93 +33,102 @@ public class RemoteFinanceVisionModelAccess implements FinanceVisionModelAccess{
         this.gson = new JsonFileSaving().createGson();
     }
 
-    private String uriParam(String s) {
-    return URLEncoder.encode(s, StandardCharsets.UTF_8);
-  }
-
-    private URI getUserURI(String username) {
-      return endpointBaseURI.resolve("user/").resolve(uriParam(username));
-    }
-
   @Override
   public FinanceVisionModel getModel() throws Exception {
-      if (model == null) {
-          HttpRequest request = HttpRequest.newBuilder(endpointBaseURI)
-              .header(ACCEPT_HEADER, APPLICATION_JSON)
-              .GET()
-              .build();
-          
-              try {
-                  final HttpResponse<String> response = 
-                      HttpClient.newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
-                  this.model = gson.fromJson(response.body(), FinanceVisionModel.class);
-              } catch (Exception e) {
-                  e.printStackTrace();
-              }
-      }
+      
+      HttpRequest request = HttpRequest.newBuilder(endpointBaseURI)
+          .header(ACCEPT_HEADER, APPLICATION_JSON)
+          .GET()
+          .build();
+      
+      final HttpResponse<String> response = HttpClient
+          .newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
+      model = gson.fromJson(response.body(), FinanceVisionModel.class);
       return model;
   }
 
   @Override
   public void putUser(User user) throws Exception {
-      try {
-          String json = gson.toJson(user);
-          HttpRequest request = HttpRequest.newBuilder(getUserURI(user.getUsername()))
-              .header(ACCEPT_HEADER, APPLICATION_JSON)
-              .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
-              .PUT(BodyPublishers.ofString(json))
-              .build();
+      
+      String json = gson.toJson(user);
+      URI userURI = new URI("http://localhost:8080/fv/user/" + user.getUsername());
+      HttpRequest request = HttpRequest.newBuilder(userURI)
+          .header(ACCEPT_HEADER, APPLICATION_JSON)
+          .header(CONTENT_TYPE_HEADER, APPLICATION_JSON)
+          .PUT(BodyPublishers.ofString(json))
+          .build();
 
-              HttpClient.newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
-          //keeps the local model updated
-          this.model = getModel();
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
+      HttpResponse<String> response = HttpClient
+          .newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
+
+      String responString = response.body();
+      boolean success = gson.fromJson(responString, Boolean.class);
+      if (success) {
+          getModel();
+      }     
   }
 
   @Override
   public void removeUser(User user) throws Exception {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'removeUser'");
+      URI userURI = new URI("http://localhost:8080/fv/user/" + user.getUsername());
+      HttpRequest request = HttpRequest.newBuilder(userURI)
+          .DELETE()
+          .build();
+      HttpResponse<String> response = HttpClient
+          .newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
+      String responseString = response.body();
+      boolean success = gson.fromJson(responseString, Boolean.class);
+      if (success) {
+          getModel();
+      }
   }
 
   @Override
   public boolean containsUser(String username) throws Exception {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'containsUser'");
+      getModel();
+      return model.containsUser(username);
   }
 
   @Override
   public List<String> getUsernames() throws Exception {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUsernames'");
+      getModel();
+      return model.getUsernames();
   }
 
   @Override
   public User getUser(String username) throws Exception {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+      URI userURI = new URI("http://localhost:8080/fv/user/" + username);
+      HttpRequest request = HttpRequest.newBuilder(userURI)
+          .header(ACCEPT_HEADER, APPLICATION_JSON)
+          .GET()
+          .build();
+
+      HttpResponse<String> response = HttpClient.newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
+      String responseString = response.body();
+      return gson.fromJson(responseString, User.class);
   }
 
   @Override
   public List<User> getUsers() throws Exception {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+      getModel();
+      return model.getUsers();
   }
 
       //testing http requests
-  public static void main(String[] args) {
-    try {
-      RemoteFinanceVisionModelAccess r = new RemoteFinanceVisionModelAccess(new URI("http://localhost:8080/fv"));
-      System.out.println(r.getModel().getUsernames());
-      User u = new User("martinhova", "password", "M H", "m@g.com", new Account(1000));
-      r.putUser(u);
-      System.out.println(r.getModel().getUsernames());
+  // public static void main(String[] args) {
+  //   try {
+  //     RemoteFinanceVisionModelAccess r = new RemoteFinanceVisionModelAccess(new URI("http://localhost:8080/fv/"));
+  //     System.out.println(r.getModel().getUsernames());
+  //     User u = new User("martinhøva", "password", "M H", "m@g.com", new Account(1000));
+  //     r.putUser(u);
+  //     System.out.println(r.getModel().getUsernames());
+  //     r.removeUser(u);
+  //     System.out.println(r.getModel().getUsernames());
+  //     System.out.println(r.getUser("testuser").getFullName());
       
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+  //   } catch (Exception e) {
+  //     e.printStackTrace();
+  //   }
+  // }
   
 }
