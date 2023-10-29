@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -69,6 +70,11 @@ public class TransactionTest extends ApplicationTest {
         stage.setScene(new Scene(root));
         stage.show();
 
+    }
+
+    @BeforeAll
+    public static void setupHeadless() {
+        App.supportHeadless();
     }
 
     @Test

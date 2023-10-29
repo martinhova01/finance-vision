@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -47,6 +48,10 @@ public class LoginTest extends ApplicationTest {
 
     }
 
+    @BeforeAll
+    public static void setupHeadless() {
+        App.supportHeadless();
+    }
 
     @Test
     public void testInvalidLogin() {
