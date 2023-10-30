@@ -84,8 +84,8 @@ public abstract class AbstractController {
         AbstractController controller = loader.getController();
         controller.setStage(stage);
         controller.setScene(scene);
-        controller.setUser(user);
         controller.setFileHandler(fileHandler);
+        controller.setUser(user);
         controller.init();
     }
 

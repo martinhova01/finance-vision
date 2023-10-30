@@ -4,11 +4,13 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
    <children>
       <ListView fx:id="incomeView" layoutX="25.0" layoutY="94.0" prefHeight="300.0" prefWidth="250.0" />
       <Text layoutX="275.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="250.0">
@@ -58,5 +60,10 @@
          </font>
       </Button>
       <ChoiceBox fx:id="transactionFilterList" layoutX="228.0" layoutY="67.0" prefHeight="25.0" prefWidth="95.0" />
+      <ImageView fx:id="userIcon" fitHeight="74.0" fitWidth="50.0" layoutX="610.0" layoutY="348.0" onMouseClicked="#handleUserSettings" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/userIcon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
