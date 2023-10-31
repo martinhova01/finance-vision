@@ -118,9 +118,12 @@
                     </systemPropertyVariables>
 
                     <argLine>
-                        @{jaCoCoArgLine}
+                        @{jaCoCoArgLine} -Dtestfx.robot=awt
                         --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                         --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
+                        --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
+                        --add-exports javafx.graphics/com.sun.glass.ui.delegate=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
