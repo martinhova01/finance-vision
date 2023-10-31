@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -41,6 +42,10 @@ public class RegisterUserTest extends ApplicationTest {
 
     }
 
+    @BeforeAll
+    public static void setupHeadless() {
+        App.supportHeadless();
+    }
        
     private void setUp() {
         clickOn("#fullNameField");
