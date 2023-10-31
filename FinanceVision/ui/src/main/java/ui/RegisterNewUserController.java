@@ -2,9 +2,7 @@ package ui;
 
 import core.Account;
 import core.User;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
@@ -34,21 +32,13 @@ public class RegisterNewUserController extends AbstractController {
     @FXML
     private Button registerUserButton;
 
-    private List<User> users;
-
     @Override
     public void init() {
-        try {
-            users = fileHandler.deserializeUsers(new File(System.getProperty(
-                "user.home") + "/data.json"));
-        } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
-        }
     }
   
 
     @FXML
-    void handleCreateUser() throws IOException {
+    void handleCreateUser() throws Exception {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String fullName = fullNameField.getText();
@@ -60,24 +50,18 @@ public class RegisterNewUserController extends AbstractController {
             notify("balance field is empty or invalid", AlertType.WARNING);
             return;
         }
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                notify("Username is taken", AlertType.WARNING);
-                return;
-            }
+        if (modelAccess.containsUser(username)) {
+            notify("Username is taken", AlertType.WARNING);
+            return;
         }
 
         try {
-            users.add(new User(username, password, fullName, email, new Account(balance)));
-            notify("User created", AlertType.INFORMATION);
-            
+            modelAccess.putUser(
+                new User(username, password, fullName, email, new Account(balance)));
         } catch (Exception e) {
             notify(e.getLocalizedMessage(), AlertType.WARNING);
             return;
         }
-
-        fileHandler.serializeUsers(users, new File(System.getProperty(
-            "user.home") + "/data.json"));
 
         switchScene("login.fxml");
     }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -38,13 +39,17 @@ public class LoginTest extends ApplicationTest {
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
-        abstractController.setFileHandler(mockFileHandler);
+        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
         abstractController.init();
         stage.setScene(new Scene(root));
         stage.show();
 
     }
 
+    @BeforeAll
+    public static void setupHeadless() {
+        App.supportHeadless();
+    }
 
     @Test
     public void testInvalidLogin() {
