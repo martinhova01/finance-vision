@@ -114,22 +114,5 @@ public class RemoteFinanceVisionModelAccess implements FinanceVisionModelAccess 
         getModel();
         return model.getUsers();
     }
-
-    //testing http requests
-    // public static void main(String[] args) {
-    //   try {
-    //     RemoteFinanceVisionModelAccess r = new RemoteFinanceVisionModelAccess(new URI("http://localhost:8080/fv/"));
-    //     System.out.println(r.getModel().getUsernames());
-    //     User u = new User("martinhøva", "password", "M H", "m@g.com", new Account(1000));
-    //     r.putUser(u);
-    //     System.out.println(r.getModel().getUsernames());
-    //     r.removeUser(u);
-    //     System.out.println(r.getModel().getUsernames());
-    //     System.out.println(r.getUser("testuser").getFullName());
-        
-    //   } catch (Exception e) {
-    //     e.printStackTrace();
-    //   }
-    // }
   
 }
