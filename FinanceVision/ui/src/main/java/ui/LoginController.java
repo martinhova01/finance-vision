@@ -44,6 +44,7 @@ public class LoginController extends AbstractController {
     public void init() {
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
+        loginSuccessful.setVisible(false);
     }
 
 
