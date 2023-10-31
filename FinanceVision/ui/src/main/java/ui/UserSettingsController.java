@@ -35,11 +35,7 @@ public class UserSettingsController extends AbstractController {
 
     private List<User> users;
 
-    @Override
-    public void setUser(User user) {
-        super.setUser(user);
-        init();
-    }
+    
 
     /**
      * Loads in the user to update.
@@ -58,13 +54,6 @@ public class UserSettingsController extends AbstractController {
 
         editUserButton.setVisible(true);
         confirmButton.setVisible(false);
-
-        try {
-            users = fileHandler.deserializeUsers(new File(System.getProperty(
-                "user.home") + "/data.json"));
-        } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
-        }
     }
 
     @FXML
@@ -81,6 +70,13 @@ public class UserSettingsController extends AbstractController {
 
     @FXML
     public void handleConfirm() throws IOException {
+        try {
+            users = fileHandler.deserializeUsers(new File(System.getProperty(
+                "user.home") + "/data.json"));
+        } catch (IOException e) {
+            notify("File not found", AlertType.ERROR);
+        }
+
         String username = usernameField.getText();
         String password = passwordField.getText();
         String fullName = fullNameField.getText();
@@ -93,25 +89,37 @@ public class UserSettingsController extends AbstractController {
             }
         }
 
+        String oldUsername = user.getUsername();
+
         try {
             user.setFullName(fullName);
             user.setUsername(username);
             user.setEmail(email);
             user.setPassword(password);
-
-            init();
-
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("User updated");
-            alert.showAndWait();
         } catch (Exception e) {
             notify("One or more fields are empty or conatins invalid data", AlertType.WARNING);
             return;
         }
 
-        saveToFile();
-        //funker ikke å lagre til fil?
+        //save to file
+        try {
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getUsername().equals(oldUsername)) {
+                    users.set(i, this.user);
+                }
+            }
+            fileHandler.serializeUsers(users, new File(System.getProperty(
+                "user.home") + "/data.json"));
+        } catch (IOException e) {
+            notify("File not found", AlertType.ERROR);
+        }
+
+        init();
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("User updated");
+        alert.showAndWait();
     }
 
     @FXML
