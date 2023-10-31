@@ -2,10 +2,7 @@ package ui;
 
 import core.Transaction;
 import core.User;
-import filesaving.FileHandler;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,7 +20,7 @@ public abstract class AbstractController {
     protected Parent root;
     protected User user;
     protected Transaction transaction;
-    protected FileHandler fileHandler;
+    protected FinanceVisionModelAccess modelAccess;
 
     public void setUser(User user) {
         this.user = user;
@@ -41,8 +38,8 @@ public abstract class AbstractController {
         this.stage = stage;
     }
 
-    public void setFileHandler(FileHandler fileHandler) {
-        this.fileHandler = fileHandler;
+    public void setModelAccess(FinanceVisionModelAccess modelAccess) {
+        this.modelAccess = modelAccess;
     }
 
 
@@ -62,7 +59,7 @@ public abstract class AbstractController {
 
         AbstractController controller = loader.getController();
         controller.setStage(stage);
-        controller.setFileHandler(fileHandler);
+        controller.setModelAccess(modelAccess);
         controller.init();
     }
 
@@ -85,7 +82,7 @@ public abstract class AbstractController {
         controller.setStage(stage);
         controller.setScene(scene);
         controller.setUser(user);
-        controller.setFileHandler(fileHandler);
+        controller.setModelAccess(modelAccess);
         controller.init();
     }
 
@@ -112,7 +109,7 @@ public abstract class AbstractController {
         controller.setScene(scene);
         controller.setUser(user);
         controller.setTransaction(transaction);
-        controller.setFileHandler(fileHandler);
+        controller.setModelAccess(modelAccess);
         controller.init();
     }
 
@@ -140,17 +137,9 @@ public abstract class AbstractController {
      */
     public void saveToFile() {
         try {
-            List<User> users = fileHandler.deserializeUsers(new File(System.getProperty(
-                "user.home") + "/data.json"));
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getUsername().equals(this.user.getUsername())) {
-                    users.set(i, this.user);
-                }
-            }
-            fileHandler.serializeUsers(users, new File(System.getProperty(
-                "user.home") + "/data.json"));
-        } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
+            modelAccess.putUser(user);
+        } catch (Exception e) {
+            notify("Something went wrong when saving update.", AlertType.WARNING);
         }
     }
 

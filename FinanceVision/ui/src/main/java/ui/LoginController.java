@@ -1,10 +1,7 @@
 package ui;
 
 import core.User;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -24,32 +21,18 @@ public class LoginController extends AbstractController {
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
-
-    private List<User> users;
     
     @Override
     public void init() {
-        try {
-            this.users = fileHandler.deserializeUsers(new File(System.getProperty(
-                "user.home") + "/data.json"));
-        } catch (IOException e) {
-            this.users = new ArrayList<>();
-            try {
-                fileHandler.serializeUsers(this.users, new File(System.getProperty(
-                    "user.home") + "/data.json"));
-            } catch (IOException e1) {
-                notify("File not found", AlertType.ERROR);
-            }
-        }
         loginButton.setFocusTraversable(false);
         registerUserButton.setFocusTraversable(false);
     }
 
     @FXML
-    void handleLogin() throws IOException {
+    void handleLogin() throws Exception {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        for (User user : users) {
+        for (User user : modelAccess.getUsers()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 System.out.println("Login successful");
                 switchScene("App.fxml", user);

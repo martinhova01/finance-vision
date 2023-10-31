@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +63,7 @@ public class TransactionTest extends ApplicationTest {
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
-        abstractController.setFileHandler(mockFileHandler);
+        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
         abstractController.setUser(user);
         abstractController.init();
         stage.setScene(new Scene(root));

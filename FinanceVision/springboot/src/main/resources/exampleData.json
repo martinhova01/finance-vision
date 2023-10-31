@@ -1,0 +1,65 @@
+{
+    "users": [
+        {
+            "username": "testuser",
+            "password": "password",
+            "fullName": "Test User",
+            "email": "test@valid.com",
+            "account": {
+                "startValue": 1000,
+                "transactions": [
+                    {
+                        "type": "income",
+                        "description": "Vipps",
+                        "amount": 500,
+                        "category": "Salary",
+                        "date": "2023-10-25 20:03:05"
+                    },
+                    {
+                        "type": "income",
+                        "description": "Money from granny",
+                        "amount": 1000,
+                        "category": "Other",
+                        "date": "2023-10-24 20:03:05"
+                    },
+                    {
+                        "type": "income",
+                        "description": "Money from dad",
+                        "amount": 200,
+                        "category": "Other",
+                        "date": "2023-10-18 20:03:05"
+                    },
+                    {
+                        "type": "income",
+                        "description": "Salary",
+                        "amount": 2500,
+                        "category": "Other",
+                        "date": "2023-09-25 20:03:05"
+                    },
+                    {
+                        "type": "income",
+                        "description": "Christmas present",
+                        "amount": 100,
+                        "category": "Other",
+                        "date": "2022-10-25 20:03:05"
+                    },
+                    {
+                        "type": "expense",
+                        "description": "Food",
+                        "amount": 100,
+                        "category": "Food",
+                        "date": "2023-10-25 20:03:05"
+                    }
+                ]
+            },
+            "budget": {
+                "categoryLimits": {
+                    "Clothes": 0,
+                    "Housing": 0,
+                    "Food": 0,
+                    "Other": 0
+                }
+            }
+        }
+    ]
+}
