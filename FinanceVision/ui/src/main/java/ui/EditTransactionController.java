@@ -96,7 +96,8 @@ public class EditTransactionController extends AbstractSubController {
             }
 
         } catch (Exception e) {
-            parentController.notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
+            parentController.notify(
+                "One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
 

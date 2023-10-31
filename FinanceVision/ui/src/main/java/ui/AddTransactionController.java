@@ -72,7 +72,8 @@ public class AddTransactionController extends AbstractSubController {
 
         } catch (Exception e) {
             //TODO: tell the user which field is invalid or empty
-            parentController.notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
+            parentController.notify(
+                "One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
 

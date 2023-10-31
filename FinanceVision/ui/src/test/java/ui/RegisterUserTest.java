@@ -66,7 +66,6 @@ public class RegisterUserTest extends ApplicationTest {
     public void testRegisterUser() {
         setUp();
         click("Register user");
-        click("OK");
         Node loginButton = lookup("#loginButton").query();
         Assertions.assertTrue(loginButton.isVisible());
     }

@@ -3,8 +3,8 @@ package ui;
 import core.Budget;
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -83,8 +83,10 @@ public class EditBudgetController extends AbstractSubController {
     }
 
     private void handleRemoveButton(int rowNumber) {
-        categoryBox.getChildren().remove((HBox) getScene().lookup("#categoryContainer" + rowNumber));
-        limitBox.getChildren().remove((TextField) getScene().lookup("#limit" + rowNumber));
+        categoryBox.getChildren()
+            .remove((HBox) getScene().lookup("#categoryContainer" + rowNumber));
+        limitBox.getChildren()
+            .remove((TextField) getScene().lookup("#limit" + rowNumber));
     }
 
     @FXML

@@ -1,8 +1,7 @@
 package ui;
 
-import java.io.IOException;
-
 import core.Transaction;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -10,10 +9,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Main controller for the app.
+ * Holds the top nav-menu.
+ */
 public class AppController extends AbstractController {
 
     @FXML
-    private Label transactionLabel, budgetLabel, userSettingsLabel;
+    private Label transactionLabel;
+    @FXML
+    private Label budgetLabel;
+    @FXML
+    private Label userSettingsLabel;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -54,6 +61,11 @@ public class AppController extends AbstractController {
     }
 
 
+    /**
+     * Switches the content of the window below the nav menu. 
+     *
+     * @param fxmlFileName the filename of the fxml-file to load.
+     */
     public void switchBorderPane(String fxmlFileName) {
         try {
             borderPane.setCenter(loadAnchorPane(fxmlFileName));
