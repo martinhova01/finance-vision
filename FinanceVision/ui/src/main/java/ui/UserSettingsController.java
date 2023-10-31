@@ -56,6 +56,9 @@ public class UserSettingsController extends AbstractController {
         confirmButton.setVisible(false);
     }
 
+    /**
+     * Method that allows the user to edit user information.
+     */
     @FXML
     public void handleEditUser() {
         fullNameField.setDisable(false);
@@ -65,9 +68,13 @@ public class UserSettingsController extends AbstractController {
 
         editUserButton.setVisible(false);
         confirmButton.setVisible(true);
-        
     }
 
+    /**
+     * Method for confirming changes to the user.
+     *
+     * @throws IOException if one or more fields are empty or contains invalid data
+     */
     @FXML
     public void handleConfirm() throws IOException {
         try {
