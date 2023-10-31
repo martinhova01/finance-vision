@@ -12,25 +12,21 @@
 
 <AnchorPane fx:id="budgetPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.BudgetController">
    <children>
-      <Label layoutX="224.0" layoutY="6.0" prefHeight="68.0" prefWidth="340.0" text="Budget - this month">
+      <Label layoutX="224.0" layoutY="-13.0" prefHeight="68.0" prefWidth="340.0" text="Budget - this month">
          <font>
-            <Font size="38.0" />
+            <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="&lt;-Back">
-         <font>
-            <Font size="24.0" />
-         </font></Button>
-      <Button fx:id="editBudgetButton" layoutX="622.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleEditBudget" prefHeight="51.0" prefWidth="164.0" text="Edit Budget">
+      <Button fx:id="editBudgetButton" layoutX="622.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleEditBudget" prefHeight="51.0" prefWidth="164.0" styleClass="defaultButton" text="Edit Budget">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <ScrollPane fx:id="scrollPane" layoutX="50.0" layoutY="100.0" prefHeight="280.0" prefWidth="700.0">
+      <ScrollPane fx:id="scrollPane" layoutX="53.0" layoutY="67.0" prefHeight="280.0" prefWidth="700.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="681.0">
                <children>
-                  <GridPane fx:id="grid" prefHeight="181.0" prefWidth="684.0">
+                  <GridPane fx:id="grid" prefHeight="280.0" prefWidth="684.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -42,41 +38,41 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Text layoutX="50.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="105.46875">
+      <Text layoutX="50.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="105.46875">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="222.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Used" wrappingWidth="57.46875">
+      <Text layoutX="224.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Used" wrappingWidth="57.46875">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="394.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Limit" wrappingWidth="59.46875">
+      <Text layoutX="394.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Limit" wrappingWidth="59.46875">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="563.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%" wrappingWidth="59.46875">
+      <Text layoutX="564.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%" wrappingWidth="59.46875">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Label layoutX="50.0" layoutY="380.0" prefHeight="35.0" prefWidth="91.0" text="Total:">
+      <Label layoutX="57.0" layoutY="347.0" prefHeight="35.0" prefWidth="91.0" text="Total:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="usedTotal" layoutX="205.0" layoutY="380.0" prefHeight="35.0" prefWidth="91.0">
+      <Label fx:id="usedTotal" layoutX="224.0" layoutY="347.0" prefHeight="35.0" prefWidth="91.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="limitTotal" layoutX="378.0" layoutY="380.0" prefHeight="35.0" prefWidth="91.0">
+      <Label fx:id="limitTotal" layoutX="394.0" layoutY="347.0" prefHeight="35.0" prefWidth="91.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="progressBarTotal" layoutX="537.0" layoutY="389.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar fx:id="progressBarTotal" layoutX="564.0" layoutY="356.0" prefWidth="200.0" progress="0.0" />
    </children>
 </AnchorPane>

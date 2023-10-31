@@ -93,7 +93,7 @@ public class LoginController extends AbstractController {
         String password = passwordField.getText();
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                System.out.println("Login successful");
+                System.out.println("Login successful" + user);
                 loginTransition();
                 piggyCoinJumpAnimation();
                 PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(0.3));

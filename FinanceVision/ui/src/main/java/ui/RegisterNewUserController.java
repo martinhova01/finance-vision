@@ -69,13 +69,7 @@ public class RegisterNewUserController extends AbstractController {
 
         try {
             users.add(new User(username, password, fullName, email, new Account(balance)));
-            // notify("User created", AlertType.INFORMATION);
-            Alert alert = new Alert(AlertType.INFORMATION);
-
-            alert.setTitle("Success");
-            alert.setHeaderText("User created");
-            alert.setContentText("You can now log in with your new account");
-            alert.showAndWait();
+            notify("User created", AlertType.INFORMATION);
             
         } catch (Exception e) {
             notify(e.getLocalizedMessage(), AlertType.WARNING);

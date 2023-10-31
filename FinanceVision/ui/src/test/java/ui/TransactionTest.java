@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,13 +114,13 @@ public class TransactionTest extends ApplicationTest {
     }
 
 
-    @Test
-    public void testBackButton() {
-        clickOn("#addTransactionButton");
-        clickOn("#backButton");
-        Node backButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(backButton.isVisible());
-    }
+    // @Test
+    // public void testBackButton() {
+    //     clickOn("#addTransactionButton");
+    //     clickOn("#backButton");
+    //     Node backButton = lookup("#logOutButton").query();
+    //     Assertions.assertTrue(backButton.isVisible());
+    // }
 
 
     @Test
@@ -135,8 +134,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Salary");
         clickOn("#addTransactionButton");
-        Node backButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(backButton.isVisible());
+        Node editTransaction = lookup("#editTransactionButton").query();
+        Assertions.assertTrue(editTransaction.isVisible());
 
     }
 

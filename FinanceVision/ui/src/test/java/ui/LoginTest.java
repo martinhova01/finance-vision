@@ -40,8 +40,6 @@ public class LoginTest extends ApplicationTest {
         abstractController.setStage(stage);
         abstractController.setFileHandler(mockFileHandler);
         abstractController.init();
-        abstractController.setFileHandler(mockFileHandler);
-        abstractController.init();
         stage.setScene(new Scene(root));
         stage.show();
 
@@ -68,8 +66,8 @@ public class LoginTest extends ApplicationTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Node logOutButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(logOutButton.isVisible());
+        Node balanceField = lookup("#balanceField").query();
+        Assertions.assertTrue(balanceField.isVisible());
     }
 
     public Parent getRootNode() {

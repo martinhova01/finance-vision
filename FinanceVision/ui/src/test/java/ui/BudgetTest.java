@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 
 public class BudgetTest extends ApplicationTest {
 
-    private BudgetController controller;
+    private AppController parentController;
     private Parent root;
     private User user;
     
@@ -55,27 +55,28 @@ public class BudgetTest extends ApplicationTest {
         mockFileHandler = Mockito.mock(FileHandler.class);
         when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
         
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("budget.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         root = fxmlLoader.load();
-        controller = fxmlLoader.getController();
-        controller.setUser(user);
-        controller.setFileHandler(mockFileHandler);
-        controller.init();
+        parentController = fxmlLoader.getController();
+        parentController.setUser(user);
+        parentController.setFileHandler(mockFileHandler);
+        parentController.init();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        controller.setStage(stage);
-        controller.setScene(scene);
+        parentController.setStage(stage);
+        parentController.setScene(scene);
         stage.show();
+        parentController.switchBorderPane("budget.fxml");
 
     }
 
-    @Test
-    public void testBackButton() {
-        clickOn("#backButton");
-        Node logOutButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(logOutButton.isVisible());
+    // @Test
+    // public void testBackButton() {
+    //     clickOn("#backButton");
+    //     Node logOutButton = lookup("#logOutButton").query();
+    //     Assertions.assertTrue(logOutButton.isVisible());
         
-    }
+    // }
 
     @Test
     public void testEditButton() {

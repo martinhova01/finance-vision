@@ -4,6 +4,7 @@ import core.Budget;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -13,7 +14,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controller for editing the budget.
  */
-public class EditBudgetController extends AbstractController {
+public class EditBudgetController extends AbstractSubController {
 
     @FXML
     private Button backButton;
@@ -33,17 +34,18 @@ public class EditBudgetController extends AbstractController {
 
     @Override
     public void init() {
-        for (int i = 0; i < user.getBudget().getCategories().size(); i++) {
-            String category = user.getBudget().getCategories().get(i);
-            double limit = user.getBudget().getLimit(category);
+        for (int i = 0; i < getUser().getBudget().getCategories().size(); i++) {
+            String category = getUser().getBudget().getCategories().get(i);
+            double limit = getUser().getBudget().getLimit(category);
             addRow(category, limit, i);
         }
         HBox container = new HBox();
         container.getChildren().addAll(categoryBox, limitBox);
         scrollPane.setContent(container);
 
-        this.rowNumber = user.getBudget().getCategories().size();
+        this.rowNumber = getUser().getBudget().getCategories().size();
         addButton = new Button("+");
+        addButton.getStyleClass().add("defaultButton");
         addButton.setOnMouseClicked(e -> {
             handleAddButton();
         });
@@ -53,6 +55,7 @@ public class EditBudgetController extends AbstractController {
     private void addRow(String category, double limit, int rowNumber) {
         Button removeButton = new Button("-");
         removeButton.setId("remove" + rowNumber);
+        removeButton.getStyleClass().add("defaultButton");
         removeButton.setOnMouseClicked(e -> {
             handleRemoveButton(rowNumber);
         });
@@ -80,13 +83,13 @@ public class EditBudgetController extends AbstractController {
     }
 
     private void handleRemoveButton(int rowNumber) {
-        categoryBox.getChildren().remove((HBox) scene.lookup("#categoryContainer" + rowNumber));
-        limitBox.getChildren().remove((TextField) scene.lookup("#limit" + rowNumber));
+        categoryBox.getChildren().remove((HBox) getScene().lookup("#categoryContainer" + rowNumber));
+        limitBox.getChildren().remove((TextField) getScene().lookup("#limit" + rowNumber));
     }
 
     @FXML
     private void handleBack() throws IOException {
-        switchScene("budget.fxml", user);
+        parentController.switchBorderPane("budget.fxml");
     }
 
     @FXML
@@ -95,29 +98,33 @@ public class EditBudgetController extends AbstractController {
         for (int i = 0; i < rowNumber; i++) {
 
             //the row has been removed
-            if (scene.lookup("#category" + i) == null) {
+            if (getScene().lookup("#category" + i) == null) {
                 continue;
             }
-            String category = ((TextField) scene.lookup("#category" + i)).getText();
+            String category = ((TextField) getScene().lookup("#category" + i)).getText();
             Double limit;
             try {
-                limit = Double.parseDouble(((TextField) scene.lookup("#limit" + i)).getText());
+                limit = Double.parseDouble(((TextField) getScene().lookup("#limit" + i)).getText());
               
             } catch (Exception e) {
-                notify("invalid limit", AlertType.WARNING);
+                parentController.notify("invalid limit", AlertType.WARNING);
                 return;
             }
             try {
                 b.addCategory(category, limit);
             } catch (IllegalArgumentException e) {
-                notify(e.getMessage(), AlertType.WARNING);
+                parentController.notify(e.getMessage(), AlertType.WARNING);
                 return;
             }
 
         }
-        user.setBudget(b);
-        saveToFile();
-        switchScene("budget.fxml", user); 
+        getUser().setBudget(b);
+        parentController.saveToFile();
+        parentController.switchBorderPane("budget.fxml");
+    }
+
+    public Scene getScene() {
+        return parentController.getScene();
     }
 
   

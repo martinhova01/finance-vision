@@ -15,10 +15,8 @@ import javafx.scene.layout.RowConstraints;
 /**
  * Controller for creating a budget.
  */
-public class BudgetController extends AbstractController {
+public class BudgetController extends AbstractSubController {
 
-    @FXML
-    private Button backButton;
     @FXML
     private Button editBudgetButton;
     @FXML 
@@ -33,11 +31,6 @@ public class BudgetController extends AbstractController {
     private ProgressBar progressBarTotal;
 
 
-
-    @FXML
-    void handleBack() throws IOException {
-        switchScene("App.fxml", user);
-    }
 
     /**
      * Adds a new row to the table of budget-categories.
@@ -82,10 +75,13 @@ public class BudgetController extends AbstractController {
         
 
         Label limTextField = new Label(limitStr);
+        HBox cellLimit = new HBox(10);
+        cellLimit.getStyleClass().add("budgetCell");
+        cellLimit.getChildren().addAll(limTextField);
         limTextField.setPrefWidth(100);
         limTextField.setId("limit" + r);
 
-        grid.add(limTextField, 2, r);
+        grid.add(cellLimit, 2, r);
 
     }
 
@@ -99,10 +95,10 @@ public class BudgetController extends AbstractController {
         double totalLimit = 0.0;
 
         scrollPane.setContent(grid);
-        for (int i = 0; i < user.getBudget().getCategories().size(); i++) {
-            String category = user.getBudget().getCategories().get(i);
+        for (int i = 0; i < getUser().getBudget().getCategories().size(); i++) {
+            String category = getUser().getBudget().getCategories().get(i);
             
-            Double limit = user.getBudget().getLimit(category);
+            Double limit = getUser().getBudget().getLimit(category);
             double categorySum = getCategorySum(category);
             totalSum += categorySum;
             totalLimit += limit;
@@ -129,7 +125,7 @@ public class BudgetController extends AbstractController {
      */
     private double getCategorySum(String category) {
         double categorySum = 0;
-        for (Transaction transaction : user.getAccount().getTransactions(
+        for (Transaction transaction : getUser().getAccount().getTransactions(
             t -> t.getCategory().equals(category)
             && YearMonth.from(t.getTime()).equals(YearMonth.now()))) {
             categorySum += transaction.getAmount();
@@ -140,6 +136,6 @@ public class BudgetController extends AbstractController {
 
     @FXML
     private void handleEditBudget() throws IOException {
-        switchScene("editBudget.fxml", user);
+        parentController.switchBorderPane("editBudget.fxml");
     }
 }

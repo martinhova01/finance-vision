@@ -2,9 +2,11 @@ package ui;
 
 import java.io.IOException;
 
+import core.Transaction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -12,35 +14,35 @@ public class AppController extends AbstractController {
 
     @FXML
     private Label transactionLabel, budgetLabel, userSettingsLabel;
-    //private Transaction selectedTransaction;
     @FXML
     private BorderPane borderPane;
     @FXML
-    private AnchorPane TransactionsPane, budgetPane;
+    private TextField balanceField;
+
+    private Transaction transaction;
+
 
     @Override
     public void init() {
-        budgetPane = loadBudgetPane();
-        TransactionsPane = loadTransactionsPane();
-        // switchBorderPane("Transactions.fxml");
-        borderPane.setCenter(loadTransactionsPane());
+
+        switchBorderPane("transactions.fxml");
         transactionLabel.getStyleClass().add("nav-itemPressed");
         budgetLabel.setOnMouseClicked(event -> {
-            borderPane.setCenter(budgetPane);
+            switchBorderPane("budget.fxml");
             setDefaultStyleClass();
             budgetLabel.getStyleClass().add("nav-itemPressed");
         });
         transactionLabel.setOnMouseClicked(event -> {
-            borderPane.setCenter(TransactionsPane);
+            switchBorderPane("transactions.fxml");
             setDefaultStyleClass();
             transactionLabel.getStyleClass().add("nav-itemPressed");
         });
-
-
-
+        updateBalanceField();
     }
 
-
+    public Transaction getTransaction() {
+        return transaction;
+    }
 
     private void setDefaultStyleClass() {
         transactionLabel.getStyleClass().clear();
@@ -51,72 +53,31 @@ public class AppController extends AbstractController {
         userSettingsLabel.getStyleClass().add("nav-item");
     }
 
-    private AnchorPane loadTransactionsPane() {
+
+    public void switchBorderPane(String fxmlFileName) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Transactions.fxml"));
-            AnchorPane transactionsPane = loader.load();
-            AbstractController controller = loader.getController();
-            controller.setStage(stage);
-            return transactionsPane;
+            borderPane.setCenter(loadAnchorPane(fxmlFileName));
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the error appropriately. For example, show an error dialog.
-            notify();
-            return null;
         }
-
-
+        updateBalanceField();
     }
 
-
-    private AnchorPane loadBudgetPane() {
-        try {
-            // Load the budget pane from the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("budget.fxml"));
-            AnchorPane budgetPane = loader.load();
-            setStage(stage);
-            // Scene scene = new Scene(budgetPane);
-            // stage.setScene(scene);
-
-            // AbstractController controller = loader.getController();
-            // controller.setStage(stage);
-            // controller.setFileHandler(fileHandler);
-            // controller.init();
-
-    
-            // Get the controller for the pane, if needed
-            // You can cast this to whatever controller class the FXML file uses
-            // BudgetPaneController controller = loader.getController();
-    
-            // Initialize or set up the controller, if needed
-            // controller.someMethod();
-    
-            return budgetPane;
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the error appropriately. For example, show an error dialog.
-            notify();
-            return null;
-        }
+    private void updateBalanceField() {
+        balanceField.setText(String.valueOf(Math.round(this.user.getAccount().getBalance())));
+        this.balanceField.setFocusTraversable(false);
     }
 
-    public void switchBorderPane(String anchorPane) {
-        try {
-            borderPane.setCenter(loadAnchorPane(anchorPane));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-
-    }
-
-    private AnchorPane loadAnchorPane(String anchorPaneLoadIn) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(anchorPaneLoadIn));
+    private AnchorPane loadAnchorPane(String fxmlFileName) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
         AnchorPane anchorPane = loader.load();
-        AbstractController controller = loader.getController();
-        controller.setStage(stage);
+        AbstractSubController controller = loader.getController();
+        controller.setParentController(this);
+        controller.init();
         return anchorPane;
     }
 
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
 }

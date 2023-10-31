@@ -18,15 +18,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 
 /**
  * Controller for the main page of the application.
  */
-public class TransactionsController extends AbstractController {
+public class TransactionsController extends AbstractSubController {
     
-    @FXML
-    private TextField balanceField;
     @FXML
     private ListView<Transaction> incomeView;
     @FXML
@@ -38,9 +35,8 @@ public class TransactionsController extends AbstractController {
     @FXML
     private Button deleteTransactionButton;
     @FXML
-    private Button logOutButton;
-    @FXML
     private ChoiceBox<String> transactionFilterList;
+
 
 
     /**
@@ -50,7 +46,7 @@ public class TransactionsController extends AbstractController {
     public void init() {
         final List<String> timeList = new ArrayList<>(List.of(
             "All", "Today", "This week", "This month", "This year"));
-        updateBalanceView();
+        // updateBalanceView();
         incomeView.getItems().clear();
         expenseView.getItems().clear();
         loadTransactionsFromFile();
@@ -68,24 +64,14 @@ public class TransactionsController extends AbstractController {
         .forEach(t -> addTransactionToView(t));
     }
     
-    @FXML
-    private void initialize() {
-        this.balanceField.setFocusTraversable(false);
-    }
     
     public User getUser() {
-        return this.user;
+        return parentController.getUser();
     }
     
     public Account getAccount() {
-        return this.user.getAccount();
+        return parentController.getUser().getAccount();
     }
-    
-    @FXML
-    private void updateBalanceView() {
-        balanceField.setText(String.valueOf(Math.round(this.user.getAccount().getBalance())));
-    }
-
 
     @FXML
     private void addTransactionToView(Transaction transaction) {
@@ -97,26 +83,10 @@ public class TransactionsController extends AbstractController {
     }
 
     @FXML
-    private void handleLogOutButton() throws IOException {
-        switchScene("login.fxml");
-    }
-
-
-    
-
-
-    @FXML
     private void handleAddTransactionButton() throws IOException {
-        switchScene("addTransaction.fxml", user);
+        parentController.switchBorderPane("addTransaction.fxml");
     }
 
-    @FXML
-    private void handleBudgetButton() throws IOException {
-
-        switchScene("budget.fxml", user);
-    }
-
-    @FXML
     private Transaction getSelectedTransaction() {
         if (!incomeView.getSelectionModel().isEmpty()) {
             return incomeView.getSelectionModel().getSelectedItem();
@@ -131,21 +101,22 @@ public class TransactionsController extends AbstractController {
     private void handleEditTransaction() throws IOException {
         Transaction selectedTransaction = getSelectedTransaction();
         if (selectedTransaction == null) {
-            notify("No transaction selected", AlertType.ERROR);
+            parentController.notify("No transaction selected", AlertType.ERROR);
             return;
         }
-        switchScene("editTransaction.fxml", user, selectedTransaction);
+        parentController.setTransaction(selectedTransaction);
+        parentController.switchBorderPane("editTransaction.fxml");
     }
 
     @FXML
     private void handleDeleteTransaction() {
         Transaction selectedTransaction = getSelectedTransaction();
         if (selectedTransaction == null) {
-            notify("No transaction selected", AlertType.ERROR);
+            parentController.notify("No transaction selected", AlertType.ERROR);
             return;
         }
         getAccount().removeTransaction(selectedTransaction);
-        saveToFile();
+        parentController.saveToFile();
         init();
     }
 
