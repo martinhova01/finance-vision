@@ -144,6 +144,20 @@ public class User {
     public void setBudget(Budget budget) {
         this.budget = budget;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof User) {
+            return this.getUsername().equals(((User) other).getUsername());
+        }
+        return super.equals(other);
+    }
+
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
+
     
 }
 

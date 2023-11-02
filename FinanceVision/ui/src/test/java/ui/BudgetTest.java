@@ -7,14 +7,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
-
 import core.Account;
 import core.Budget;
 import core.Expense;
@@ -59,7 +58,7 @@ public class BudgetTest extends ApplicationTest {
         root = fxmlLoader.load();
         controller = fxmlLoader.getController();
         controller.setUser(user);
-        controller.setFileHandler(mockFileHandler);
+        controller.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
         controller.init();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -67,6 +66,11 @@ public class BudgetTest extends ApplicationTest {
         controller.setScene(scene);
         stage.show();
 
+    }
+
+    @BeforeAll
+    public static void setupHeadless() {
+        App.supportHeadless();
     }
 
     @Test

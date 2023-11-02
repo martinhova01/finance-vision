@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -39,13 +40,17 @@ public class RegisterUserTest extends ApplicationTest {
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
-        abstractController.setFileHandler(Mockito.mock(FileHandler.class));
+        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mock));
         abstractController.init();
         stage.setScene(new Scene(root));
         stage.show();
 
     }
 
+    @BeforeAll
+    public static void setupHeadless() {
+        App.supportHeadless();
+    }
        
     private void setUp() {
         clickOn("#fullNameField");
