@@ -98,7 +98,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>
-                     --add-opens todolist.springboot.rest/todolist.springboot.restserver=ALL-UNNAMED
+                     <!-- add-opens todolist.springboot.rest/todolist.springboot.restserver=ALL-UNNAMED -->
+                     <!-- add-opens financevision.springboot.restserver=ALL-UNNAMED -->
                     </argLine>
                 </configuration>
             </plugin>
