@@ -5,14 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import core.Account;
 import core.Expense;
+import core.FinanceVisionModel;
 import core.Income;
 import core.User;
 
@@ -33,18 +32,18 @@ public class JsonFileSavingTest {
     a2.addTransaction(new Expense("mat", 1500.0, "Food"));
     u2 = new User("doejohn", "agreatPassword!", "John Doe", "johndoe@example.com", a2);
 
-    List<User> users = new ArrayList<>();
-    users.add(u1);
-    users.add(u2);
+    FinanceVisionModel model = new FinanceVisionModel();
+    model.putUser(u1);
+    model.putUser(u2);
 
     File f = new File(System.getProperty("user.home") + "/testdata.json");
-    FileHandler fileHandler = new JsonFileSaving();
-    fileHandler.serializeUsers(users, f);
+    FileHandler fileHandler = new JsonFileSaving(f);
+    fileHandler.writeModel(model);
 
-    List<User> readUsers = fileHandler.deserializeUsers(f);
+    FinanceVisionModel readModel = fileHandler.readModel();
 
-    u1Read = readUsers.get(0);
-    u2Read = readUsers.get(1);
+    u1Read = readModel.getUsers().get(0);
+    u2Read = readModel.getUsers().get(1);
 
   }
 

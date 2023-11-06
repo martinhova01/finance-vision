@@ -2,17 +2,15 @@ package filesaving;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+
+import core.FinanceVisionModel;
 import core.Transaction;
-import core.User;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class for saving userdata to a json file.
@@ -20,22 +18,37 @@ import java.util.List;
 public class JsonFileSaving implements FileHandler {
 
     private Gson gson;
+
+    private File saveFile;
     
 
+    /**
+     * Constructor that sets the savefile to user.home directory by default.
+     */
     public JsonFileSaving() {
-        this.gson = createGson();
+        gson = createGson();
+        saveFile = new File(System.getProperty("user.home") + "/data.json");
+        
+    }
+
+    public JsonFileSaving(File saveFile) {
+        this();
+        setSaveFile(saveFile);
+    }
+
+    public void setSaveFile(File saveFile) {
+        this.saveFile = saveFile;
     }
 
     /**
      * Serialize objects to JSON.
      *
-     * @param users the users to serialize
-     * @param f the file to save to
+     * @param model the FinanceVision model to serialize
      * @throws IOException if the file is not found
      */
-    public void serializeUsers(List<User> users, File f) throws IOException {
-        try (FileWriter writer = new FileWriter(f, StandardCharsets.UTF_8);) {
-            writer.write(gson.toJson(users));
+    public void writeModel(FinanceVisionModel model) throws IOException {
+        try (FileWriter writer = new FileWriter(saveFile, StandardCharsets.UTF_8);) {
+            writer.write(gson.toJson(model));
             writer.close();
         }
     }
@@ -44,14 +57,14 @@ public class JsonFileSaving implements FileHandler {
      * Deserialize JSON to objects.
      *
      * @param f the file to read from
-     * @return a list of user objects
+     * @return the FinanceVision model stored in the file
      * @throws IOException if file not found
      */
-    public List<User> deserializeUsers(File f) throws IOException {
-        FileReader reader = new FileReader(f, StandardCharsets.UTF_8);
-        List<User> users = gson.fromJson(reader, new TypeToken<ArrayList<User>>(){}.getType());
+    public FinanceVisionModel readModel() throws IOException {
+        FileReader reader = new FileReader(saveFile, StandardCharsets.UTF_8);
+        FinanceVisionModel model = gson.fromJson(reader, FinanceVisionModel.class);
         reader.close();
-        return users;
+        return model;
     } 
 
     /**

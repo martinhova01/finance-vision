@@ -6,17 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
+
+import core.FinanceVisionModel;
 import filesaving.FileHandler;
 
 
@@ -28,7 +27,7 @@ public class RegisterUserTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws IOException {
         FileHandler mock = Mockito.mock(FileHandler.class);
-        when(mock.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>());
+        when(mock.readModel()).thenReturn(new FinanceVisionModel());
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("registerNewUser.fxml"));

@@ -5,11 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,6 +15,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 import core.Account;
+import core.FinanceVisionModel;
 import core.User;
 import filesaving.FileHandler;
 
@@ -35,7 +33,10 @@ public class LoginTest extends ApplicationTest {
         FileHandler mockFileHandler = Mockito.mock(FileHandler.class);
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("login.fxml"));
         user = new User("testuser", "password", "Test User", "test@valid.com", new Account(1000));
-        when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(List.of(user));
+        FinanceVisionModel model = new FinanceVisionModel();
+        model.putUser(user);
+
+        when(mockFileHandler.readModel()).thenReturn(model);
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
