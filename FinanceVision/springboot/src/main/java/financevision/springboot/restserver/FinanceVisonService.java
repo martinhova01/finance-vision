@@ -5,6 +5,10 @@ import core.Expense;
 import core.FinanceVisionModel;
 import core.Income;
 import core.User;
+import filesaving.JsonFileSaving;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +19,32 @@ import org.springframework.stereotype.Service;
 public class FinanceVisonService {
 
     private FinanceVisionModel model;
-    
+
+    private JsonFileSaving filesaving;
 
     public FinanceVisonService() {
-        this.model = createExampleModel();
+        File saveFile = new File(System.getProperty("user.home") + "/data.json");
+        filesaving = new JsonFileSaving(saveFile);
+        try {
+            model = filesaving.readModel();
+        } catch (IOException e) {
+            model = createExampleModel();
+        }
     }
 
     public FinanceVisionModel getModel() {
         return model;
     }
 
-    public void setModel(FinanceVisionModel model) {
-        this.model = model;
+    public void saveModel() {
+        try {
+            filesaving.writeModel(model);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static FinanceVisionModel createExampleModel() {
-        //TODO:  try to read from the exampleData.json file
         Account account = new Account(1000);
         Income vippsIncome =
             new Income("Vipps", 500, "Salary", LocalDateTime.now());

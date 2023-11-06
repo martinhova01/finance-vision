@@ -61,6 +61,7 @@ public class FinanceVisionController {
     @PutMapping(path = "/user/{name}")
     public boolean putUser(@PathVariable("name") String name, @RequestBody User user) {
         getFinanceVisionModel().putUser(user);
+        financeVisionService.saveModel();
         return true;
     }
 
@@ -73,6 +74,7 @@ public class FinanceVisionController {
     @DeleteMapping(path = "/user/{name}")
     public boolean removeUser(@PathVariable("name") String name) {
         getFinanceVisionModel().removeUser(getFinanceVisionModel().getUser(name));
+        financeVisionService.saveModel();
         return true;
     }
 
