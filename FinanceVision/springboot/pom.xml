@@ -98,21 +98,21 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>
-                     <!-- add-opens todolist.springboot.rest/todolist.springboot.restserver=ALL-UNNAMED -->
-                     <!-- add-opens financevision.springboot.restserver=ALL-UNNAMED -->
+                    @{jaCoCoArgLine}
+                    --add-opens springboot/financevision.springboot.restserver=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
             
             
-            <!-- Configure jacoco code coverage
+            <!-- Configure jacoco code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <propertyName>jaCoCoArgLine</propertyName>
                 </configuration>
-           </plugin> -->
+            </plugin>
             
             <plugin>
                 <groupId>org.springframework.boot</groupId>
