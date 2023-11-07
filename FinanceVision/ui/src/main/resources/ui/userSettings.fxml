@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterNewUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.UserSettingsController">
    <children>
-      <VBox layoutX="173.0" layoutY="80.0" prefHeight="273.0" prefWidth="230.0">
+      <VBox layoutX="231.0" layoutY="111.0" prefHeight="187.0" prefWidth="172.0">
          <children>
             <Label prefHeight="35.0" prefWidth="268.0" text="Full name">
                <font>
@@ -45,14 +45,9 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <Label layoutX="10.0" layoutY="190.0" prefHeight="35.0" prefWidth="268.0" text="Account balance">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
          </children>
       </VBox>
-      <VBox layoutX="403.0" layoutY="80.0" prefHeight="273.0" prefWidth="230.0">
+      <VBox layoutX="403.0" layoutY="111.0" prefHeight="187.0" prefWidth="230.0">
          <children>
             <TextField fx:id="fullNameField" prefHeight="35.0" prefWidth="230.0">
                <VBox.margin>
@@ -74,21 +69,28 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </PasswordField>
-            <TextField fx:id="balanceField" layoutX="10.0" layoutY="190.0" prefHeight="35.0" />
          </children>
       </VBox>
-      <Label layoutX="233.0" layoutY="7.0" prefHeight="68.0" prefWidth="339.0" text="Register new user">
+      <Label layoutX="279.0" layoutY="14.0" prefHeight="68.0" prefWidth="247.0" text="User Settings">
          <font>
             <Font size="38.0" />
          </font>
       </Label>
-      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Register user">
+      <Button fx:id="editUserButton" layoutX="270.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="51.0" prefWidth="266.0" styleClass="defaultButton" text="Edit User Information">
          <font>
             <Font size="24.0" />
-         </font></Button>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="&lt;-Back">
+         </font>
+      </Button>
+      <Button fx:id="confirmButton" layoutX="270.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="51.0" prefWidth="266.0" styleClass="defaultButton" text="Confirm">
          <font>
             <Font size="24.0" />
-         </font></Button>
+         </font>
+      </Button>
+      <Button fx:id="logOutButton" layoutX="665.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="35.0" prefWidth="84.0" styleClass="defaultButton" text="Log Out">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteUserButton" layoutX="665.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="35.0" prefWidth="84.0" styleClass="defaultButton" text="Delete User" />
    </children>
 </AnchorPane>

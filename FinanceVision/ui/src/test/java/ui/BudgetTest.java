@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
+import org.testfx.util.WaitForAsyncUtils;
+
 import core.Account;
 import core.Budget;
 import core.Expense;
@@ -27,7 +29,7 @@ import javafx.stage.Stage;
 
 public class BudgetTest extends ApplicationTest {
 
-    private BudgetController controller;
+    private AppController parentController;
     private Parent root;
     private User user;
     
@@ -53,31 +55,24 @@ public class BudgetTest extends ApplicationTest {
         mockFileHandler = Mockito.mock(FileHandler.class);
         when(mockFileHandler.readModel()).thenReturn(model);
         
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("budget.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
         root = fxmlLoader.load();
-        controller = fxmlLoader.getController();
-        controller.setUser(user);
-        controller.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
-        controller.init();
+        parentController = fxmlLoader.getController();
+        parentController.setUser(user);
+        parentController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
+        parentController.init();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        controller.setStage(stage);
-        controller.setScene(scene);
+        parentController.setStage(stage);
+        parentController.setScene(scene);
         stage.show();
+        parentController.switchBorderPane("budget.fxml");
 
     }
 
     @BeforeAll
     public static void setupHeadless() {
         App.supportHeadless();
-    }
-
-    @Test
-    public void testBackButton() {
-        clickOn("#backButton");
-        Node logOutButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(logOutButton.isVisible());
-        
     }
 
     @Test
@@ -122,6 +117,7 @@ public class BudgetTest extends ApplicationTest {
     @Test
     public void testRemoveAndAddCategories() {
         clickOn("#editBudgetButton");
+        WaitForAsyncUtils.waitForFxEvents();
         VBox limitBox = (VBox) lookup("#limitBox").query();
         click("+");
         Assertions.assertTrue(limitBox.getChildren().size() == 3);

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="TransactionsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TransactionsController">
+   <children>
+      <ListView fx:id="incomeView" layoutX="74.0" layoutY="59.0" onMouseClicked="#incomeViewClicked" prefHeight="300.0" prefWidth="250.0" />
+      <Text layoutX="345.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="250.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="addTransactionButton" layoutX="585.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" styleClass="defaultButton" text="Add New Transaction">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Text layoutX="59.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" textAlignment="CENTER" wrappingWidth="250.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ListView fx:id="expenseView" layoutX="324.0" layoutY="59.0" onMouseClicked="#expenseViewClicked" prefHeight="300.0" prefWidth="250.0" />
+      <Button fx:id="editTransactionButton" layoutX="585.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleEditTransaction" prefHeight="25.0" prefWidth="120.0" styleClass="defaultButton" text="Edit Transaction">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteTransactionButton" layoutX="585.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleDeleteTransaction" prefHeight="25.0" prefWidth="120.0" styleClass="defaultButton" text="Delete Transaction">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="transactionFilterList" layoutX="276.0" layoutY="24.0" prefHeight="25.0" prefWidth="95.0" />
+   </children>
+</AnchorPane>

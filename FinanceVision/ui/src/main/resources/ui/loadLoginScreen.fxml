@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="loadLoginAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LoadLoginScreenController">
+   <children>
+      <AnchorPane />
+      <ImageView fx:id="piggyBankBackground" fitHeight="476.0" fitWidth="827.0" layoutX="-16.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/piggyBankBackground.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="piggyCoin" fitHeight="150.0" fitWidth="200.0" layoutX="370.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/piggyCoin.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
