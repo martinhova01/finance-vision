@@ -1,9 +1,7 @@
 package ui;
 
 import core.User;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -32,10 +30,6 @@ public class UserSettingsController extends AbstractController {
     private Button editUserButton;
     @FXML
     private Button confirmButton;
-
-    private List<User> users;
-
-    
 
     /**
      * Loads in the user to update.
@@ -73,30 +67,26 @@ public class UserSettingsController extends AbstractController {
     /**
      * Method for confirming changes to the user.
      *
-     * @throws IOException if one or more fields are empty or contains invalid data
+     * @throws Exception if something went wrong
      */
     @FXML
-    public void handleConfirm() throws IOException {
-        try {
-            users = fileHandler.deserializeUsers(new File(System.getProperty(
-                "user.home") + "/data.json"));
-        } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
-        }
-
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+    public void handleConfirm() throws Exception {
         String fullName = fullNameField.getText();
+        String username = usernameField.getText();
         String email = emailField.getText();
+        String password = passwordField.getText();
+        
+        String oldFullName = user.getFullName();
+        String oldUserName = user.getUsername();
+        String oldEmail = user.getEmail();
+        String oldPassword = user.getPassword();
 
-        for (User u : users) {
+        for (User u : modelAccess.getUsers()) {
             if (u.getUsername().equals(username) && !user.getUsername().equals(username)) {
                 notify("Username is taken", AlertType.WARNING);
                 return;
             }
         }
-
-        String oldUsername = user.getUsername();
 
         try {
             user.setFullName(fullName);
@@ -104,21 +94,20 @@ public class UserSettingsController extends AbstractController {
             user.setEmail(email);
             user.setPassword(password);
         } catch (Exception e) {
+            user.setFullName(oldFullName);
+            user.setUsername(oldUserName);
+            user.setEmail(oldEmail);
+            user.setPassword(oldPassword);
+
             notify("One or more fields are empty or conatins invalid data", AlertType.WARNING);
             return;
         }
 
-        //save to file
         try {
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getUsername().equals(oldUsername)) {
-                    users.set(i, this.user);
-                }
-            }
-            fileHandler.serializeUsers(users, new File(System.getProperty(
-                "user.home") + "/data.json"));
+            modelAccess.putUser(user);
         } catch (IOException e) {
-            notify("File not found", AlertType.ERROR);
+            notify(e.getLocalizedMessage(), AlertType.WARNING);
+            return;
         }
 
         init();

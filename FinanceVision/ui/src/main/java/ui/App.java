@@ -13,7 +13,20 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private Stage primaryStage;
+
+    /**
+     * Helper method for headless testing.
+     */
+    public static void supportHeadless() {
+        if (Boolean.getBoolean("headless")) {
+            System.setProperty("testfx.robot", "glass");
+            System.setProperty("testfx.headless", "true");
+            System.setProperty("prism.order", "sw");
+            System.setProperty("prism.text", "t2k");
+            System.setProperty("java.awt.headless", "true");
+        }
+    }
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -21,12 +34,11 @@ public class App extends Application {
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
-        setPrimaryStage(stage);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
 
         AbstractController controller = loader.getController();
-        controller.setFileHandler(new JsonFileSaving());
+        controller.setModelAccess(new DirectFinanceVisionModelAccess(new JsonFileSaving()));
         controller.setStage(stage);
         controller.setScene(scene);
         controller.init();
@@ -34,13 +46,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-    
-    private void setPrimaryStage(Stage stage) {
-        this.primaryStage = stage;
-    }
-    
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 }

@@ -50,7 +50,7 @@ public class UserSettingsTest extends ApplicationTest {
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
-        abstractController.setFileHandler(mockFileHandler);
+        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
         abstractController.setUser(user);
         abstractController.init();
         stage.setScene(new Scene(root));

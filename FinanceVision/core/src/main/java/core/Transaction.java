@@ -113,7 +113,7 @@ public abstract class Transaction {
     @Override
     public String toString() {
         String transactionString = getAmount() + "    " 
-        + getDescription() + "    " + getTime().toLocalDate();
+            + getDescription() + "    " + getTime().toLocalDate();
         if (this instanceof Income) {
             return "+ " + transactionString;
         } else {

@@ -4,5 +4,7 @@ module ui {
     requires core;
     requires persistence;
 
-    opens ui to javafx.graphics, javafx.fxml, persistence, core;
+    requires java.net.http;
+
+    opens ui to javafx.graphics, javafx.fxml, persistence, core, java.net.http;
 }

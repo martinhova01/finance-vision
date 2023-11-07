@@ -19,6 +19,13 @@ import java.util.List;
  */
 public class JsonFileSaving implements FileHandler {
 
+    private Gson gson;
+    
+
+    public JsonFileSaving() {
+        this.gson = createGson();
+    }
+
     /**
      * Serialize objects to JSON.
      *
@@ -28,11 +35,6 @@ public class JsonFileSaving implements FileHandler {
      */
     public void serializeUsers(List<User> users, File f) throws IOException {
         try (FileWriter writer = new FileWriter(f, StandardCharsets.UTF_8);) {
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
-                .registerTypeAdapter(Transaction.class, new TransactionAdapter())
-                .setPrettyPrinting()
-                .create();
             writer.write(gson.toJson(users));
             writer.close();
         }
@@ -46,14 +48,23 @@ public class JsonFileSaving implements FileHandler {
      * @throws IOException if file not found
      */
     public List<User> deserializeUsers(File f) throws IOException {
-        Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
-            .registerTypeAdapter(Transaction.class, new TransactionAdapter())
-            .create();
         FileReader reader = new FileReader(f, StandardCharsets.UTF_8);
         List<User> users = gson.fromJson(reader, new TypeToken<ArrayList<User>>(){}.getType());
         reader.close();
         return users;
     } 
+
+    /**
+     * Create the Gson object with custom typeAdapters.
+     *
+     * @return the gson object
+     */
+    public Gson createGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new TimeAdapter())
+                .registerTypeAdapter(Transaction.class, new TransactionAdapter())
+                .setPrettyPrinting()
+                .create();
+    }
 
 }
