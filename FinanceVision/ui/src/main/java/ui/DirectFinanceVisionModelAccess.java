@@ -3,9 +3,7 @@ package ui;
 import core.FinanceVisionModel;
 import core.User;
 import filesaving.FileHandler;
-
 import java.io.IOException;
-import java.util.List;
 
 /**
  * FinanceVisionAccess class that directly access a model object.
@@ -20,7 +18,7 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
     /**
      * Init a new object, and read data from filehandler.
      *
-     * @param filesaving the filehandler that takes care of saving data to file
+     * @param fileHandler the filehandler that takes care of saving data to file
      */
     public DirectFinanceVisionModelAccess(FileHandler fileHandler) {
         this.model = new FinanceVisionModel();
@@ -35,11 +33,6 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
                 e1.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public FinanceVisionModel getModel() {
-        return model;
     }
 
     @Override
@@ -59,25 +52,21 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
         return model.containsUser(username);
     }
 
-    @Override
-    public List<String> getUsernames() {
-        return model.getUsernames();
-    }
-
-    @Override
-    public User getUser(String username) {
-        return model.getUser(username);
-    }
-
     private void saveToFile() throws IOException {
         fileHandler.writeModel(model);
     }
 
     @Override
-    public List<User> getUsers() {
-        return model.getUsers();
+    public User getUser(String username, String password) throws Exception {
+        User user = model.getUser(username);
+        if (user == null) {
+            return null;
+        }
+        if (user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
     }
 
-    
   
 }

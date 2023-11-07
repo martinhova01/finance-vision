@@ -2,7 +2,6 @@ package filesaving;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import core.FinanceVisionModel;
 import core.Transaction;
 import java.io.File;
@@ -56,7 +55,6 @@ public class JsonFileSaving implements FileHandler {
     /**
      * Deserialize JSON to objects.
      *
-     * @param f the file to read from
      * @return the FinanceVision model stored in the file
      * @throws IOException if file not found
      */

@@ -1,23 +1,12 @@
 package ui;
 
-import core.FinanceVisionModel;
 import core.User;
-import java.util.List;
 
 /**
  * An interface that defines how the ui is connected to the model.
  * 
  */
 public interface FinanceVisionModelAccess {
-
-    
-    /**
-     * Gets the FinanceVisionModel.
-     *
-     * @return the model
-     * @throws Exception if something went wrong
-     */
-    public FinanceVisionModel getModel() throws Exception;
 
     /**
      * Adds or replaces a user.
@@ -45,14 +34,6 @@ public interface FinanceVisionModelAccess {
      */
     public boolean containsUser(String username) throws Exception;
 
-    /**
-     * Gets a list of all usernames.
-     *
-     * @return a list of usernames
-     * @throws Exception if something went wrong
-     */
-    public List<String> getUsernames() throws Exception;
-
     
     /**
      * Gets a user based on username.
@@ -62,14 +43,6 @@ public interface FinanceVisionModelAccess {
      *
      * @throws Exception if something went wrong
      */
-    public User getUser(String username) throws Exception;
-
-    /**
-     * Get a list of all the users.
-     *
-     * @return the list of users
-     * @throws Exception if something went wrong 
-     */
-    public List<User> getUsers() throws Exception;
+    public User getUser(String username, String password) throws Exception;
 
 }

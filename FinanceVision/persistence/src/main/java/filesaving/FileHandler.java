@@ -1,7 +1,6 @@
 package filesaving;
 
 import core.FinanceVisionModel;
-
 import java.io.IOException;
 
 /**

@@ -6,7 +6,6 @@ import core.FinanceVisionModel;
 import core.Income;
 import core.User;
 import filesaving.JsonFileSaving;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -22,6 +21,9 @@ public class FinanceVisonService {
 
     private JsonFileSaving filesaving;
 
+    /**
+     * Constructor. Reads the model from file or creates example model.
+     */
     public FinanceVisonService() {
         File saveFile = new File(System.getProperty("user.home") + "/data.json");
         filesaving = new JsonFileSaving(saveFile);
@@ -36,6 +38,9 @@ public class FinanceVisonService {
         return model;
     }
 
+    /**
+     * Saves model to file.
+     */
     public void saveModel() {
         try {
             filesaving.writeModel(model);

@@ -73,24 +73,23 @@ public class LoginController extends AbstractController {
     void handleLogin() throws Exception {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        for (User user : modelAccess.getUsers()) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                System.out.println("Login successful" + user);
-                loginTransition();
-                piggyCoinJumpAnimation();
-                PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(0.3));
-                loginSuccessful.setVisible(true);
-                pause.play();
-                // wait for pausetransition to finish before switching scene
-                pause.setOnFinished(event -> {
-                    try {
-                        switchScene("app.fxml", user);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                return;
-            }
+
+        User user = modelAccess.getUser(username, password);
+        if (user != null) {
+            loginTransition();
+            piggyCoinJumpAnimation();
+            PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(0.3));
+            loginSuccessful.setVisible(true);
+            pause.play();
+            // wait for pausetransition to finish before switching scene
+            pause.setOnFinished(event -> {
+                try {
+                    switchScene("app.fxml", user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            return;
         }
         notify("Invalid username or password", AlertType.WARNING);
 
