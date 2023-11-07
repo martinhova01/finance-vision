@@ -18,7 +18,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleRegisterUser" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Register new user">
+      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleRegisterUser" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Register new user">
          <font>
             <Font size="18.0" />
          </font>

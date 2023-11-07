@@ -87,6 +87,16 @@ public class TransactionsController extends AbstractSubController {
         parentController.switchBorderPane("addTransaction.fxml");
     }
 
+    @FXML
+    private void incomeViewClicked() {
+        expenseView.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void expenseViewClicked() {
+        incomeView.getSelectionModel().clearSelection();
+    }
+
     private Transaction getSelectedTransaction() {
         if (!incomeView.getSelectionModel().isEmpty()) {
             return incomeView.getSelectionModel().getSelectedItem();

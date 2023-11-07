@@ -44,6 +44,9 @@ public abstract class AbstractController {
         this.modelAccess = modelAccess;
     }
 
+    public FinanceVisionModelAccess getModelAccess() {
+        return modelAccess;
+    }
 
     /**
      * Switches scene to a new fxml file.

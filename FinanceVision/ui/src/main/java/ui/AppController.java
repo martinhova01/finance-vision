@@ -28,7 +28,9 @@ public class AppController extends AbstractController {
 
     private Transaction transaction;
 
-
+    /**
+     * Shows total bank balance and list of transactions.
+     */
     @Override
     public void init() {
 
@@ -43,6 +45,11 @@ public class AppController extends AbstractController {
             switchBorderPane("transactions.fxml");
             setDefaultStyleClass();
             transactionLabel.getStyleClass().add("nav-itemPressed");
+        });
+        userSettingsLabel.setOnMouseClicked(event -> {
+            switchBorderPane("userSettings.fxml");
+            setDefaultStyleClass();
+            userSettingsLabel.getStyleClass().add("nav-itemPressed");
         });
         updateBalanceField();
     }
