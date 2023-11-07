@@ -66,8 +66,13 @@ public class LoginTest extends ApplicationTest {
         clickOn("#passwordField");
         write("password");
         click("Log in");
-        Node logOutButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(logOutButton.isVisible());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Node balanceField = lookup("#balanceField").query();
+        Assertions.assertTrue(balanceField.isVisible());
     }
 
     @Test

@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for editing a transaction.
  */
-public class EditTransactionController extends AbstractController {
+public class EditTransactionController extends AbstractSubController {
 
     @FXML
     private TextField amountField;
@@ -35,28 +35,23 @@ public class EditTransactionController extends AbstractController {
     @FXML
     private DatePicker datePicker;
 
-    @Override
-    public void setTransaction(Transaction t) {
-        super.setTransaction(t);
-        init();
-    }
 
     /**
      * Loads in the transaction to edit.
      */
     @Override
     public void init() {
-        if (transaction instanceof Income) {
+        if (getTransaction() instanceof Income) {
             incomeRadioButton.setSelected(true);
             handleRbtnClicked();
         } else {
             expenseRadioButton.setSelected(true);
             handleRbtnClicked();
         }
-        amountField.setText(transaction.getAmount().toString());
-        descriptionField.setText(transaction.getDescription());
-        categoryList.setValue(transaction.getCategory());
-        datePicker.setValue(transaction.getTime().toLocalDate());
+        amountField.setText(getTransaction().getAmount().toString());
+        descriptionField.setText(getTransaction().getDescription());
+        categoryList.setValue(getTransaction().getCategory());
+        datePicker.setValue(getTransaction().getTime().toLocalDate());
     }
 
     /**
@@ -65,16 +60,20 @@ public class EditTransactionController extends AbstractController {
     @FXML
     public void handleRbtnClicked() {
         categoryList.getItems().clear();
-        categoryList.getItems().addAll(user.getBudget().getCategories());
-/*         if (incomeRadioButton.isSelected()) {
+        categoryList.getItems().addAll(getUser().getBudget().getCategories());
+        if (incomeRadioButton.isSelected()) {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(user.getBudget().getCategories());
+            categoryList.getItems().addAll(core.User.defaultIncomeCategories);
         } else {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(user.getBudget().getCategories());
+            categoryList.getItems().addAll(getUser().getBudget().getCategories());
 
             //add the additional categories for this user
-        } */
+        }
+    }
+
+    public Transaction getTransaction() {
+        return parentController.getTransaction();
     }
 
     /**
@@ -99,20 +98,21 @@ public class EditTransactionController extends AbstractController {
             }
 
         } catch (Exception e) {
-            notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
+            parentController.notify(
+                "One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
 
-        user.getAccount().removeTransaction(transaction);
-        user.getAccount().addTransaction(t);
-        saveToFile();
+        parentController.getUser().getAccount().removeTransaction(getTransaction());
+        parentController.getUser().getAccount().addTransaction(t);
+        parentController.saveToFile();
         
-        switchScene("App.fxml", user);
+        parentController.switchBorderPane("transactions.fxml");
     }
 
     @FXML
     public void handleBack() throws IOException {
-        switchScene("App.fxml", user);
+        parentController.switchBorderPane("transactions.fxml");
     }
     
 }

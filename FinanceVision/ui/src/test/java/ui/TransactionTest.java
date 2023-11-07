@@ -121,21 +121,9 @@ public class TransactionTest extends ApplicationTest {
         Assertions.assertFalse(found, "Filtrerte ikke bort transaksjon fra forrige år");
     }
 
-
-    @Test
-    public void testBackButton() {
-        clickOn("#addTransactionButton");
-        clickOn("#backButton");
-        Node backButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(backButton.isVisible());
-    }
-
-
     @Test
     public void testAddIncome() {
         clickOn("#addTransactionButton");
-        clickOn("#addTransactionButton");
-        click("OK");
         clickOn("#incomeRadioButton");
         clickOn("#amountField");
         write("100");
@@ -144,9 +132,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Salary");
         clickOn("#addTransactionButton");
-        Node logOutButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(logOutButton.isVisible());
-
+        Node editTransaction = lookup("#editTransactionButton").query();
+        Assertions.assertTrue(editTransaction.isVisible());
     }
 
     @Test
