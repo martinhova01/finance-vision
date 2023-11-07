@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for user settings.
  */
-public class UserSettingsController extends AbstractController {
+public class UserSettingsController extends AbstractSubController {
 
     @FXML
     private TextField usernameField;
@@ -25,17 +25,26 @@ public class UserSettingsController extends AbstractController {
     @FXML
     private PasswordField passwordField;
     @FXML
-    private Button backButton;
-    @FXML
     private Button editUserButton;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Button logOutButton;
+    @FXML
+    private Button deleteUserButton;
+
+    private User user;
+    private FinanceVisionModelAccess modelAccess;
 
     /**
      * Loads in the user to update.
      */
     @Override
     public void init() {
+
+        user = parentController.getUser();
+        modelAccess = parentController.getModelAccess();
+
         fullNameField.setText(user.getFullName());
         usernameField.setText(user.getUsername());
         emailField.setText(user.getEmail());
@@ -83,7 +92,7 @@ public class UserSettingsController extends AbstractController {
 
         for (User u : modelAccess.getUsers()) {
             if (u.getUsername().equals(username) && !user.getUsername().equals(username)) {
-                notify("Username is taken", AlertType.WARNING);
+                parentController.notify("Username is taken", AlertType.WARNING);
                 return;
             }
         }
@@ -99,14 +108,14 @@ public class UserSettingsController extends AbstractController {
             user.setEmail(oldEmail);
             user.setPassword(oldPassword);
 
-            notify("One or more fields are empty or conatins invalid data", AlertType.WARNING);
+            parentController.notify("One or more fields are empty or conatins invalid data", AlertType.WARNING);
             return;
         }
 
         try {
             modelAccess.putUser(user);
         } catch (IOException e) {
-            notify(e.getLocalizedMessage(), AlertType.WARNING);
+            parentController.notify(e.getLocalizedMessage(), AlertType.WARNING);
             return;
         }
 
@@ -119,8 +128,25 @@ public class UserSettingsController extends AbstractController {
     }
 
     @FXML
-    public void handleBack() throws IOException {
-        switchScene("App.fxml", user);
+    public void handleDeleteUser() throws IOException {
+        try {
+            modelAccess.removeUser(user);
+        } catch (Exception e) {
+            parentController.notify("Could not delete user.", AlertType.ERROR);
+            return;
+        }
+
+        parentController.switchScene("login.fxml");
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("User deleted");
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void handleLogOut() throws IOException {
+        parentController.switchScene("login.fxml");
     }
     
 }

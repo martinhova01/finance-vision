@@ -15,59 +15,26 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddTransactionController">
    <children>
-      <Text layoutX="170.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Transaction" textAlignment="CENTER" wrappingWidth="465.1015625">
+      <Text layoutX="178.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Transaction" textAlignment="CENTER" wrappingWidth="465.1015625">
          <font>
             <Font size="36.0" />
          </font></Text>
-      <RadioButton fx:id="incomeRadioButton" layoutX="234.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="20.0" prefWidth="136.0" text="INCOME">
+      <RadioButton fx:id="incomeRadioButton" layoutX="244.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="20.0" prefWidth="136.0" text="INCOME">
          <toggleGroup>
             <ToggleGroup fx:id="transaction" />
          </toggleGroup>
          <font>
             <Font size="24.0" />
          </font></RadioButton>
-      <RadioButton fx:id="expenseRadioButton" layoutX="413.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="35.0" prefWidth="167.0" text="EXPENSE" toggleGroup="$transaction">
+      <RadioButton fx:id="expenseRadioButton" layoutX="411.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleRbtnClicked" prefHeight="35.0" prefWidth="167.0" text="EXPENSE" toggleGroup="$transaction">
          <font>
             <Font size="24.0" />
          </font></RadioButton>
-      <Button fx:id="addTransactionButton" layoutX="262.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="281.0" styleClass="defaultButton" text="ADD">
+      <Button fx:id="addTransactionButton" layoutX="262.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" prefHeight="53.0" prefWidth="281.0" styleClass="defaultButton" text="ADD">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <VBox layoutX="234.0" layoutY="153.0" prefHeight="157.0" prefWidth="167.0">
-         <children>
-            <Label prefHeight="35.0" prefWidth="268.0" text="Amount">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="268.0" text="Description">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label layoutX="10.0" layoutY="55.0" prefHeight="35.0" prefWidth="268.0" text="Category">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label layoutX="10.0" layoutY="100.0" prefHeight="35.0" prefWidth="268.0" text="Date">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox layoutX="425.0" layoutY="153.0" prefHeight="198.0" prefWidth="230.0">
+      <VBox layoutX="420.0" layoutY="140.0" prefHeight="198.0" prefWidth="230.0">
          <children>
             <TextField fx:id="amountField" prefHeight="35.0" prefWidth="230.0">
                <VBox.margin>
@@ -96,5 +63,38 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <VBox layoutX="244.0" layoutY="140.0" prefHeight="183.0" prefWidth="167.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="268.0" text="Amount">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="268.0" text="Description">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="55.0" prefHeight="35.0" prefWidth="268.0" text="Category">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="100.0" prefHeight="35.0" prefWidth="167.0" text="Date">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

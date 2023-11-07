@@ -48,6 +48,11 @@ public class AppController extends AbstractController {
             setDefaultStyleClass();
             transactionLabel.getStyleClass().add("nav-itemPressed");
         });
+        userSettingsLabel.setOnMouseClicked(event -> {
+            switchBorderPane("userSettings.fxml");
+            setDefaultStyleClass();
+            userSettingsLabel.getStyleClass().add("nav-itemPressed");
+        });
         updateBalanceField();
     }
 

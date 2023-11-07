@@ -27,7 +27,7 @@ import filesaving.FileHandler;
 
 public class UserSettingsTest extends ApplicationTest {
 
-    private AbstractController abstractController;
+    private AppController appController;
     private Parent root;
     private User user;
 
@@ -46,25 +46,22 @@ public class UserSettingsTest extends ApplicationTest {
         when(mockFileHandler.deserializeUsers(any(File.class)))
             .thenReturn(new ArrayList<>(List.of(user, user2)));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("userSettings.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         root = fxmlLoader.load();
-        abstractController = fxmlLoader.getController();
-        abstractController.setStage(stage);
-        abstractController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
-        abstractController.setUser(user);
-        abstractController.init();
+        appController = fxmlLoader.getController();
+        appController.setStage(stage);
+        appController.setModelAccess(new DirectFinanceVisionModelAccess(mockFileHandler));
+        appController.setUser(user);
+        appController.init();
+        appController.switchBorderPane("userSettings.fxml");
         stage.setScene(new Scene(root));
         stage.show();
 
     }
-       
-    private void setUp() {
-        clickOn("#editUserButton");
-    }
     
     @Test
     public void testConfirm() {
-        setUp();
+        clickOn("#editUserButton");
         clickOn("#usernameField");
         write("edit");
         clickOn("#confirmButton");
@@ -75,7 +72,7 @@ public class UserSettingsTest extends ApplicationTest {
 
     @Test
     public void testTakenUsername() {
-        setUp();
+        clickOn("#editUserButton");
         clickOn("#usernameField");
         write("taken");
         clickOn("#confirmButton");
@@ -85,12 +82,28 @@ public class UserSettingsTest extends ApplicationTest {
 
     @Test
     public void testInvalidUsername() {
-        setUp();
+        clickOn("#editUserButton");
         clickOn("#usernameField");
         write(" ");
         clickOn("#confirmButton");
         Node confirmButton = lookup("#confirmButton").query();
         Assertions.assertTrue(confirmButton.isVisible());
+    }
+
+    @Test
+    public void testLogOut() {
+        clickOn("#logOutButton");
+
+        Node loginButton = lookup("#loginButton").query();
+        Assertions.assertTrue(loginButton.isVisible());
+    }
+
+    @Test
+    public void testDeleteUser() {
+        clickOn("#deleteUserButton");
+        click("OK");
+        Node loginButton = lookup("#loginButton").query();
+        Assertions.assertTrue(loginButton.isVisible());
     }
 
     public Parent getRootNode() {
