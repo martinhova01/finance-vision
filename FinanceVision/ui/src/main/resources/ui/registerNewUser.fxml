@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterNewUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterNewUserController">
    <children>
       <VBox layoutX="173.0" layoutY="80.0" prefHeight="273.0" prefWidth="230.0">
          <children>
@@ -82,11 +82,11 @@
             <Font size="38.0" />
          </font>
       </Label>
-      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="40.0" prefWidth="200.0" text="Register user">
+      <Button fx:id="registerUserButton" layoutX="303.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="40.0" prefWidth="200.0" styleClass="defaultButton" text="Register user">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" text="&lt;-Back">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="&lt;-Back">
          <font>
             <Font size="24.0" />
          </font></Button>

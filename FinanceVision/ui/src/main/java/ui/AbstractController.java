@@ -1,6 +1,5 @@
 package ui;
 
-import core.Transaction;
 import core.User;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -19,15 +18,18 @@ public abstract class AbstractController {
     protected Scene scene;
     protected Parent root;
     protected User user;
-    protected Transaction transaction;
     protected FinanceVisionModelAccess modelAccess;
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
+    public User getUser() {
+        return user;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     public void setScene(Scene scene) {
@@ -86,33 +88,6 @@ public abstract class AbstractController {
         controller.init();
     }
 
-    /**
-     * Switches scene to a new fxml file, keeps the current user logged in,
-     * and keeps track of a given transaction.
-     *
-     * @param fxmlFileName the fxml file to switch to
-     * @param user the current user logged in
-     * @param transaction a given transaction
-     * @throws IOException if the fxml file is not found
-     */
-    public void switchScene(String fxmlFileName, User user, Transaction transaction)
-        throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        root = loader.load();
-        
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-        AbstractController controller = loader.getController();
-        controller.setStage(stage);
-        controller.setScene(scene);
-        controller.setUser(user);
-        controller.setTransaction(transaction);
-        controller.setModelAccess(modelAccess);
-        controller.init();
-    }
-
     
     /**
      * Sends a notification to the user.
@@ -124,8 +99,10 @@ public abstract class AbstractController {
         Alert alert = new Alert(type);
         if (type.equals(AlertType.WARNING)) {
             alert.setTitle("WARNING");
-        } else {
+        } else if (type.equals(AlertType.WARNING)) {
             alert.setTitle("ERROR");
+        } else {
+            alert.setTitle("INFORMATION");
         }
         alert.setHeaderText(message);
         alert.showAndWait();
@@ -142,6 +119,8 @@ public abstract class AbstractController {
             notify("Something went wrong when saving update.", AlertType.WARNING);
         }
     }
+
+
 
     public abstract void init();
   

@@ -9,15 +9,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 
 /**
  * Controller for creating a budget.
  */
-public class BudgetController extends AbstractController {
+public class BudgetController extends AbstractSubController {
 
-    @FXML
-    private Button backButton;
     @FXML
     private Button editBudgetButton;
     @FXML 
@@ -33,11 +32,6 @@ public class BudgetController extends AbstractController {
 
 
 
-    @FXML
-    void handleBack() throws IOException {
-        switchScene("App.fxml", user);
-    }
-
     /**
      * Adds a new row to the table of budget-categories.
      *
@@ -52,10 +46,16 @@ public class BudgetController extends AbstractController {
 
         Label categoryField = new Label(category);
         categoryField.setId("category" + r);
-        grid.add(categoryField, 0, r);
+        HBox cellCategory = new HBox(10);
+        cellCategory.getStyleClass().add("budgetCell");
+        cellCategory.getChildren().addAll(categoryField);
+        grid.add(cellCategory, 0, r);
 
         Label amountTextField = new Label(amount.toString());
-        grid.add(amountTextField, 1, r);
+        HBox cellAmount = new HBox(10);
+        cellAmount.getStyleClass().add("budgetCell");
+        cellAmount.getChildren().addAll(amountTextField);
+        grid.add(cellAmount, 1, r);
 
         String limitStr;
         ProgressBar progressBar = new ProgressBar();
@@ -68,15 +68,21 @@ public class BudgetController extends AbstractController {
         }
         progressBar.setProgress(amount / limit);
         progressBar.setStyle("-fx-accent: " + color + ";");
+        HBox cellBar = new HBox(10);
+        cellBar.getStyleClass().add("budgetCell");
+        cellBar.getChildren().addAll(progressBar);
+        grid.add(cellBar, 3, r);
         
 
         Label limTextField = new Label(limitStr);
+        HBox cellLimit = new HBox(10);
+        cellLimit.getStyleClass().add("budgetCell");
+        cellLimit.getChildren().addAll(limTextField);
         limTextField.setPrefWidth(100);
         limTextField.setId("limit" + r);
 
-        grid.add(limTextField, 2, r);
+        grid.add(cellLimit, 2, r);
 
-        grid.add(progressBar, 3, r);
     }
 
     /**
@@ -89,10 +95,10 @@ public class BudgetController extends AbstractController {
         double totalLimit = 0.0;
 
         scrollPane.setContent(grid);
-        for (int i = 0; i < user.getBudget().getCategories().size(); i++) {
-            String category = user.getBudget().getCategories().get(i);
+        for (int i = 0; i < getUser().getBudget().getCategories().size(); i++) {
+            String category = getUser().getBudget().getCategories().get(i);
             
-            Double limit = user.getBudget().getLimit(category);
+            Double limit = getUser().getBudget().getLimit(category);
             double categorySum = getCategorySum(category);
             totalSum += categorySum;
             totalLimit += limit;
@@ -119,7 +125,7 @@ public class BudgetController extends AbstractController {
      */
     private double getCategorySum(String category) {
         double categorySum = 0;
-        for (Transaction transaction : user.getAccount().getTransactions(
+        for (Transaction transaction : getUser().getAccount().getTransactions(
             t -> t.getCategory().equals(category)
             && YearMonth.from(t.getTime()).equals(YearMonth.now()))) {
             categorySum += transaction.getAmount();
@@ -130,6 +136,6 @@ public class BudgetController extends AbstractController {
 
     @FXML
     private void handleEditBudget() throws IOException {
-        switchScene("editBudget.fxml", user);
+        parentController.switchBorderPane("editBudget.fxml");
     }
 }
