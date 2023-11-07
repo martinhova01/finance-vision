@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddTransactionController">
    <children>
-      <Text layoutX="178.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Transaction" textAlignment="CENTER" wrappingWidth="465.1015625">
+      <Text layoutX="178.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Add New Transaction" textAlignment="CENTER" wrappingWidth="465.1015625">
          <font>
             <Font size="36.0" />
          </font></Text>

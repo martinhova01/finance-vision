@@ -46,7 +46,7 @@ public class UserSettingsTest extends ApplicationTest {
         when(mockFileHandler.deserializeUsers(any(File.class)))
             .thenReturn(new ArrayList<>(List.of(user, user2)));
 
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
         root = fxmlLoader.load();
         appController = fxmlLoader.getController();
         appController.setStage(stage);

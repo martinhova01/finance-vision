@@ -108,7 +108,8 @@ public class UserSettingsController extends AbstractSubController {
             user.setEmail(oldEmail);
             user.setPassword(oldPassword);
 
-            parentController.notify("One or more fields are empty or conatins invalid data", AlertType.WARNING);
+            parentController.notify("One or more fields are empty or conatins invalid data",
+                AlertType.WARNING);
             return;
         }
 
@@ -127,6 +128,11 @@ public class UserSettingsController extends AbstractSubController {
         alert.showAndWait();
     }
 
+    
+    /**Deletes user.
+     *
+     * @throws IOException if user could not be deleted.
+     */
     @FXML
     public void handleDeleteUser() throws IOException {
         try {

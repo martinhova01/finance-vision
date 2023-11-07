@@ -27,8 +27,6 @@ public class AppController extends AbstractController {
     private TextField balanceField;
 
     private Transaction transaction;
-    
-    //private Transaction selectedTransaction;
 
     /**
      * Shows total bank balance and list of transactions.

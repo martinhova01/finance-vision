@@ -56,7 +56,7 @@ public class BudgetTest extends ApplicationTest {
         mockFileHandler = Mockito.mock(FileHandler.class);
         when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
         
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
         root = fxmlLoader.load();
         parentController = fxmlLoader.getController();
         parentController.setUser(user);
