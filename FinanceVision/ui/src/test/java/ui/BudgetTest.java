@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
+import org.testfx.util.WaitForAsyncUtils;
+
 import core.Account;
 import core.Budget;
 import core.Expense;
@@ -116,6 +118,7 @@ public class BudgetTest extends ApplicationTest {
     @Test
     public void testRemoveAndAddCategories() {
         clickOn("#editBudgetButton");
+        WaitForAsyncUtils.waitForFxEvents();
         VBox limitBox = (VBox) lookup("#limitBox").query();
         click("+");
         Assertions.assertTrue(limitBox.getChildren().size() == 3);
