@@ -7,35 +7,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.EditBudgetController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" styleClass="appBackground" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.EditBudgetController">
    <children>
-      <Label layoutX="296.0" layoutY="14.0" prefHeight="68.0" prefWidth="214.0" text="Edit Budget">
+      <Label layoutX="313.0" prefHeight="68.0" prefWidth="180.0" text="Edit Budget">
          <font>
-            <Font size="38.0" />
+            <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" text="&lt;-Back">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="&lt;-Back">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="confirmButton" layoutX="342.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="51.0" prefWidth="123.0" text="Confirm">
+      <Button fx:id="confirmButton" layoutX="342.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="51.0" prefWidth="123.0" styleClass="defaultButton" text="Confirm">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="166.0" layoutY="79.0" prefHeight="35.0" prefWidth="102.0" text="Category">
+      <Label layoutX="166.0" layoutY="50.0" prefHeight="35.0" prefWidth="203.0" text="Category">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="416.0" layoutY="79.0" prefHeight="35.0" prefWidth="203.0" text="Limit (one month)">
+      <Label layoutX="416.0" layoutY="51.0" prefHeight="35.0" prefWidth="203.0" text="Limit (one month)">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollPane" layoutX="166.0" layoutY="114.0" prefHeight="280.0" prefWidth="500.0">
+      <ScrollPane fx:id="scrollPane" layoutX="166.0" layoutY="86.0" prefHeight="240.0" prefWidth="500.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="269.0" prefWidth="484.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="239.0" prefWidth="484.0">
                <children>
                   <VBox fx:id="categoryBox" layoutY="5.0" prefHeight="260.0" prefWidth="240.0" style="-fx-spacing: 5;" />
                   <VBox fx:id="limitBox" layoutX="250.0" prefHeight="260.0" prefWidth="150.0" style="-fx-spacing: 5;" />

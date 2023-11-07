@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 /**
  * Controller for adding a transaction.
  */
-public class AddTransactionController extends AbstractController {
+public class AddTransactionController extends AbstractSubController {
     
     @FXML
     private TextField descriptionField;
@@ -45,7 +45,7 @@ public class AddTransactionController extends AbstractController {
             categoryList.getItems().addAll(core.User.defaultIncomeCategories);
         } else if (expenseRadioButton.isSelected()) {
             categoryList.getItems().clear();
-            categoryList.getItems().addAll(user.getBudget().getCategories());
+            categoryList.getItems().addAll(getUser().getBudget().getCategories());
 
             //add the additional categories for this user
         }
@@ -67,21 +67,22 @@ public class AddTransactionController extends AbstractController {
             } else {
                 t = new Expense(description, amount, category, time);
             }
-            user.getAccount().addTransaction(t);
-            saveToFile();
+            getUser().getAccount().addTransaction(t);
+            parentController.saveToFile();
 
         } catch (Exception e) {
             //TODO: tell the user which field is invalid or empty
-            notify("One or more fields are empty or contains invalid data", AlertType.WARNING);
+            parentController.notify(
+                "One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
 
-        switchScene("App.fxml", user);
+        parentController.switchBorderPane("transactions.fxml");
     }
 
     @FXML
     void handleBack() throws IOException {
-        switchScene("App.fxml", user);
+        parentController.switchBorderPane("transactions.fxml");
     }
 
     @Override

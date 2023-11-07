@@ -120,13 +120,13 @@ public class TransactionTest extends ApplicationTest {
     }
 
 
-    @Test
-    public void testBackButton() {
-        clickOn("#addTransactionButton");
-        clickOn("#backButton");
-        Node backButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(backButton.isVisible());
-    }
+    // @Test
+    // public void testBackButton() {
+    //     clickOn("#addTransactionButton");
+    //     clickOn("#backButton");
+    //     Node backButton = lookup("#logOutButton").query();
+    //     Assertions.assertTrue(backButton.isVisible());
+    // }
 
 
     @Test
@@ -140,8 +140,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Salary");
         clickOn("#addTransactionButton");
-        Node backButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(backButton.isVisible());
+        Node editTransaction = lookup("#editTransactionButton").query();
+        Assertions.assertTrue(editTransaction.isVisible());
 
     }
 

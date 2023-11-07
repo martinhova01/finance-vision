@@ -1,69 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
-   <children>
-      <ListView fx:id="incomeView" layoutX="25.0" layoutY="94.0" prefHeight="300.0" prefWidth="250.0" />
-      <Text layoutX="275.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPENSES:" textAlignment="CENTER" wrappingWidth="250.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text layoutX="430.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BALANCE:" wrappingWidth="119.46875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <TextField fx:id="balanceField" editable="false" layoutX="550.0" layoutY="17.0" prefHeight="53.0" prefWidth="160.0">
-         <font>
-            <Font size="24.0" />
-         </font></TextField>
-      <Text layoutX="722.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOK">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <Button fx:id="logOutButton" layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleLogOutButton" styleClass="defaultButton" text="LOG OUT" />
-      <Button fx:id="addTransactionButton" layoutX="25.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleAddTransactionButton" styleClass="defaultButton" text="Add New Transaction">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Text layoutX="25.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INCOMES:" textAlignment="CENTER" wrappingWidth="250.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <ListView fx:id="expenseView" layoutX="275.0" layoutY="94.0" prefHeight="300.0" prefWidth="250.0" />
-      <Button fx:id="budgetButton" layoutX="588.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleBudgetButton" prefHeight="39.0" prefWidth="167.0" text="Budget">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="editTransactionButton" layoutX="295.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleEditTransaction" styleClass="defaultButton" text="Edit Transaction">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
-      <Button fx:id="deleteTransactionButton" layoutX="406.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleDeleteTransaction" styleClass="defaultButton" text="Delete Transaction">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
-      <ChoiceBox fx:id="transactionFilterList" layoutX="228.0" layoutY="67.0" prefHeight="25.0" prefWidth="95.0" />
-      <ImageView fx:id="userIcon" fitHeight="74.0" fitWidth="50.0" layoutX="610.0" layoutY="348.0" onMouseClicked="#handleUserSettings" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/userIcon.png" />
-         </image>
-      </ImageView>
-   </children>
-</AnchorPane>
+<BorderPane fx:id="borderPane" prefHeight="460.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AppController">
+   <top>
+      <HBox fx:id="navBar" prefHeight="53.0" prefWidth="800.0" styleClass="nav-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="transactionLabel" prefHeight="55.0" prefWidth="200.0" styleClass="nav-item" stylesheets="@style.css" text="Transaction" />
+            <Label fx:id="budgetLabel" prefHeight="55.0" prefWidth="200.0" styleClass="nav-item" stylesheets="@style.css" text="Budget" />
+            <Label fx:id="userSettingsLabel" prefHeight="55.0" prefWidth="200.0" styleClass="nav-item" stylesheets="@style.css" text="User Settings" />
+            <AnchorPane prefHeight="53.0" prefWidth="208.0" styleClass="backgroundForMenu" stylesheets="@style.css">
+               <children>
+                  <Text layoutX="4.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BALANCE" wrappingWidth="160.56201171875">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="balanceField" editable="false" layoutX="53.0" layoutY="15.0" prefHeight="36.0" prefWidth="121.0" styleClass="button" stylesheets="@style.css">
+                     <font>
+                        <Font name="Arial Bold" size="11.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="35.0" fitWidth="51.0" layoutX="8.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/moneyIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

@@ -1,7 +1,6 @@
 package ui;
 
 import java.io.IOException;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
@@ -11,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+/**
+ * Controller for animation when loading the app.
+ */
 public class LoadLoginScreenController extends AbstractController {
 
     @FXML
