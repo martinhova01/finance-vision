@@ -19,17 +19,17 @@
             <Label fx:id="userSettingsLabel" prefHeight="55.0" prefWidth="200.0" styleClass="nav-item" stylesheets="@style.css" text="User Settings" />
             <AnchorPane prefHeight="53.0" prefWidth="208.0" styleClass="backgroundForMenu" stylesheets="@style.css">
                <children>
-                  <Text layoutX="4.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BALANCE" wrappingWidth="160.56201171875">
-                     <font>
-                        <Font name="Arial Bold" size="12.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="balanceField" editable="false" layoutX="53.0" layoutY="15.0" prefHeight="36.0" prefWidth="121.0" styleClass="button" stylesheets="@style.css">
+                  <TextField fx:id="balanceField" editable="false" layoutX="64.0" layoutY="16.0" prefHeight="36.0" prefWidth="121.0" styleClass="button" stylesheets="@style.css">
                      <font>
                         <Font name="Arial Bold" size="11.0" />
                      </font>
                   </TextField>
-                  <ImageView fitHeight="35.0" fitWidth="51.0" layoutX="8.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <Text layoutX="93.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BALANCE" wrappingWidth="62.56201171875">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="35.0" fitWidth="51.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/moneyIcon.png" />
                      </image>
