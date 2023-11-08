@@ -1,14 +1,10 @@
 package ui;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,6 +14,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import core.Account;
 import core.Expense;
+import core.FinanceVisionModel;
 import core.Income;
 import core.User;
 import filesaving.FileHandler;
@@ -52,7 +49,9 @@ public class AppTest extends ApplicationTest {
         account.addTransaction(income4);
         account.addTransaction(foodExpense);
         user = new User("testuser", "password", "Test User", "test@valid.com", account);
-        when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
+        FinanceVisionModel model = new FinanceVisionModel();
+        model.putUser(user);
+        when(mockFileHandler.readModel()).thenReturn(model);
         
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
         root = fxmlLoader.load();

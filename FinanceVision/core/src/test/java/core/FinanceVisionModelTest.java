@@ -2,7 +2,7 @@ package core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class FinanceVisionModelTest {
     @Test
     public void testGetUser() {
         assertEquals(user, model.getUser("johndoe"));
-        assertThrows(IllegalArgumentException.class, () -> model.getUser("banana"));
+        assertNull(model.getUser("banana"));
     }
 
     @Test
