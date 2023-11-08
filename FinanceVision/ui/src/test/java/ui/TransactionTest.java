@@ -1,5 +1,7 @@
 package ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -9,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.matcher.control.LabeledMatchers;
+
 import core.Account;
 import core.Expense;
 import core.FinanceVisionModel;
@@ -24,6 +28,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.skin.VirtualFlow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
@@ -79,7 +84,7 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testFilterTransactions() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
+        //VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         clickOn("#transactionFilterList");
         clickOn("Today");
         boolean found = false;
@@ -119,18 +124,8 @@ public class TransactionTest extends ApplicationTest {
         Assertions.assertFalse(found, "Filtrerte ikke bort transaksjon fra forrige år");
     }
 
-
-    // @Test
-    // public void testBackButton() {
-    //     clickOn("#addTransactionButton");
-    //     clickOn("#backButton");
-    //     Node backButton = lookup("#logOutButton").query();
-    //     Assertions.assertTrue(backButton.isVisible());
-    // }
-
-
     @Test
-    public void testAddTransaction() {
+    public void testAddIncome() {
         clickOn("#addTransactionButton");
         clickOn("#incomeRadioButton");
         clickOn("#amountField");
@@ -142,6 +137,19 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#addTransactionButton");
         Node editTransaction = lookup("#editTransactionButton").query();
         Assertions.assertTrue(editTransaction.isVisible());
+    }
+
+    @Test
+    public void testAddExpense() {
+        clickOn("#addTransactionButton");
+        clickOn("#expenseRadioButton");
+        clickOn("#amountField");
+        write("100");
+        clickOn("#descriptionField");
+        write("Food");        
+        clickOn("#categoryList");
+        clickOn("Food");
+        clickOn("#addTransactionButton");
 
     }
 
@@ -150,6 +158,8 @@ public class TransactionTest extends ApplicationTest {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
         VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        clickOn("#deleteTransactionButton");
+        click("OK");
         clickOn(firstCell, MouseButton.PRIMARY);
         clickOn("#deleteTransactionButton");
         boolean found = false;
@@ -163,12 +173,20 @@ public class TransactionTest extends ApplicationTest {
     }
 
     @Test
-    public void testEditTransaction() {
+    public void testEditIncome() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
         VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        clickOn("#editTransactionButton");
+        click("OK");
         clickOn(firstCell, MouseButton.PRIMARY);
         clickOn("#editTransactionButton");
+        clickOn("#amountField");
+        write("H");
+        clickOn("#confirmButton");
+        click("OK");
+        clickOn("#amountField");
+        push(KeyCode.BACK_SPACE);
         clickOn("#descriptionField");
         write("1");
         clickOn("#confirmButton");
@@ -182,8 +200,42 @@ public class TransactionTest extends ApplicationTest {
         if (descriptionField.getText().equals("Vipps1")) {
             found = true;
         }
+        clickOn("#backButton");
         Assertions.assertTrue(found, "Transaksjonen ble ikke endret");
     }
 
+    @Test
+    public void testEditExpense() {
+        ListView<Transaction> expenseView = lookup("#expenseView").query();
+        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) expenseView.lookup(".virtual-flow");
+        ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        clickOn(firstCell, MouseButton.PRIMARY);
+        clickOn("#editTransactionButton");
+        clickOn("#descriptionField");
+        write("1");
+        clickOn("#confirmButton");
+        boolean found = false;
+        ListView<Transaction> expenseView2 = lookup("#expenseView").query();
+        VirtualFlow<ListCell<Transaction>> virtualFlow2 = (VirtualFlow<ListCell<Transaction>>) expenseView2.lookup(".virtual-flow");
+        ListCell<Transaction> firstCell2 = virtualFlow2.getFirstVisibleCell();
+        clickOn(firstCell2, MouseButton.PRIMARY);
+        clickOn("#editTransactionButton");
+        TextField descriptionField = lookup("#descriptionField").query();
+        if (descriptionField.getText().equals("Food1")) {
+            found = true;
+        }
+        clickOn("#backButton");
+        Assertions.assertTrue(found, "Transaksjonen ble ikke endret");
+    }
 
+    @Test
+    public void testGetUser() {
+        assertEquals(user, abstractController.getUser());
+    }
+
+    private void click(String... labels) {
+        for (var label : labels) {
+            clickOn(LabeledMatchers.hasText(label));
+        }
+    }
 }

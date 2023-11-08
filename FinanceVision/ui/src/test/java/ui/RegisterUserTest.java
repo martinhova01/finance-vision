@@ -15,7 +15,9 @@ import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 
+import core.Account;
 import core.FinanceVisionModel;
+import core.User;
 import filesaving.FileHandler;
 
 
@@ -27,8 +29,10 @@ public class RegisterUserTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws IOException {
         FileHandler mock = Mockito.mock(FileHandler.class);
-        when(mock.readModel()).thenReturn(new FinanceVisionModel());
-
+        User user = new User("testuserTaken", "takenTestPassword", "taken test", "taken.test@hotmail.com", new Account(0));
+        FinanceVisionModel model = new FinanceVisionModel();
+        model.putUser(user);
+        when(mock.readModel()).thenReturn(model);
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("registerNewUser.fxml"));
         root = fxmlLoader.load();
@@ -76,7 +80,15 @@ public class RegisterUserTest extends ApplicationTest {
         write(" invalid");
         click("Register user");
         Node loginButton = lookup("#backButton").query();
-        Assertions.assertTrue(loginButton.isVisible());
+        Assertions.assertTrue(loginButton.isVisible());        
+    }
+
+    @Test
+    public void testTakenUsername() {
+        setUp();
+        clickOn("#usernameField");
+        write("Taken");
+        click("Register user");
     }
 
     @Test

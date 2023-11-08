@@ -10,5 +10,6 @@ module springboot {
     requires core;
     requires persistence;
 
-    opens financevision.springboot.restserver to spring.beans, spring.context, spring.web;
+    opens financevision.springboot.restserver;
+    //opens financevision.springboot.restserver to spring.beans, spring.context, spring.web;
 }
