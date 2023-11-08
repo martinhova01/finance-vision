@@ -1,5 +1,6 @@
 package ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.File;
@@ -29,6 +30,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.skin.VirtualFlow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
@@ -147,9 +149,7 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Food");
         clickOn("#addTransactionButton");
-/*         Node logOutButton = lookup("#logOutButton").query();
-        Assertions.assertTrue(logOutButton.isVisible());
- */
+
     }
 
     @Test
@@ -157,6 +157,8 @@ public class TransactionTest extends ApplicationTest {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
         VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        clickOn("#deleteTransactionButton");
+        click("OK");
         clickOn(firstCell, MouseButton.PRIMARY);
         clickOn("#deleteTransactionButton");
         boolean found = false;
@@ -174,8 +176,16 @@ public class TransactionTest extends ApplicationTest {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
         VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        clickOn("#editTransactionButton");
+        click("OK");
         clickOn(firstCell, MouseButton.PRIMARY);
         clickOn("#editTransactionButton");
+        clickOn("#amountField");
+        write("H");
+        clickOn("#confirmButton");
+        click("OK");
+        clickOn("#amountField");
+        push(KeyCode.BACK_SPACE);
         clickOn("#descriptionField");
         write("1");
         clickOn("#confirmButton");
@@ -215,6 +225,11 @@ public class TransactionTest extends ApplicationTest {
         }
         clickOn("#backButton");
         Assertions.assertTrue(found, "Transaksjonen ble ikke endret");
+    }
+
+    @Test
+    public void testGetUser() {
+        assertEquals(user, abstractController.getUser());
     }
 
     private void click(String... labels) {

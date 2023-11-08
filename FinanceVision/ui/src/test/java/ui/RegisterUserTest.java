@@ -91,9 +91,6 @@ public class RegisterUserTest extends ApplicationTest {
         clickOn("#usernameField");
         write("Taken");
         click("Register user");
-/*         click("OK");
-        Node loginButton = lookup("#backButton").query();
-        Assertions.assertTrue(loginButton.isVisible()); */
     }
 
     @Test
