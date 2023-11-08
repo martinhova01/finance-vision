@@ -68,5 +68,11 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
         return null;
     }
 
+    @Override
+    public boolean isConnected() throws Exception {
+        fileHandler.readModel();
+        return true;
+    }
+
   
 }

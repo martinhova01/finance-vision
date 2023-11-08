@@ -9,6 +9,14 @@ import core.User;
 public interface FinanceVisionModelAccess {
 
     /**
+     * Checks if the model is accessable.
+     *
+     * @return true if successfull
+     * @throws Exception is model can not be reached
+     */
+    public boolean isConnected() throws Exception;
+
+    /**
      * Adds or replaces a user.
      *
      * @param user the user to put

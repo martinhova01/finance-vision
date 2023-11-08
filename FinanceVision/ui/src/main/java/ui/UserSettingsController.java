@@ -90,7 +90,7 @@ public class UserSettingsController extends AbstractSubController {
         String oldEmail = user.getEmail();
         String oldPassword = user.getPassword();
 
-        if (modelAccess.containsUser(username)) {
+        if (modelAccess.containsUser(username) && !username.equals(oldUserName)) {
             parentController.notify("Username is taken", AlertType.WARNING);
             return;
         }

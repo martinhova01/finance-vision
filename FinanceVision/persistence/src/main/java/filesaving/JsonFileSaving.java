@@ -18,7 +18,7 @@ public class JsonFileSaving implements FileHandler {
 
     private Gson gson;
 
-    private File saveFile;
+    private static String filepath;
     
 
     /**
@@ -26,17 +26,19 @@ public class JsonFileSaving implements FileHandler {
      */
     public JsonFileSaving() {
         gson = createGson();
-        saveFile = new File(System.getProperty("user.home") + "/data.json");
+        String path = System.getProperty("user.home")
+            + System.getProperty("file.separator") + "data.json";
+        setFilepath(path);
         
     }
 
-    public JsonFileSaving(File saveFile) {
+    public JsonFileSaving(String filepath) {
         this();
-        setSaveFile(saveFile);
+        setFilepath(filepath);
     }
 
-    public void setSaveFile(File saveFile) {
-        this.saveFile = saveFile;
+    public static void setFilepath(String filepath) {
+        JsonFileSaving.filepath = filepath;
     }
 
     /**
@@ -46,7 +48,7 @@ public class JsonFileSaving implements FileHandler {
      * @throws IOException if the file is not found
      */
     public void writeModel(FinanceVisionModel model) throws IOException {
-        try (FileWriter writer = new FileWriter(saveFile, StandardCharsets.UTF_8);) {
+        try (FileWriter writer = new FileWriter(new File(filepath), StandardCharsets.UTF_8);) {
             writer.write(gson.toJson(model));
             writer.close();
         }
@@ -59,7 +61,7 @@ public class JsonFileSaving implements FileHandler {
      * @throws IOException if file not found
      */
     public FinanceVisionModel readModel() throws IOException {
-        FileReader reader = new FileReader(saveFile, StandardCharsets.UTF_8);
+        FileReader reader = new FileReader(new File(filepath), StandardCharsets.UTF_8);
         FinanceVisionModel model = gson.fromJson(reader, FinanceVisionModel.class);
         reader.close();
         return model;

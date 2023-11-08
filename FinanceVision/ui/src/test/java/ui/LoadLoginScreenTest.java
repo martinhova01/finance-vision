@@ -5,8 +5,9 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
-import filesaving.JsonFileSaving;
+import filesaving.FileHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -23,7 +24,8 @@ public class LoadLoginScreenTest extends ApplicationTest {
         stage.setScene(scene);
         stage.show();
         AbstractController controller = loader.getController();
-        controller.setModelAccess(new DirectFinanceVisionModelAccess(new JsonFileSaving()));
+        FileHandler mock = Mockito.mock(FileHandler.class);
+        controller.setModelAccess(new DirectFinanceVisionModelAccess(mock));
         controller.setStage(stage);
         controller.setScene(scene);
         controller.init();

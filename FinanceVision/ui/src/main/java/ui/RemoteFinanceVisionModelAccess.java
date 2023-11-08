@@ -30,6 +30,23 @@ public class RemoteFinanceVisionModelAccess implements FinanceVisionModelAccess 
         this.gson = new JsonFileSaving().createGson();
     }
 
+    /**
+     * Checks if the client is connected to the server.
+     *
+     * @return true if connected
+     * @throws Exception if not connected
+     */
+    public boolean isConnected() throws Exception {
+        HttpRequest request = HttpRequest.newBuilder(endpointBaseUri)
+            .header(ACCEPT_HEADER, APPLICATION_JSON)
+            .GET()
+            .build();
+        HttpResponse<String> response = HttpClient
+            .newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
+        String responseString = response.body();
+        return gson.fromJson(responseString, Boolean.class);
+    }
+
     @Override
     public void putUser(User user) throws Exception {
         
