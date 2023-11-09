@@ -1,14 +1,17 @@
 package ui;
 
+import static org.mockito.Mockito.when;
+
+import core.Account;
+import core.FinanceVisionModel;
+import core.User;
+import filesaving.FileHandler;
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import static org.mockito.Mockito.when;
-import java.io.IOException;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -16,12 +19,10 @@ import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import core.Account;
-import core.FinanceVisionModel;
-import core.User;
-import filesaving.FileHandler;
 
-
+/**
+ * Testclass for UserSettingsController.java using JUnit and TestFX.
+ */
 public class UserSettingsTest extends ApplicationTest {
 
     private AppController appController;

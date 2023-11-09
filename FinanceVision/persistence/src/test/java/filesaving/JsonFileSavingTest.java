@@ -47,7 +47,9 @@ public class JsonFileSavingTest {
         deleteTestfile();
     }
 
-
+    /**
+     * Inits the testobjects before each test by writing and reading from file.
+     */
     @BeforeEach
     public void setUpData() throws IOException {
 

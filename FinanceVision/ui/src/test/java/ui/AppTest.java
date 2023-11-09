@@ -3,26 +3,28 @@ package ui;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.testfx.framework.junit5.ApplicationTest;
 import core.Account;
 import core.Expense;
 import core.FinanceVisionModel;
 import core.Income;
 import core.User;
 import filesaving.FileHandler;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.testfx.framework.junit5.ApplicationTest;
 
+/**
+ * Testclass for AppController.java using JUnit and TestFX.
+ */
 public class AppTest extends ApplicationTest {
     private AbstractController abstractController;
     private Parent root;
@@ -36,10 +38,14 @@ public class AppTest extends ApplicationTest {
         mockFileHandler = Mockito.mock(FileHandler.class);
         Account account = new Account(1000);
         Income vippsIncome = new Income("Vipps", 500, "Salary", LocalDateTime.now());
-        Income income1 = new Income("Money from granny", 1000.0, "Other", LocalDateTime.now().minusDays(1));
-        Income income2 = new Income("Money from dad", 200.0, "Other", LocalDateTime.now().minusWeeks(1));
-        Income income3 = new Income("Salary", 2500.0, "Other", LocalDateTime.now().minusMonths(1));
-        Income income4 = new Income("Christmas present", 100.0, "Other", LocalDateTime.now().minusYears(1));
+        Income income1 = new Income("Money from granny", 1000.0, "Other",
+            LocalDateTime.now().minusDays(1));
+        Income income2 = new Income("Money from dad", 200.0, "Other",
+            LocalDateTime.now().minusWeeks(1));
+        Income income3 = new Income("Salary", 2500.0, "Other", 
+            LocalDateTime.now().minusMonths(1));
+        Income income4 = new Income("Christmas present", 100.0, "Other", 
+            LocalDateTime.now().minusYears(1));
         Expense foodExpense = new Expense("Food", 100, "Food", LocalDateTime.now());
         account.addTransaction(vippsIncome);
         account.addTransaction(income1);
@@ -72,14 +78,18 @@ public class AppTest extends ApplicationTest {
     @Test
     public void testClickLabels() {
         Node addTransactionButton = lookup("#addTransactionButton").query();
-        assertTrue(addTransactionButton.isVisible(), "Klarte ikke å laste inn transaction-siden ved start");
+        assertTrue(addTransactionButton.isVisible(),
+            "Klarte ikke å laste inn transaction-siden ved start");
         clickOn("#budgetLabel");
         Node editBudgetButton = lookup("#editBudgetButton").query();
-        assertTrue(editBudgetButton.isVisible(), "Klarte ikke å laste inn edit budget-siden ved klikk");
+        assertTrue(editBudgetButton.isVisible(),
+            "Klarte ikke å laste inn edit budget-siden ved klikk");
         clickOn("#userSettingsLabel");
         Node deleteUserButton = lookup("#deleteUserButton").query();
-        assertTrue(deleteUserButton.isVisible(), "Klarte ikke å laste inn user settings-siden ved klikk");
+        assertTrue(deleteUserButton.isVisible(),
+            "Klarte ikke å laste inn user settings-siden ved klikk");
         clickOn("#transactionLabel");
-        assertTrue(addTransactionButton.isVisible(), "Klarte ikke å laste inn transaction-siden ved klikk");
+        assertTrue(addTransactionButton.isVisible(),
+            "Klarte ikke å laste inn transaction-siden ved klikk");
     }
 }

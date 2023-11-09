@@ -1,5 +1,0 @@
-{
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "java.checkstyle.configuration": "${workspaceFolder}\\FinanceVision\\config\\checkstyle\\google_checks.xml",
-    "java.checkstyle.version": "10.12.4"
-}
