@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
-
 import core.Account;
 import core.Expense;
 import core.FinanceVisionModel;
@@ -25,7 +24,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AppTest extends ApplicationTest {
-      private AbstractController abstractController;
+    private AbstractController abstractController;
     private Parent root;
     private User user;
 
@@ -73,14 +72,14 @@ public class AppTest extends ApplicationTest {
     @Test
     public void testClickLabels() {
         Node addTransactionButton = lookup("#addTransactionButton").query();
-        assertTrue(addTransactionButton.isVisible());
+        assertTrue(addTransactionButton.isVisible(), "Klarte ikke å laste inn transaction-siden ved start");
         clickOn("#budgetLabel");
         Node editBudgetButton = lookup("#editBudgetButton").query();
-        assertTrue(editBudgetButton.isVisible());
+        assertTrue(editBudgetButton.isVisible(), "Klarte ikke å laste inn edit budget-siden ved klikk");
         clickOn("#userSettingsLabel");
         Node deleteUserButton = lookup("#deleteUserButton").query();
-        assertTrue(deleteUserButton.isVisible());
+        assertTrue(deleteUserButton.isVisible(), "Klarte ikke å laste inn user settings-siden ved klikk");
         clickOn("#transactionLabel");
-        assertTrue(addTransactionButton.isVisible());
+        assertTrue(addTransactionButton.isVisible(), "Klarte ikke å laste inn transaction-siden ved klikk");
     }
 }

@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
-
 import core.Account;
 import core.Expense;
 import core.FinanceVisionModel;
@@ -83,7 +82,6 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testFilterTransactions() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
-        //VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         clickOn("#transactionFilterList");
         clickOn("Today");
         boolean found = false;
@@ -126,6 +124,12 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testAddIncome() {
         clickOn("#addTransactionButton");
+        clickOn("#addTransactionButton");
+        click("OK");
+        clickOn("#backButton");
+        Node editTransaction = lookup("#editTransactionButton").query();
+        Assertions.assertTrue(editTransaction.isVisible(), "Feilet å returnere til hovedside etter å trykke på tilbake-knapp");
+        clickOn("#addTransactionButton");
         clickOn("#incomeRadioButton");
         clickOn("#amountField");
         write("100");
@@ -134,8 +138,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Salary");
         clickOn("#addTransactionButton");
-        Node editTransaction = lookup("#editTransactionButton").query();
-        Assertions.assertTrue(editTransaction.isVisible());
+        Node editTransaction2 = lookup("#editTransactionButton").query();
+        Assertions.assertTrue(editTransaction2.isVisible(), "Feilet å returnere til hovedside etter å legge til inntekt");
     }
 
     @Test
@@ -149,7 +153,6 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#categoryList");
         clickOn("Food");
         clickOn("#addTransactionButton");
-
     }
 
     @Test
@@ -177,12 +180,18 @@ public class TransactionTest extends ApplicationTest {
         VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
         clickOn("#editTransactionButton");
+        Node editTransactionButton = lookup("#editTransactionButton").query();
+        Assertions.assertTrue(editTransactionButton.isVisible(), "Transaksjon ikke valgt");
+
         click("OK");
         clickOn(firstCell, MouseButton.PRIMARY);
         clickOn("#editTransactionButton");
         clickOn("#amountField");
         write("H");
         clickOn("#confirmButton");
+        Node confirmButton = lookup("#confirmButton").query();
+        Assertions.assertTrue(confirmButton.isVisible(), "Ugyldig verdi i amount-felt");
+
         click("OK");
         clickOn("#amountField");
         push(KeyCode.BACK_SPACE);

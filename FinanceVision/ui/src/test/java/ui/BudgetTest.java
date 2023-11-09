@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
-
 import core.Account;
 import core.Budget;
 import core.Expense;
@@ -33,10 +32,8 @@ public class BudgetTest extends ApplicationTest {
     private Parent root;
     private User user;
     
-
     @Mock
     private FileHandler mockFileHandler;
-
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -79,11 +76,10 @@ public class BudgetTest extends ApplicationTest {
     public void testEditButton() {
         clickOn("#editBudgetButton");
         Node confirmButton = lookup("#confirmButton").query();
-        Assertions.assertTrue(confirmButton.isVisible()); 
-
+        Assertions.assertTrue(confirmButton.isVisible(), "Klarte ikke å laste inn edit budget-siden ved klikk"); 
         clickOn("#backButton");
         Node editBudgetButton = lookup("#editBudgetButton").query();
-        Assertions.assertTrue(editBudgetButton.isVisible());
+        Assertions.assertTrue(editBudgetButton.isVisible(), "Klarte ikke å returnere til hovedsiden");
     }
 
     @Test
@@ -93,7 +89,7 @@ public class BudgetTest extends ApplicationTest {
         write("xy");
         clickOn("#confirmButton");
         Node confirmButton = lookup("#confirmButton").query();
-        Assertions.assertTrue(confirmButton.isVisible());
+        Assertions.assertTrue(confirmButton.isVisible(), "Fikk ikke varsel om ugyldig limit");
 
         click("OK");
         clickOn("#limit1");
@@ -104,7 +100,7 @@ public class BudgetTest extends ApplicationTest {
         type(KeyCode.BACK_SPACE, 10);
         clickOn("#confirmButton");
         confirmButton = lookup("#confirmButton").query();
-        Assertions.assertTrue(confirmButton.isVisible());
+        Assertions.assertTrue(confirmButton.isVisible(), "Fikk ikke varsel om ugyldig category");
 
         click("OK");
         clickOn("#category0");
@@ -120,14 +116,14 @@ public class BudgetTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         VBox limitBox = (VBox) lookup("#limitBox").query();
         click("+");
-        Assertions.assertTrue(limitBox.getChildren().size() == 3);
+        Assertions.assertTrue(limitBox.getChildren().size() == 3, "Feilet å legge til et budsjett");
 
         clickOn("#remove2");
-        Assertions.assertTrue(limitBox.getChildren().size() == 2);
+        Assertions.assertTrue(limitBox.getChildren().size() == 2, "Feilet å slette et budsjett");
 
         clickOn("#confirmButton");
         Node editBudgetButton = lookup("#editBudgetButton").query();
-        Assertions.assertTrue(editBudgetButton.isVisible());
+        Assertions.assertTrue(editBudgetButton.isVisible(), "Klarte ikke å returnere til hovedside");
 
     }
 
