@@ -1,4 +1,6 @@
 @startuml arcitecture
+title <size:40>System Arcitecture
+
 component core {
 	package core.core
 }

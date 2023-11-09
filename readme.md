@@ -33,7 +33,7 @@ Det genereres Jacoco rapporter for hver modul i `FinanceVision/"modulnavn"/targe
 Etter dette genereres resultatet i `FinanceVision/ui/target/dist`.
 
 
-##REST api
+## REST api
 Prosjektet inneholder en REST api for kjernelogikken i core. Dokumentasjonen av denn finner du [her](FinanceVision/springboot/readme.md)
 
 

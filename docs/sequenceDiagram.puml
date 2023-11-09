@@ -1,0 +1,24 @@
+@startuml sequence diagram
+title <size:40>Login Sequence Diagram(valid login)
+
+participant User
+participant ui.LoginController
+participant ui.RemoteFinanceVisionModelAccess
+participant persistence.JsonFilesaving
+participant springboot.FinanceVisionController
+participant core.FinanceVisionModel
+
+
+User --> ui.LoginController : clicks on "log in" button \nwith username "foo" and password "bar"
+ui.LoginController --> ui.RemoteFinanceVisionModelAccess: getUser("foo", "bar")
+ui.RemoteFinanceVisionModelAccess --> springboot.FinanceVisionController : HTTP-GET-request \n(path=".../fv/user/foo?password=bar")
+springboot.FinanceVisionController -> core.FinanceVisionModel : getUser("foo")
+core.FinanceVisionModel -> springboot.FinanceVisionController : return a core.User object \n(with username "foo")
+springboot.FinanceVisionController -> ui.RemoteFinanceVisionModelAccess : HTTP-response \n(with JSON representation of core.User in body)
+ui.RemoteFinanceVisionModelAccess -> persistence.JsonFilesaving : deserialize JSON representation of core.User object
+persistence.JsonFilesaving -> ui.RemoteFinanceVisionModelAccess : return a core.User object\n(with username "foo")
+ui.RemoteFinanceVisionModelAccess -> ui.LoginController : return a core.User object\n(with username "foo")
+ui.LoginController -> User : User is logged in \nThe screen displays the useriformation
+
+
+@enduml
