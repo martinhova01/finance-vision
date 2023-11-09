@@ -1,7 +1,9 @@
 package core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -91,6 +93,21 @@ public class UserTest {
         budget.addCategory("Other", 2000);
         user.setBudget(budget);
         assertEquals(budget, user.getBudget());
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(user.equals(user));
+        user2.setUsername("Peter");
+        assertFalse(user.equals(user2));
+    }
+
+    @Test
+    public void testHashCode() {
+        user2.setUsername("Peter");
+        assertFalse(user.hashCode() == user2.hashCode());
+        user2.setUsername("johndoe");
+        assertTrue(user.hashCode() == user2.hashCode());
     }
 
 }
