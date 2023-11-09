@@ -5,25 +5,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
-
 import core.Account;
 import core.User;
 import filesaving.FileHandler;
-
 
 public class RegisterUserTest extends ApplicationTest {
 
@@ -82,7 +78,7 @@ public class RegisterUserTest extends ApplicationTest {
         write(" invalid");
         click("Register user");
         Node loginButton = lookup("#backButton").query();
-        Assertions.assertTrue(loginButton.isVisible());        
+        Assertions.assertTrue(loginButton.isVisible(), "Brukernavn kan ikke inneholde mellomrom");        
     }
 
     @Test
@@ -91,6 +87,8 @@ public class RegisterUserTest extends ApplicationTest {
         clickOn("#usernameField");
         write("Taken");
         click("Register user");
+        Node loginButton = lookup("#backButton").query();
+        Assertions.assertTrue(loginButton.isVisible(), "Brukernavn må være unikt");  
     }
 
     @Test
@@ -100,14 +98,14 @@ public class RegisterUserTest extends ApplicationTest {
         write("....");
         click("Register user");
         Node loginButton = lookup("#backButton").query();
-        Assertions.assertTrue(loginButton.isVisible());
+        Assertions.assertTrue(loginButton.isVisible(), "Balance må være et tall");
     }
 
     @Test
     public void testBack() {
         clickOn("#backButton");
         Node loginButton = lookup("#loginButton").query();
-        Assertions.assertTrue(loginButton.isVisible());
+        Assertions.assertTrue(loginButton.isVisible(), "Feilet å returnere til login-side ved trykk");
     }
 
 

@@ -56,7 +56,7 @@ public class LoginTest extends ApplicationTest {
         click("Log in");
         WaitForAsyncUtils.waitForFxEvents();
         Node loginButton = lookup("#loginButton").query();
-        Assertions.assertTrue(loginButton.isVisible());
+        Assertions.assertTrue(loginButton.isVisible(), "Skal ikke kunne logge inn uten gyldig brukernavn og passord");
     }
 
     @Test
@@ -72,14 +72,14 @@ public class LoginTest extends ApplicationTest {
             e.printStackTrace();
         }
         Node balanceField = lookup("#balanceField").query();
-        Assertions.assertTrue(balanceField.isVisible());
+        Assertions.assertTrue(balanceField.isVisible(), "Mislykket login med gyldig brukernavn og passord");
     }
 
     @Test
     public void testRegisterUser() {
         clickOn("#registerUserButton");
         Node backButton = lookup("#backButton").query();
-        Assertions.assertTrue(backButton.isVisible());
+        Assertions.assertTrue(backButton.isVisible(), "Feilet å laste inn register user-side ved trykk");
     }    
 
     public Parent getRootNode() {

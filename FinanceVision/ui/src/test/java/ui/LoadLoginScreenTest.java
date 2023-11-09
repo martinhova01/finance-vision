@@ -42,6 +42,6 @@ public class LoadLoginScreenTest extends ApplicationTest {
             e.printStackTrace();
         }
         Node loginButton = lookup("#loginButton").query();
-        assertTrue(loginButton.isVisible());
+        assertTrue(loginButton.isVisible(), "Login side ikke synlig etter animasjon");
     }
 }

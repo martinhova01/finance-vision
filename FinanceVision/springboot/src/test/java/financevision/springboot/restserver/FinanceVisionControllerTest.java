@@ -37,17 +37,17 @@ public class FinanceVisionControllerTest {
   public void TestGetFinanceVisionModel() {
     ResponseEntity<FinanceVisionModel> response = testRestTemplate.getForEntity(getUrl(), FinanceVisionModel.class);
     HttpStatus statusCode = response.getStatusCode();
-    assertEquals(HttpStatus.OK, statusCode);
+    assertEquals(HttpStatus.OK, statusCode, "En feil oppsto under hentingen av modell-objektet");
     FinanceVisionModel model1 = response.getBody();
     assertNotNull(model1);
-    assertTrue(model1.containsUser("testuser"));
+    assertTrue(model1.containsUser("testuser"), "Sample-brukeren ble ikke funnet i modell-objektet");
   }
 
   @Test
   public void TestGetUser() {
     ResponseEntity<User> response = testRestTemplate.getForEntity(getUrl() + "/user/testuser", User.class);
     HttpStatus statusCode = response.getStatusCode();
-    assertEquals(HttpStatus.OK, statusCode);
+    assertEquals(HttpStatus.OK, statusCode, "En feil oppsto under hentingen av user-objektet");
     User testUser = response.getBody();
     assertNotNull(testUser);
     assertEquals("testuser", testUser.getUsername());
@@ -67,13 +67,7 @@ public class FinanceVisionControllerTest {
         Void.class
     );
     HttpStatus statusCode = response.getStatusCode();
-    assertEquals(HttpStatus.OK, statusCode); // Juster statuskoden etter behov
-    //testRestTemplate.put(getUrl() + "/user/doejohn", testuser);
-    FinanceVisionModel model2 = testRestTemplate.getForObject(getUrl(), FinanceVisionModel.class);
-    System.out.println(model2);
-    //assertTrue(model2.containsUser("doejohn"));
-/*     ResponseEntity<String> result = testRestTemplate.getForEntity(getUrl(), String.class);
-    assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode(),"Should return 400 when missing required parameter(s)"); */
+    assertEquals(HttpStatus.OK, statusCode, "En feil oppsto under PUT-requesten");
   }
 
   @Test
@@ -87,7 +81,6 @@ public class FinanceVisionControllerTest {
     );
     HttpStatus putStatusCode = putResponse.getStatusCode();
     assertEquals(HttpStatus.OK, putStatusCode);
-    //testRestTemplate.put(getUrl() + "/user/marco", testuser2);
     ResponseEntity<Void> deleteResponse = testRestTemplate.exchange(
         getUrl() + "/user/marco",
         HttpMethod.DELETE,
@@ -95,22 +88,6 @@ public class FinanceVisionControllerTest {
         Void.class
     );
     HttpStatus deleteStatusCode = deleteResponse.getStatusCode();
-    assertEquals(HttpStatus.OK, deleteStatusCode); // Juster statuskoden etter behov
-/*     ResponseEntity<User> responseFail = testRestTemplate.getForEntity(getUrl() + "/user/marco", User.class);
-    HttpStatus statusCodeFail = responseFail.getStatusCode();
-    System.out.println("Feil: " + statusCodeFail.value() + statusCodeFail);
-    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, statusCodeFail); */
-
-/*     
-    testRestTemplate.delete(getUrl() + "/user/marco");
-    FinanceVisionModel model3 = testRestTemplate.getForObject(getUrl(), FinanceVisionModel.class);
-    assertFalse(model3.containsUser("marco"));
-
-    ResponseEntity<FinanceVisionModel> response = testRestTemplate.getForEntity(getUrl(), FinanceVisionModel.class);
-    HttpStatus statusCode = response.getStatusCode();
-    assertEquals(HttpStatus.OK, statusCode);
-    FinanceVisionModel model1 = response.getBody();
-    assertNotNull(model1);
-    assertTrue(model1.containsUser("testuser")); */
+    assertEquals(HttpStatus.OK, deleteStatusCode, "En feil oppsto under DELETE-requesten");
   }
 }
