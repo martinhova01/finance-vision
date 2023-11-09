@@ -7,26 +7,38 @@ component persistence {
 	package persistence.filesaving
 }
 
-component Gson{
+component com.google.Gson{
 }
 
-persistence.filesaving ..> Gson
-persistence.filesaving ..> core.core
+persistence ..> com.google.Gson
+persistence ..> core
 
 component ui{
 	package ui.ui
 }
-
-ui.ui ..> core.core
-ui.ui ..> persistence.filesaving
-
-component javafx {
+component org.openjfx {
 	component javafx-fxml {
 	}
 	component javafx-controls{
 	}
+}
+component org.mockito
 
+ui ..> core
+ui ..> persistence
+ui ..> org.openjfx
+ui ..> org.mockito
+
+
+component springboot {
+	package financevision.springboot.restserver
 }
 
-ui.ui ..> javafx
+component org.springframework
+
+springboot ..> org.springframework
+springboot ..> persistence
+springboot ..> core
+
+
 @enduml
