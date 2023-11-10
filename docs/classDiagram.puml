@@ -1,0 +1,45 @@
+@startuml core
+FinanceVisionModel --> "Users: *" User : has
+
+User --> "Account: 1" Account : has a
+
+User --> "Budget: 1" Budget : has a
+
+Account --> "Transactions: *" Transaction : has
+
+Income --|> Transaction : is a
+
+Expense --|> Transaction : is a
+
+
+
+class FinanceVisionModel {
+    +putUser(User): void
+    +removeUser(User): void
+    +getUser(String): User
+}
+class User {
+    -username: String
+    -password: String
+    -fullName: String
+    +setAccount(): void
+    +setBudget(): void
+}
+class Account {
+    -startValue: double
+    +getBalance(): double
+    +addTransaction(Transaction): void
+    +removeTransaction(Transaction): void
+}
+abstract class Transaction {
+    -description: String
+    -amount: double
+    -category: String
+    -time: LocalDateTime
+}
+class Budget {
+    -categoryLimits: Map<String, Double>
+    +addCategory(String, double): void
+}
+
+@enduml
