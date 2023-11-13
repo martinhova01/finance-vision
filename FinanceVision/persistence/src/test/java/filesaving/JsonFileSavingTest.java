@@ -27,6 +27,7 @@ public class JsonFileSavingTest {
     private User u2Read;
     private Account a1;
     private Account a2;
+    private JsonFileSaving fileshandler;
     private static final String filepath = System.getProperty("user.home")
         + System.getProperty("file.separator") + "testdata.json";
 
@@ -67,7 +68,7 @@ public class JsonFileSavingTest {
         model.putUser(u1);
         model.putUser(u2);
 
-        JsonFileSaving fileHandler = new JsonFileSaving();
+        JsonFileSaving fileHandler = new JsonFileSaving(filepath);
         fileHandler.writeModel(model);
 
         FinanceVisionModel readModel = fileHandler.readModel();

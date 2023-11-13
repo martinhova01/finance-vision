@@ -84,7 +84,7 @@ public class LoginController extends AbstractController {
             // wait for pausetransition to finish before switching scene
             pause.setOnFinished(event -> {
                 try {
-                    switchScene("app.fxml", user);
+                    switchScene("App.fxml", user);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
