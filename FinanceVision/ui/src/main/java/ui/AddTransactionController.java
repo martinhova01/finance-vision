@@ -74,12 +74,12 @@ public class AddTransactionController extends AbstractSubController {
             return;
         }
 
-        parentController.switchBorderPane("transactions.fxml");
+        parentController.switchBorderPane("Transactions.fxml");
     }
 
     @FXML
     void handleBack() throws IOException {
-        parentController.switchBorderPane("transactions.fxml");
+        parentController.switchBorderPane("Transactions.fxml");
     }
 
     @Override

@@ -70,7 +70,7 @@ public class TransactionTest extends ApplicationTest {
 
         when(mockFileHandler.readModel()).thenReturn(model);
         
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
