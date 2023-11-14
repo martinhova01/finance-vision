@@ -1,7 +1,7 @@
 # Finance Vision-prosjekt
 [Åpne i Eclipse Che](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2023/gr2312/gr2312?new)
 
-Her følger litt informasjon om Finance Vision-prosjektet. Mer spesifikt om hvordan prosjektet er organisert, hvordan man kan kjøre programmet og hvilke java- og maven- versjoner som benyttes. For informasjon om hvordan programmet fungerer kan du lese [her](FinanceVision/readme.md).
+Her følger litt informasjon om Finance Vision-prosjektet. Mer spesifikt om hvordan prosjektet er organisert, hvordan man kan kjøre programmet og hvilke java- og maven-versjoner som benyttes. For informasjon om hvordan programmet fungerer kan du lese [her](FinanceVision/readme.md).
 
 ## Oppbygning og innhold
 Kodeprosjektet finner man i [FinanceVision](FinanceVision)-mappa.
@@ -34,7 +34,7 @@ Etter dette genereres resultatet i `FinanceVision/ui/target/dist`.
 
 
 ## REST api
-Prosjektet inneholder en REST api for kjernelogikken i core. Dokumentasjonen av den finner du [her].(FinanceVision/springboot/readme.md)
+Prosjektet inneholder en REST api for kjernelogikken i core. Dokumentasjonen av den finner du [her](FinanceVision/springboot/readme.md).
 
 
 
