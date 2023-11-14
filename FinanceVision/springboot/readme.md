@@ -1,4 +1,4 @@
-# Dokumentasjon av REST api
+# Dokumentasjon av REST API
 
 ## isRunning
 Returnerer true dersom dersom serveren kjører som den skal.
