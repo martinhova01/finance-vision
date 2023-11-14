@@ -1,20 +1,28 @@
 package core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+/**
+ * Testclass for User.java using JUnit.
+ */
 public class UserTest {
     private User user;
     private User user2;
     private Account account;
 
+
+    /**
+     * Inits the testobjects before each test.
+     */
     @BeforeEach
     public void setUp() {
-        // Create a new User instance before each test
         account = new Account(1000.0);
         user = new User("johndoe", "password123", "John Doe", "johndoe@example.com", account);
         user2 = new User();
@@ -46,30 +54,36 @@ public class UserTest {
     public void testSetUsername() {
         user.setUsername("newusername");
         assertEquals("newusername", user.getUsername());
-        assertThrows(IllegalArgumentException.class, () -> user.setUsername("user name"), "username cannot include a space");
-        assertThrows(IllegalArgumentException.class, () -> user.setUsername(""), "username cannot be empty");
+        assertThrows(IllegalArgumentException.class, () -> 
+            user.setUsername("user name"), "username cannot include a space");
+        assertThrows(IllegalArgumentException.class, () -> 
+            user.setUsername(""), "username cannot be empty");
     }
 
     @Test
     public void testSetPassword() {
         user.setPassword("newpassword");
         assertEquals("newpassword", user.getPassword());
-        assertThrows(IllegalArgumentException.class, () -> user.setPassword("pass"), "password too short");
+        assertThrows(IllegalArgumentException.class, () -> 
+            user.setPassword("pass"), "password too short");
     }
 
     @Test
     public void testSetFullName() {
         user.setFullName("Jane Doe");
         assertEquals("Jane Doe", user.getFullName());
-        assertThrows(IllegalArgumentException.class, () -> user.setFullName("Martin"), "Full name must be a least one first and one last name");
+        assertThrows(IllegalArgumentException.class, () -> 
+            user.setFullName("Martin"), "Full name must be a least one first and one last name");
     }
 
     @Test
     public void testSetEmail() {
         user.setEmail("janedoe@example.com");
         assertEquals("janedoe@example.com", user.getEmail());
-        assertThrows(IllegalArgumentException.class, () -> user.setEmail("johndoe.com"), "email must contain @");
-        assertThrows(IllegalArgumentException.class, () -> user.setEmail("johndoe@example"), "email must contain .xxx");
+        assertThrows(IllegalArgumentException.class, () -> 
+            user.setEmail("johndoe.com"), "email must contain @");
+        assertThrows(IllegalArgumentException.class, () -> 
+            user.setEmail("johndoe@example"), "email must contain .xxx");
         
     }
 
@@ -91,6 +105,21 @@ public class UserTest {
         budget.addCategory("Other", 2000);
         user.setBudget(budget);
         assertEquals(budget, user.getBudget());
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(user.equals(user));
+        user2.setUsername("Peter");
+        assertFalse(user.equals(user2));
+    }
+
+    @Test
+    public void testHashCode() {
+        user2.setUsername("Peter");
+        assertFalse(user.hashCode() == user2.hashCode());
+        user2.setUsername("johndoe");
+        assertTrue(user.hashCode() == user2.hashCode());
     }
 
 }

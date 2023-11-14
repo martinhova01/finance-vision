@@ -65,9 +65,6 @@ public class FinanceVisionModel {
      * @return the user or null if not found
      */
     public User getUser(String username) {
-        if (!containsUser(username)) {
-            throw new IllegalArgumentException("User not found.");
-        }
         for (User u : users) {
             if (u.getUsername().equals(username)) {
                 return u;

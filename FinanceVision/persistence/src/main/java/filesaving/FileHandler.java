@@ -1,9 +1,7 @@
 package filesaving;
 
-import core.User;
-import java.io.File;
+import core.FinanceVisionModel;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Interface for filehandling.
@@ -11,8 +9,8 @@ import java.util.List;
  */
 public interface FileHandler {
 
-    public List<User> deserializeUsers(File f) throws IOException;
+    public FinanceVisionModel readModel() throws IOException;
 
-    public void serializeUsers(List<User> users, File f) throws IOException;
+    public void writeModel(FinanceVisionModel model) throws IOException;
     
 }

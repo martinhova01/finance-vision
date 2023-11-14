@@ -163,7 +163,7 @@ public class TransactionsController extends AbstractSubController {
             timeFilterStream = timeFilterStream
                 .filter(t -> t.getTime().getMonth().equals(LocalDate.now().getMonth()) 
                 && t.getTime().getYear() == LocalDate.now().getYear());
-        } else if (selectedTime.equals("This year")) {
+        } else {
             timeFilterStream = timeFilterStream
                 .filter(t -> t.getTime().getYear() == LocalDate.now().getYear());
         }

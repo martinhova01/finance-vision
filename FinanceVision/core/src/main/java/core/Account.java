@@ -40,7 +40,7 @@ public class Account {
 
             if (t instanceof Income) {
                 balance += t.getAmount();
-            } else if (t instanceof Expense) {
+            } else {
                 balance -= t.getAmount();
             }
         }

@@ -3,10 +3,7 @@ package ui;
 import core.FinanceVisionModel;
 import core.User;
 import filesaving.FileHandler;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * FinanceVisionAccess class that directly access a model object.
@@ -15,7 +12,6 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
 
     private FinanceVisionModel model;
     private FileHandler fileHandler;
-    private File saveFile;
 
     
 
@@ -27,26 +23,16 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
     public DirectFinanceVisionModelAccess(FileHandler fileHandler) {
         this.model = new FinanceVisionModel();
         this.fileHandler = fileHandler;
-        List<User> users = null;
         try {
-            this.saveFile = new File(System.getProperty("user.home") + "/data.json");
-            users = this.fileHandler.deserializeUsers(saveFile);
+            model = this.fileHandler.readModel();
         } catch (IOException e) {
-            users = new ArrayList<>();
+            model = new FinanceVisionModel();
             try {
-                fileHandler.serializeUsers(users, saveFile);
+                fileHandler.writeModel(model);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
-        for (User user : users) {
-            model.putUser(user);
-        }
-    }
-
-    @Override
-    public FinanceVisionModel getModel() {
-        return model;
     }
 
     @Override
@@ -66,25 +52,27 @@ public class DirectFinanceVisionModelAccess implements FinanceVisionModelAccess 
         return model.containsUser(username);
     }
 
-    @Override
-    public List<String> getUsernames() {
-        return model.getUsernames();
-    }
-
-    @Override
-    public User getUser(String username) {
-        return model.getUser(username);
-    }
-
     private void saveToFile() throws IOException {
-        fileHandler.serializeUsers(getUsers(), saveFile);
+        fileHandler.writeModel(model);
     }
 
     @Override
-    public List<User> getUsers() {
-        return model.getUsers();
+    public User getUser(String username, String password) throws Exception {
+        User user = model.getUser(username);
+        if (user == null) {
+            return null;
+        }
+        if (user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
     }
 
-    
+    @Override
+    public boolean isConnected() throws Exception {
+        fileHandler.readModel();
+        return true;
+    }
+
   
 }
