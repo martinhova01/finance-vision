@@ -9,7 +9,7 @@ Innloggingsside: ![login.png](../docs/release3/login.png)
 Opprett bruker: ![registerUser.png](../docs/release3/registerUser.png)
 
 ## Hovedside
-Når brukeren kommer inn på applikasjonen, vil de øverst på siden se en meny som benyttes til å navigere mellom de tre hovedsidene: "Transactions", "Budget" og "User Settings. I tillegg inneholder menyen et felt som viser saldoen til brukeren.
+Når brukeren kommer inn på applikasjonen, vil de øverst på siden se en meny som benyttes til å navigere mellom de tre hovedsidene: "Transactions", "Budget" og "User Settings". I tillegg inneholder menyen et felt som viser saldoen til brukeren.
 
 ## Transaksjoner
 
