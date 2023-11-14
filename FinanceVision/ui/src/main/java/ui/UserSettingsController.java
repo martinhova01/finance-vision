@@ -90,11 +90,9 @@ public class UserSettingsController extends AbstractSubController {
         String oldEmail = user.getEmail();
         String oldPassword = user.getPassword();
 
-        for (User u : modelAccess.getUsers()) {
-            if (u.getUsername().equals(username) && !user.getUsername().equals(username)) {
-                parentController.notify("Username is taken", AlertType.WARNING);
-                return;
-            }
+        if (modelAccess.containsUser(username) && !username.equals(oldUserName)) {
+            parentController.notify("Username is taken", AlertType.WARNING);
+            return;
         }
 
         try {
@@ -108,7 +106,7 @@ public class UserSettingsController extends AbstractSubController {
             user.setEmail(oldEmail);
             user.setPassword(oldPassword);
 
-            parentController.notify("One or more fields are empty or conatins invalid data",
+            parentController.notify("One or more fields are empty or contains invalid data",
                 AlertType.WARNING);
             return;
         }

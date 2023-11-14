@@ -102,7 +102,7 @@ public abstract class AbstractController {
         Alert alert = new Alert(type);
         if (type.equals(AlertType.WARNING)) {
             alert.setTitle("WARNING");
-        } else if (type.equals(AlertType.WARNING)) {
+        } else if (type.equals(AlertType.ERROR)) {
             alert.setTitle("ERROR");
         } else {
             alert.setTitle("INFORMATION");

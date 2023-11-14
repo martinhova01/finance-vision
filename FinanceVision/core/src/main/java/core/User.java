@@ -61,12 +61,14 @@ public class User {
      * @param username the given username
      */
     public void setUsername(String username) {
-        if (username.contains(" ")) {
-            throw new IllegalArgumentException("username cannot include space");
-        } else if (username.equals("")) {
-            throw new IllegalArgumentException("username is empty.");
+        if (!validUsername(username)) {
+            throw new IllegalArgumentException("username is invalid");
         }
         this.username = username;
+    }
+
+    private boolean validUsername(String username) {
+        return username.matches("[a-åA-Å0-9]+");
     }
 
 

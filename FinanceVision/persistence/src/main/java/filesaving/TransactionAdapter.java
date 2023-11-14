@@ -8,26 +8,25 @@ import core.Income;
 import core.Transaction;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * TypeAdapter for Transaction objects.
  */
 public class TransactionAdapter extends TypeAdapter<Transaction> {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private TimeAdapter timeAdapter = new TimeAdapter();
 
     @Override
     public void write(JsonWriter out, Transaction transaction) throws IOException {
         out.beginObject();
         if (transaction instanceof Income) {
             out.name("type").value("income");
-        } else if (transaction instanceof Expense) {
+        } else {
             out.name("type").value("expense");
         }
         out.name("description").value(transaction.getDescription());
         out.name("amount").value(transaction.getAmount());
         out.name("category").value(transaction.getCategory());
-        out.name("date").value(formatter.format(transaction.getTime()));    
+        timeAdapter.write(out, transaction.getTime());
         
         out.endObject();
     }
@@ -55,7 +54,7 @@ public class TransactionAdapter extends TypeAdapter<Transaction> {
         String category = in.nextString();
         transaction.setCategory(category);
         in.nextName();
-        LocalDateTime date = LocalDateTime.parse(in.nextString(), formatter);
+        LocalDateTime date = timeAdapter.read(in);
         transaction.setTime(date);
         in.endObject();
         return transaction;

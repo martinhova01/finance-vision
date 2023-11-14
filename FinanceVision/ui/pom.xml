@@ -26,7 +26,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!-- javafx -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -57,31 +56,41 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- test javafx with TextFX -->
 		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-core</artifactId>
 			<version>4.0.16-alpha</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-junit5</artifactId>
 			<version>4.0.16-alpha</version>
 			<scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>2.2</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>3.12.4</version>
-                <scope>test</scope>
-            </dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.12.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <version>2.27.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <profiles>
         <profile>
@@ -106,7 +115,6 @@
                 <headlessTests>true</headlessTests>
             </properties>
             <dependencies>
-                <!-- Headless testing with Monocle -->
                 <dependency>
                     <groupId>org.testfx</groupId>
                     <artifactId>openjfx-monocle</artifactId>
@@ -155,10 +163,45 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
-                    <!-- syntax: module-name/full-app-class-name -->
                     <mainClass>ui/ui.App</mainClass>
+
+                    <compress>2</compress>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <stripDebug>true</stripDebug>
+                    <noManPages>true</noManPages>
+                    <launcher>FinanceVision</launcher>
+                    <jlinkImageName>FinanceVision</jlinkImageName>
+                    <jlinkZipName>FinanceVision</jlinkZipName>
                 </configuration>
             </plugin>
+
+             <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <name>FinanceVision</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>gr2312</vendor>
+                    <destination>target/dist</destination>
+                    <module>ui/ui.App</module>
+                    <runtimeImage>target/FinanceVision</runtimeImage>
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                    </javaOptions>
+                    <!-- linux options --> 
+                    <linuxShortcut>true</linuxShortcut>
+                    <linuxMenuGroup>FinanceVision</linuxMenuGroup>
+
+                    <!-- windows options --> 
+                    <winDirChooser>true</winDirChooser>
+                    <winShortcut>true</winShortcut>
+                    <winMenu>true</winMenu>
+                    <winMenuGroup>FinanceVision</winMenuGroup>
+                </configuration>
+            </plugin>
+
+            
         </plugins>
     </build>
 
