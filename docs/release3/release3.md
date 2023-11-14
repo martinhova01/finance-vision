@@ -29,9 +29,22 @@ I denne releasen har vi utvidet appen med noe ny funksjonalitet. Først og frems
 ![userSettings.png](../release3/userSettings.png)
 
 ## REST-API
-Prosjektet inneholder nå en REST api for kjernelogikken i core. Dokumentasjonen av den finner du [her](FinanceVision/springboot/readme.md)
+Prosjektet inneholder nå en REST API for kjernelogikken i core. Dokumentasjonen av den finner du [her](../../FinanceVision/springboot/readme.md)
 
 ## Diagram
+
+### Klassediagram
+![classDiagram.png](../release3/classDiagram.png)
+Diagrammet over er et klassediagram som viser hvordan klassene i core-modulen relaterer til hverandre.
+
+### Pakkediagram
+![architecture.png](../release3/architecture.png)
+Dette diagrammet gir en oversikt over avhengighetene mellom pakkene brukt i prosjektet. 
+NB: Vi har her latt være å vise spotbugs, checkstyle og jacoco, ettersom de blir brukt i mange av pakkene, og ville dermed ført til et mindre oversiktlig diagram.
+
+### Sekvensdiagram
+![sequenceDiagram](../release3/sequenceDiagram.png)
+Sekvensdiagrammet over viser et eksempel på hvordan en bruker, core og REST API-en interagerer med hverandre.
 
 ## Arbeidsvaner 
 - Forholder oss til issues og milestones.
