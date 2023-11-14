@@ -34,7 +34,7 @@ public class AppController extends AbstractController {
     @Override
     public void init() {
 
-        switchBorderPane("transactions.fxml");
+        switchBorderPane("Transactions.fxml");
         transactionLabel.getStyleClass().add("nav-itemPressed");
         budgetLabel.setOnMouseClicked(event -> {
             switchBorderPane("budget.fxml");
@@ -42,7 +42,7 @@ public class AppController extends AbstractController {
             budgetLabel.getStyleClass().add("nav-itemPressed");
         });
         transactionLabel.setOnMouseClicked(event -> {
-            switchBorderPane("transactions.fxml");
+            switchBorderPane("Transactions.fxml");
             setDefaultStyleClass();
             transactionLabel.getStyleClass().add("nav-itemPressed");
         });

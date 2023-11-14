@@ -46,8 +46,6 @@ public class AddTransactionController extends AbstractSubController {
         } else {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(getUser().getBudget().getCategories());
-
-            //add the additional categories for this user
         }
 
     }
@@ -71,18 +69,17 @@ public class AddTransactionController extends AbstractSubController {
             parentController.saveToFile();
 
         } catch (Exception e) {
-            //TODO: tell the user which field is invalid or empty
             parentController.notify(
                 "One or more fields are empty or contains invalid data", AlertType.WARNING);
             return;
         }
 
-        parentController.switchBorderPane("transactions.fxml");
+        parentController.switchBorderPane("Transactions.fxml");
     }
 
     @FXML
     void handleBack() throws IOException {
-        parentController.switchBorderPane("transactions.fxml");
+        parentController.switchBorderPane("Transactions.fxml");
     }
 
     @Override

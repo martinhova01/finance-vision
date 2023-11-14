@@ -1,12 +1,23 @@
 package ui;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import java.io.File;
+
+import core.Account;
+import core.Budget;
+import core.Expense;
+import core.FinanceVisionModel;
+import core.Transaction;
+import core.User;
+import filesaving.FileHandler;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,20 +26,10 @@ import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
-import core.Account;
-import core.Budget;
-import core.Expense;
-import core.Transaction;
-import core.User;
-import filesaving.FileHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
+/**
+ * Testclass for BudgetController.java using JUnit and TestFX.
+ */
 public class BudgetTest extends ApplicationTest {
 
     private AppController parentController;
@@ -49,11 +50,13 @@ public class BudgetTest extends ApplicationTest {
         budget.addCategory("Food", 500);
         budget.addCategory("Clothes", 1000);
         user.setBudget(budget);
+        FinanceVisionModel model = new FinanceVisionModel();
+        model.putUser(user);
 
         mockFileHandler = Mockito.mock(FileHandler.class);
-        when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
+        when(mockFileHandler.readModel()).thenReturn(model);
         
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         root = fxmlLoader.load();
         parentController = fxmlLoader.getController();
         parentController.setUser(user);
@@ -77,10 +80,12 @@ public class BudgetTest extends ApplicationTest {
     public void testEditButton() {
         clickOn("#editBudgetButton");
         Node confirmButton = lookup("#confirmButton").query();
-        Assertions.assertTrue(confirmButton.isVisible(), "Klarte ikke å laste inn edit budget-siden ved klikk"); 
+        Assertions.assertTrue(confirmButton.isVisible(),
+            "Klarte ikke å laste inn edit budget-siden ved klikk"); 
         clickOn("#backButton");
         Node editBudgetButton = lookup("#editBudgetButton").query();
-        Assertions.assertTrue(editBudgetButton.isVisible(), "Klarte ikke å returnere til hovedsiden");
+        Assertions.assertTrue(editBudgetButton.isVisible(),
+            "Klarte ikke å returnere til hovedsiden");
     }
 
     @Test
@@ -124,7 +129,8 @@ public class BudgetTest extends ApplicationTest {
 
         clickOn("#confirmButton");
         Node editBudgetButton = lookup("#editBudgetButton").query();
-        Assertions.assertTrue(editBudgetButton.isVisible(), "Klarte ikke å returnere til hovedside");
+        Assertions.assertTrue(editBudgetButton.isVisible(),
+            "Klarte ikke å returnere til hovedside");
 
     }
 

@@ -2,19 +2,24 @@ package core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * TestClass for User.java using JUnit.
+ */
 public class FinanceVisionModelTest {
     private FinanceVisionModel model;
     private User user;
 
+    /**
+     * Inits the testobjects before each test.
+     */
     @BeforeEach
     public void setUp() {
         model = new FinanceVisionModel();
@@ -25,10 +30,12 @@ public class FinanceVisionModelTest {
     @Test
     public void testPutUser() {
         assertFalse(model.containsUser("marco"));
-        User user2 = new User("marco", "password456", "Mark Zuck", "marco@example.com", new Account());
+        User user2 = new User(
+            "marco", "password456", "Mark Zuck", "marco@example.com", new Account());
         model.putUser(user2);
         assertTrue(model.containsUser("marco"));
-        User user3 = new User("marco", "password456", "Mark Polo", "marco@example.com", new Account());
+        User user3 = new User(
+            "marco", "password456", "Mark Polo", "marco@example.com", new Account());
         model.putUser(user3);
         assertEquals("Mark Polo", model.getUser("marco").getFullName());
     }
@@ -56,13 +63,14 @@ public class FinanceVisionModelTest {
     @Test
     public void testGetUser() {
         assertEquals(user, model.getUser("johndoe"));
-        assertThrows(IllegalArgumentException.class, () -> model.getUser("banana"));
+        assertNull(model.getUser("banana"));
     }
 
     @Test
     public void testGetUsers() {
         assertEquals(new ArrayList<>(List.of(user)), model.getUsers());
-        User user2 = new User("marco", "password456", "Mark Zuck", "marco@example.com", new Account());
+        User user2 = new User(
+            "marco", "password456", "Mark Zuck", "marco@example.com", new Account());
         model.putUser(user2);
         model.putUser(user);
         assertEquals(new ArrayList<>(List.of(user, user2)), model.getUsers());

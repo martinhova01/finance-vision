@@ -67,8 +67,6 @@ public class EditTransactionController extends AbstractSubController {
         } else {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(getUser().getBudget().getCategories());
-
-            //add the additional categories for this user
         }
     }
 
@@ -107,12 +105,12 @@ public class EditTransactionController extends AbstractSubController {
         parentController.getUser().getAccount().addTransaction(t);
         parentController.saveToFile();
         
-        parentController.switchBorderPane("transactions.fxml");
+        parentController.switchBorderPane("Transactions.fxml");
     }
 
     @FXML
     public void handleBack() throws IOException {
-        parentController.switchBorderPane("transactions.fxml");
+        parentController.switchBorderPane("Transactions.fxml");
     }
     
 }

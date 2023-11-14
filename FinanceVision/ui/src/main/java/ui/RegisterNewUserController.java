@@ -43,20 +43,25 @@ public class RegisterNewUserController extends AbstractController {
         String fullName = fullNameField.getText();
         String email = emailField.getText();
         double balance = 0.0;
+        User u;
         try {
             balance = Double.parseDouble(balanceField.getText());
         } catch (Exception e) {
             notify("balance field is empty or invalid", AlertType.WARNING);
             return;
         }
+        try {
+            u = new User(username, password, fullName, email, new Account(balance));
+        } catch (Exception e) {
+            notify(e.getLocalizedMessage(), AlertType.WARNING);
+            return;
+        }
         if (modelAccess.containsUser(username)) {
             notify("Username is taken", AlertType.WARNING);
             return;
         }
-
         try {
-            modelAccess.putUser(
-                new User(username, password, fullName, email, new Account(balance)));
+            modelAccess.putUser(u);
         } catch (Exception e) {
             notify(e.getLocalizedMessage(), AlertType.WARNING);
             return;

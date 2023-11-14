@@ -1,26 +1,17 @@
 package ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.control.LabeledMatchers;
+
 import core.Account;
 import core.Expense;
+import core.FinanceVisionModel;
 import core.Income;
 import core.Transaction;
 import core.User;
 import filesaving.FileHandler;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -32,8 +23,18 @@ import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.matcher.control.LabeledMatchers;
 
 
+/**
+ * Testclass for TransactionController.java using JUnit and TestFX.
+ */
 public class TransactionTest extends ApplicationTest {
     
     private AbstractController abstractController;
@@ -48,10 +49,14 @@ public class TransactionTest extends ApplicationTest {
         mockFileHandler = Mockito.mock(FileHandler.class);
         Account account = new Account(1000);
         Income vippsIncome = new Income("Vipps", 500, "Salary", LocalDateTime.now());
-        Income income1 = new Income("Money from granny", 1000.0, "Other", LocalDateTime.now().minusDays(1));
-        Income income2 = new Income("Money from dad", 200.0, "Other", LocalDateTime.now().minusWeeks(1));
-        Income income3 = new Income("Salary", 2500.0, "Other", LocalDateTime.now().minusMonths(1));
-        Income income4 = new Income("Christmas present", 100.0, "Other", LocalDateTime.now().minusYears(1));
+        Income income1 = new Income("Money from granny", 1000.0, "Other",
+            LocalDateTime.now().minusDays(1));
+        Income income2 = new Income("Money from dad", 200.0, "Other",
+            LocalDateTime.now().minusWeeks(1));
+        Income income3 = new Income("Salary", 2500.0, "Other",
+            LocalDateTime.now().minusMonths(1));
+        Income income4 = new Income("Christmas present", 100.0, "Other",
+            LocalDateTime.now().minusYears(1));
         Expense foodExpense = new Expense("Food", 100, "Food", LocalDateTime.now());
         account.addTransaction(vippsIncome);
         account.addTransaction(income1);
@@ -60,9 +65,12 @@ public class TransactionTest extends ApplicationTest {
         account.addTransaction(income4);
         account.addTransaction(foodExpense);
         user = new User("testuser", "password", "Test User", "test@valid.com", account);
-        when(mockFileHandler.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
+        FinanceVisionModel model = new FinanceVisionModel();
+        model.putUser(user);
+
+        when(mockFileHandler.readModel()).thenReturn(model);
         
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("app.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
         root = fxmlLoader.load();
         abstractController = fxmlLoader.getController();
         abstractController.setStage(stage);
@@ -128,7 +136,8 @@ public class TransactionTest extends ApplicationTest {
         click("OK");
         clickOn("#backButton");
         Node editTransaction = lookup("#editTransactionButton").query();
-        Assertions.assertTrue(editTransaction.isVisible(), "Feilet å returnere til hovedside etter å trykke på tilbake-knapp");
+        Assertions.assertTrue(editTransaction.isVisible(),
+            "Feilet å returnere til hovedside etter å trykke på tilbake-knapp");
         clickOn("#addTransactionButton");
         clickOn("#incomeRadioButton");
         clickOn("#amountField");
@@ -139,7 +148,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("Salary");
         clickOn("#addTransactionButton");
         Node editTransaction2 = lookup("#editTransactionButton").query();
-        Assertions.assertTrue(editTransaction2.isVisible(), "Feilet å returnere til hovedside etter å legge til inntekt");
+        Assertions.assertTrue(editTransaction2.isVisible(),
+            "Feilet å returnere til hovedside etter å legge til inntekt");
     }
 
     @Test
@@ -158,7 +168,8 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testDeleteTransaction() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
+        VirtualFlow<ListCell<Transaction>> virtualFlow = 
+            (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
         clickOn("#deleteTransactionButton");
         click("OK");
@@ -177,8 +188,9 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testEditIncome() {
         ListView<Transaction> incomeView = lookup("#incomeView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
-        ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
+        VirtualFlow<ListCell<Transaction>> virtualFlow = 
+            (VirtualFlow<ListCell<Transaction>>) incomeView.lookup(".virtual-flow");
+        final ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
         clickOn("#editTransactionButton");
         Node editTransactionButton = lookup("#editTransactionButton").query();
         Assertions.assertTrue(editTransactionButton.isVisible(), "Transaksjon ikke valgt");
@@ -200,7 +212,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#confirmButton");
         boolean found = false;
         ListView<Transaction> incomeView2 = lookup("#incomeView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow2 = (VirtualFlow<ListCell<Transaction>>) incomeView2.lookup(".virtual-flow");
+        VirtualFlow<ListCell<Transaction>> virtualFlow2 = 
+            (VirtualFlow<ListCell<Transaction>>) incomeView2.lookup(".virtual-flow");
         ListCell<Transaction> firstCell2 = virtualFlow2.getFirstVisibleCell();
         clickOn(firstCell2, MouseButton.PRIMARY);
         clickOn("#editTransactionButton");
@@ -215,7 +228,8 @@ public class TransactionTest extends ApplicationTest {
     @Test
     public void testEditExpense() {
         ListView<Transaction> expenseView = lookup("#expenseView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow = (VirtualFlow<ListCell<Transaction>>) expenseView.lookup(".virtual-flow");
+        VirtualFlow<ListCell<Transaction>> virtualFlow = 
+            (VirtualFlow<ListCell<Transaction>>) expenseView.lookup(".virtual-flow");
         ListCell<Transaction> firstCell = virtualFlow.getFirstVisibleCell();
         clickOn(firstCell, MouseButton.PRIMARY);
         clickOn("#editTransactionButton");
@@ -224,7 +238,8 @@ public class TransactionTest extends ApplicationTest {
         clickOn("#confirmButton");
         boolean found = false;
         ListView<Transaction> expenseView2 = lookup("#expenseView").query();
-        VirtualFlow<ListCell<Transaction>> virtualFlow2 = (VirtualFlow<ListCell<Transaction>>) expenseView2.lookup(".virtual-flow");
+        VirtualFlow<ListCell<Transaction>> virtualFlow2 = 
+            (VirtualFlow<ListCell<Transaction>>) expenseView2.lookup(".virtual-flow");
         ListCell<Transaction> firstCell2 = virtualFlow2.getFirstVisibleCell();
         clickOn(firstCell2, MouseButton.PRIMARY);
         clickOn("#editTransactionButton");

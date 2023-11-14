@@ -14,11 +14,13 @@
     <packaging>jar</packaging>
 
     <dependencies>
+    
          <dependency>
             <groupId>gr2312</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>gr2312</groupId>
             <artifactId>persistence</artifactId>
@@ -31,24 +33,19 @@
             <version>2.10.1</version>
         </dependency>
 
-        
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
-        
-
-        <!-- Her kommer web-server-avhengighetene -->
-
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -84,6 +81,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -104,8 +102,6 @@
                 </configuration>
             </plugin>
             
-            
-            <!-- Configure jacoco code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

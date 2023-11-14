@@ -1,26 +1,27 @@
 package ui;
 
+import static org.mockito.Mockito.when;
+
+import core.Account;
+import core.FinanceVisionModel;
+import core.User;
+import filesaving.FileHandler;
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
-import core.Account;
-import core.User;
-import filesaving.FileHandler;
 
+/**
+ * Testclass for RegisterUserController.java using JUnit and TestFX.
+ */
 public class RegisterUserTest extends ApplicationTest {
 
     private AbstractController abstractController;
@@ -29,8 +30,11 @@ public class RegisterUserTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws IOException {
         FileHandler mock = Mockito.mock(FileHandler.class);
-        User user = new User("testuserTaken", "takenTestPassword", "taken test", "taken.test@hotmail.com", new Account(0));
-        when(mock.deserializeUsers(any(File.class))).thenReturn(new ArrayList<>(List.of(user)));
+        User user = new User("testuserTaken",
+            "takenTestPassword", "taken test", "taken.test@hotmail.com", new Account(0));
+        FinanceVisionModel model = new FinanceVisionModel();
+        model.putUser(user);
+        when(mock.readModel()).thenReturn(model);
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("registerNewUser.fxml"));
         root = fxmlLoader.load();
@@ -78,7 +82,8 @@ public class RegisterUserTest extends ApplicationTest {
         write(" invalid");
         click("Register user");
         Node loginButton = lookup("#backButton").query();
-        Assertions.assertTrue(loginButton.isVisible(), "Brukernavn kan ikke inneholde mellomrom");        
+        Assertions.assertTrue(loginButton.isVisible(),
+            "Brukernavn kan ikke inneholde mellomrom");        
     }
 
     @Test
@@ -105,7 +110,8 @@ public class RegisterUserTest extends ApplicationTest {
     public void testBack() {
         clickOn("#backButton");
         Node loginButton = lookup("#loginButton").query();
-        Assertions.assertTrue(loginButton.isVisible(), "Feilet å returnere til login-side ved trykk");
+        Assertions.assertTrue(loginButton.isVisible(),
+            "Feilet å returnere til login-side ved trykk");
     }
 
 
