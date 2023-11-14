@@ -1,7 +1,7 @@
 # Finance Vision-prosjekt
 [Åpne i Eclipse Che](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2023/gr2312/gr2312?new)
 
-Her følger litt informasjon om Finance Vision-prosjektet. Mer spesifikt om hvordan prosjektet er organisert, hvordan man kan kjøre programmet og hvilke java- og maven-versjoner som benyttes. For informasjon om hvordan programmet fungerer, se [readme.md](FinanceVision/readme.md).
+Her følger litt informasjon om Finance Vision-prosjektet. Mer spesifikt om hvordan prosjektet er organisert, hvordan man kan kjøre programmet og hvilke java- og maven- versjoner som benyttes. For informasjon om hvordan programmet fungerer kan du lese [her](FinanceVision/readme.md).
 
 ## Oppbygning og innhold
 Kodeprosjektet finner man i [FinanceVision](FinanceVision)-mappa.
@@ -16,7 +16,7 @@ Prosjektet er satt for for å kjøre ved hjelp av maven kommandoer.
 Dette kompilerer klassene, kjører testene, genererer Jacoco rapporter, kjører sportbugs og kjører checkstyle for alle modulene. (Kan også kjøre `mvn install -DskipUiTests` for å hoppe over UI testene).
 
 
-- For å kjøre tester: `mvn install`
+- For å kjøre tester: `mvn test`
 Det genereres Jacoco rapporter for hver modul i `FinanceVision/"modulnavn"/target/site/index.html`, hvor "modulnavn" er navnet på tilhørende modul.
 
 - For å kjøre springboot restserveren: `mvn spring-boot:run`(når man står i springboot modulen)
@@ -34,7 +34,7 @@ Etter dette genereres resultatet i `FinanceVision/ui/target/dist`.
 
 
 ## REST api
-Prosjektet inneholder en REST api for kjernelogikken i core. Dokumentasjonen av denn finner du [her](FinanceVision/springboot/readme.md)
+Prosjektet inneholder en REST api for kjernelogikken i core. Dokumentasjonen av den finner du [her].(FinanceVision/springboot/readme.md)
 
 
 
@@ -53,5 +53,4 @@ Prosjektet bruker følgende versjoner:
 - springboot `2.4.4`
 - TestFX `4.0.16-alpha`
 - mockito `3.12.4`
-- Jlink `???`
-- Jpakckage `???`
+- Jpackage `1.4.0`
