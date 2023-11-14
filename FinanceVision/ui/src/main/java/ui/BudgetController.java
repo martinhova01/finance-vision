@@ -1,5 +1,6 @@
 package ui;
 
+import core.Expense;
 import core.Transaction;
 import java.io.IOException;
 import java.time.YearMonth;
@@ -126,7 +127,7 @@ public class BudgetController extends AbstractSubController {
     private double getCategorySum(String category) {
         double categorySum = 0;
         for (Transaction transaction : getUser().getAccount().getTransactions(
-            t -> t.getCategory().equals(category)
+            t -> t.getCategory().equals(category) && t instanceof Expense
             && YearMonth.from(t.getTime()).equals(YearMonth.now()))) {
             categorySum += transaction.getAmount();
         }

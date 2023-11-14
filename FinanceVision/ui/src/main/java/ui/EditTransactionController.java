@@ -67,8 +67,6 @@ public class EditTransactionController extends AbstractSubController {
         } else {
             categoryList.getItems().clear();
             categoryList.getItems().addAll(getUser().getBudget().getCategories());
-
-            //add the additional categories for this user
         }
     }
 
